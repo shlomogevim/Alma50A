@@ -25,7 +25,9 @@ class DrawPostCenter(val context: Context) {
 
     fun drawPost(post: Post, layout: ConstraintLayout) {
         //util.logi("DrawPostCenter     =========>  /n post=$post")
-        when (post.lineNum) {
+
+        DrawGeneralPost().drawPost(context,post,layout)
+        /*when (post.lineNum) {
 
             1 -> draw1Line.drawPost(context, post, layout)
             2 -> draw2Line.drawPost(context, post, layout)
@@ -36,8 +38,26 @@ class DrawPostCenter(val context: Context) {
             7 -> draw7Line.drawPost(context, post, layout)
             8 -> draw8Line.drawPost(context, post, layout)
             9 -> draw9Line.drawPost(context, post, layout)
-        }
+        }*/
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     fun drawPostFire(post: Post, layout: ConstraintLayout) {
         //util.logi("DrawPostCenter 105     =========>       post.lineNum=${post.lineNum}")
 

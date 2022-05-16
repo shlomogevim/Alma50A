@@ -1,29 +1,189 @@
 package com.sg.alma50a.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.sg.alma50a.adapters.InfiniteRecyclerAdapter
 
-import com.sg.alma50a.adapters.PostAdapter
 import com.sg.alma50a.databinding.ActivityMainBinding
 import com.sg.alma50a.modeles.Post
+import com.sg.alma50a.models.Sample
 import com.sg.alma50a.utilities.BaseActivity
-import com.sg.alma50a.utilities.BookFlipPageTransformer2
-import com.sg.alma50a.utilities.CardFlipPageTransformer2
 import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.POST_TIME_STAMP
 import com.sg.alma50a.utilities.UtilityPost
-import java.util.ArrayList
 
 class MainActivity : BaseActivity() {
+
     lateinit var binding: ActivityMainBinding
+    lateinit var pager: ViewPager2
+    lateinit var postAdapter: InfiniteRecyclerAdapter
+    private var posts: MutableList<Post> = mutableListOf()
+    private var sampleList: MutableList<Sample> = mutableListOf()
+    val util = UtilityPost()
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val posts = downloadAllPost()
+        getSampleData()
+
+
+        pager = binding.viewPager
+         postAdapter = InfiniteRecyclerAdapter(sampleList)
+        pager.adapter =postAdapter
+        pager.currentItem = 1
+
+        onInfinitePageChangeCallback(posts.size + 2)
+    }
+
+private fun getSampleData() {
+    sampleList.add(Sample(1, "#91C555"))
+    sampleList.add(Sample(2, "#F48E37"))
+    sampleList.add(Sample(3, "#FF7B7B"))
+}
+
+    fun downloadAllPost(): MutableList<Post> {
+        posts.clear()
+        var  index=0
+        FirebaseFirestore.getInstance().collection(POST_REF)
+            .orderBy( POST_TIME_STAMP, Query.Direction.DESCENDING)
+            .addSnapshotListener { value, error ->
+             //  logi("  MainActivity 73    ===>value= ${value} " )
+                if (value != null) {
+                    for (doc in value.documents) {
+                        index++
+                      //  logi("  MainActivity 76    ===>doc= ${doc} " )
+                        val post = util.retrivePostFromFirestore(doc)
+                        if (index<4) {
+                            posts.add(post)
+                           /* if (index==1 || index==3){
+                                posts.add(post)
+                            }*/
+                        }
+
+                    }
+                        //  postAdapter.notifyDataSetChanged()
+                }
+            }
+        return posts
+    }
+
+
+    private fun onInfinitePageChangeCallback(listSize: Int) {
+        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    when (pager.currentItem) {
+                        listSize - 1 -> pager.setCurrentItem(1, false)
+                        0 ->pager.setCurrentItem(listSize - 2, false)
+                    }
+                }
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                if (position != 0 && position != listSize - 1) {
+                  // pageIndicatorView.setSelected(position-1)
+                }
+            }
+        })
+    }
+
+}
+
+/*class MainActivity : BaseActivity() {
+
+    lateinit var binding: ActivityMainBinding
+    lateinit var pager: ViewPager2
+    lateinit var postAdapter: InfiniteRecyclerAdapter
+    private var posts: MutableList<Post> = mutableListOf()
+    val util = UtilityPost()
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val posts = downloadAllPost()
+        pager = binding.viewPager
+         postAdapter = InfiniteRecyclerAdapter(posts)
+        pager.adapter =postAdapter
+        pager.currentItem = 1
+
+        onInfinitePageChangeCallback(posts.size + 2)
+    }
+    fun downloadAllPost(): MutableList<Post> {
+        posts.clear()
+        var  index=0
+        FirebaseFirestore.getInstance().collection(POST_REF)
+            .orderBy( POST_TIME_STAMP, Query.Direction.DESCENDING)
+            .addSnapshotListener { value, error ->
+             //  logi("  MainActivity 73    ===>value= ${value} " )
+                if (value != null) {
+                    for (doc in value.documents) {
+                        index++
+                      //  logi("  MainActivity 76    ===>doc= ${doc} " )
+                        val post = util.retrivePostFromFirestore(doc)
+                        if (index<4) {
+                            posts.add(post)
+                           /* if (index==1 || index==3){
+                                posts.add(post)
+                            }*/
+                        }
+
+                    }
+                        //  postAdapter.notifyDataSetChanged()
+                }
+            }
+        return posts
+    }
+
+
+    private fun onInfinitePageChangeCallback(listSize: Int) {
+        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    when (pager.currentItem) {
+                        listSize - 1 -> pager.setCurrentItem(1, false)
+                        0 ->pager.setCurrentItem(listSize - 2, false)
+                    }
+                }
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                if (position != 0 && position != listSize - 1) {
+                  // pageIndicatorView.setSelected(position-1)
+                }
+            }
+        })
+    }
+
+}
+*/
+
+
+
+
+
+
+
+
+    /*lateinit var binding: ActivityMainBinding
     val util = UtilityPost()
     val posts = ArrayList<Post>()
     lateinit var postAdapter: PostAdapter
@@ -106,4 +266,4 @@ class MainActivity : BaseActivity() {
                 }
             })
     }
-}
+}*/

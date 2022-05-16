@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Alma50A">
+
+        <activity
+            android:name=".activities.MainActivityPostFragment"
+            android:exported="false" />
         <activity
             android:name=".activities.DialogActivity"
             android:exported="false" />
@@ -37,7 +41,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
 
         </activity>
         <activity

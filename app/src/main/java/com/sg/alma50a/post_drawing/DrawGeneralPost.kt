@@ -83,6 +83,11 @@ class DrawGeneralPost() {
     }
 
 
+
+
+
+
+
     fun drawPost(context: Context, post: Post, layout: ConstraintLayout) {
 
     // util.logi("DrawGeneralPost 100      \n     =========>  /n post=$post")
@@ -117,6 +122,8 @@ class DrawGeneralPost() {
             crossfade(1000)
             transformations(RoundedCornersTransformation(50f))
         }
+
+
 
 
         constraintSet.clone(layout)
