@@ -10,22 +10,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.sg.alma50a.R
-import com.sg.alma50a.activities.MainActivityPostFragment
 import com.sg.alma50a.activities.PostDetailesActivity
 import com.sg.alma50a.modeles.Post
-import com.sg.alma50a.post_drawing.DrawGeneralPost2
-import com.sg.alma50a.post_drawing.DrawPostCenter
+import com.sg.alma50a.post_drawing.DrawGeneralPost
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 
 
 class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: ArrayList<Post>) :
     RecyclerView.Adapter<PostAdapter.PagerViewHolder>() {
-
-    val drawPost = DrawPostCenter(context)
-
-
-
-
 
    // val util = UtilityPost()
 
@@ -81,7 +73,7 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
         fun bindImage(post: Post) {
 
             val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
-             DrawGeneralPost2().drawPost(context,post,layout)
+             DrawGeneralPost().drawPost(context,post,layout)
 
 
           /*  val intent = Intent(context, MainActivityPostFragment::class.java)
