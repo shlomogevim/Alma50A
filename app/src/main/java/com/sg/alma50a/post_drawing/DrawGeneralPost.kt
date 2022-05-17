@@ -91,7 +91,7 @@ class DrawGeneralPost() {
     fun drawPost(context: Context, post: Post, layout: ConstraintLayout) {
 
     // util.logi("DrawGeneralPost 100      \n     =========>  /n post=$post")
-
+/*
 
         val textView1 = layout.findViewById<TextView>(R.id.tv1)
         val textView2 = layout.findViewById<TextView>(R.id.tv2)
@@ -147,7 +147,7 @@ class DrawGeneralPost() {
 
         }
 
-        constraintSet.applyTo(layout)
+        constraintSet.applyTo(layout)*/
 
     }
 

@@ -13,6 +13,7 @@ import com.sg.alma50a.R
 import com.sg.alma50a.activities.MainActivityPostFragment
 import com.sg.alma50a.activities.PostDetailesActivity
 import com.sg.alma50a.modeles.Post
+import com.sg.alma50a.post_drawing.DrawGeneralPost2
 import com.sg.alma50a.post_drawing.DrawPostCenter
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 
@@ -30,7 +31,7 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
        // val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post1, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
         return PagerViewHolder(view)
     }
 
@@ -79,17 +80,16 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
 
         fun bindImage(post: Post) {
 
-
-            val intent = Intent(context, MainActivityPostFragment::class.java)
-            //intent.putExtra(POST_EXSTRA,post)
-            context.startActivity(intent)
-
-
-
-
             val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
+             DrawGeneralPost2().drawPost(context,post,layout)
+
+
+          /*  val intent = Intent(context, MainActivityPostFragment::class.java)
+            //intent.putExtra(POST_EXSTRA,post)
+            context.startActivity(intent)*/
+
             // drawPost.drawPost(post, layout)
-            //  DrawGeneralPost().drawPost(context,post,layout)
+
 
             postImage.setOnClickListener {
             //  context.startActivity(Intent(context,PostDetailesActivity::class.java))

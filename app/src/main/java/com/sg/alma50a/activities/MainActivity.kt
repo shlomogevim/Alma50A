@@ -5,21 +5,83 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.sg.alma50a.adapters.InfiniteRecyclerAdapter
+import com.sg.alma50a.adapters.PostAdapter
 
 import com.sg.alma50a.databinding.ActivityMainBinding
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.models.Sample
 import com.sg.alma50a.utilities.BaseActivity
+import com.sg.alma50a.utilities.BookFlipPageTransformer2
+import com.sg.alma50a.utilities.CardFlipPageTransformer2
 import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.POST_TIME_STAMP
 import com.sg.alma50a.utilities.UtilityPost
 
 class MainActivity : BaseActivity() {
+    lateinit var binding: ActivityMainBinding
+    val util = UtilityPost()
+    val posts = ArrayList<Post>()
+    lateinit var postAdapter: PostAdapter
+    lateinit var pager: ViewPager2
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        logi("MainActivity 37  ")
+        val posts = downloadAllPost()
+        //  logi("MainActivity 39     =======>  posts[0]=${posts[0]}  ")
+        pager = binding.viewPager
+        postAdapter = PostAdapter(pager, this, posts)
+        pager.adapter = postAdapter
+        addAnimation(pager)
+    }
+
+
+    fun downloadAllPost(): ArrayList<Post> {
+        posts.clear()
+        FirebaseFirestore.getInstance().collection(POST_REF)
+            .orderBy(POST_TIME_STAMP, Query.Direction.DESCENDING)
+            .addSnapshotListener { value, error ->
+                logi("  MainActivity 53    ===>value= ${value} ")
+                if (value != null) {
+                    for (doc in value.documents) {
+                        // logi("  MainActivity 56    ===>doc= ${doc} " )
+                        val post = util.retrivePostFromFirestore(doc)
+                        posts.add(post)
+                    }
+                    // logi("  MainActivity 56    ===>posts[0]= ${posts[0]} " )
+
+                    postAdapter.notifyDataSetChanged()
+                }
+            }
+        return posts
+    }
+
+    private fun addAnimation(pager: ViewPager2) {
+        val book = BookFlipPageTransformer2()
+        book.setEnableScale(true)
+        book.setScaleAmountPercent(90f)
+        pager.setPageTransformer(book)
+
+        val card = CardFlipPageTransformer2()
+        card.setScalable(false)
+        pager.setPageTransformer(card)
+    }
+
+}
+
+
+
+/*
+class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
     lateinit var pager: ViewPager2
-    lateinit var postAdapter: InfiniteRecyclerAdapter
-    private var posts: MutableList<Post> = mutableListOf()
+  //  lateinit var postAdapter: InfiniteRecyclerAdapter
+    lateinit var postAdapter: PostAdapter
+    private var posts=ArrayList<Post>()
     private var sampleList: MutableList<Sample> = mutableListOf()
     val util = UtilityPost()
 
@@ -31,11 +93,12 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
 
         val posts = downloadAllPost()
-        getSampleData()
+      // getSampleData()
 
 
         pager = binding.viewPager
-         postAdapter = InfiniteRecyclerAdapter(sampleList)
+         //postAdapter = InfiniteRecyclerAdapter(sampleList)
+         postAdapter = PostAdapter(pager,this,posts)
         pager.adapter =postAdapter
         pager.currentItem = 1
 
@@ -62,9 +125,9 @@ private fun getSampleData() {
                         val post = util.retrivePostFromFirestore(doc)
                         if (index<4) {
                             posts.add(post)
-                           /* if (index==1 || index==3){
+                           *//* if (index==1 || index==3){
                                 posts.add(post)
-                            }*/
+                            }*//*
                         }
 
                     }
@@ -98,7 +161,7 @@ private fun getSampleData() {
         })
     }
 
-}
+}*/
 
 /*class MainActivity : BaseActivity() {
 
@@ -137,9 +200,9 @@ private fun getSampleData() {
                         val post = util.retrivePostFromFirestore(doc)
                         if (index<4) {
                             posts.add(post)
-                           /* if (index==1 || index==3){
+                           *//* if (index==1 || index==3){
                                 posts.add(post)
-                            }*/
+                            }
                         }
 
                     }
@@ -183,61 +246,8 @@ private fun getSampleData() {
 
 
 
-    /*lateinit var binding: ActivityMainBinding
-    val util = UtilityPost()
-    val posts = ArrayList<Post>()
-    lateinit var postAdapter: PostAdapter
-    lateinit var pager: ViewPager2
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        logi("MainActivity 37  ")
-        val posts = downloadAllPost()
-      //  logi("MainActivity 39     =======>  posts[0]=${posts[0]}  ")
-        pager = binding.viewPager
-        postAdapter = PostAdapter(pager, this, posts)
-        pager.adapter = postAdapter
-        addAnimation(pager)
-    }
-
-
-
-    fun downloadAllPost(): ArrayList<Post> {
-        posts.clear()
-        FirebaseFirestore.getInstance().collection(POST_REF)
-            .orderBy( POST_TIME_STAMP, Query.Direction.DESCENDING)
-            .addSnapshotListener { value, error ->
-                logi("  MainActivity 53    ===>value= ${value} " )
-                if (value != null) {
-                    for (doc in value.documents) {
-                       // logi("  MainActivity 56    ===>doc= ${doc} " )
-                        val post = util.retrivePostFromFirestore(doc)
-                        posts.add(post)
-                    }
-                // logi("  MainActivity 56    ===>posts[0]= ${posts[0]} " )
-
-                    postAdapter.notifyDataSetChanged()
-                }
-            }
-        return posts
-    }
-
-    private fun addAnimation(pager: ViewPager2) {
-        val book = BookFlipPageTransformer2()
-        book.setEnableScale(true)
-        book.setScaleAmountPercent(90f)
-        pager.setPageTransformer(book)
-
-        val card = CardFlipPageTransformer2()
-        card.setScalable(false)
-        pager.setPageTransformer(card)
-    }
-
-
-    private fun to_Automate_Scrolling_addThisInto_onCreate(pager: ViewPager2) {
+   /* private fun to_Automate_Scrolling_addThisInto_onCreate(pager: ViewPager2) {
         lateinit var sliderHandler: Handler
         lateinit var sliderRun: Runnable
 
@@ -265,5 +275,4 @@ private fun getSampleData() {
                     sliderHandler.postDelayed(sliderRun, 2000)
                 }
             })
-    }
-}*/
+    }*/
