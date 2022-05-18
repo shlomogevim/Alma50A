@@ -25,7 +25,7 @@ class SplashActivity : BaseActivity() {
         setContentView(binding.root)
         logi("Splash  26 ")
         setText()
-       // pauseIt()
+       pauseIt()
 
     }
 
@@ -62,7 +62,7 @@ class SplashActivity : BaseActivity() {
                 startActivity(Intent(this,MainActivity::class.java))
 
                 finish()
-            },2
+            },2000
         )
     }
 }
