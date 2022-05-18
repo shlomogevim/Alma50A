@@ -3,7 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/drawable-v24/button_background.xml" value="0.1165" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/drawable-v24/button_black_background.xml" value="0.1165" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/drawable-v24/comment_background.xml" value="0.1165" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/drawable-v24/ic_send.xml" value="0.1165" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/activity_forget_password.xml" value="0.11851851851851852" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/activity_login.xml" value="0.11851851851851852" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/activity_post_detailes.xml" value="0.11851851851851852" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/activity_register.xml" value="0.11851851851851852" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/activity_setting.xml" value="0.11851851851851852" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/activity_update_comment.xml" value="0.11851851851851852" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/activity_user_profile.xml" value="0.11851851851851852" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/item_comment.xml" value="0.11851851851851852" />
         <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/item_post.xml" value="0.16145833333333334" />
+        <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/option_menu.xml" value="0.11851851851851852" />
         <entry key="..\:/Users/Shlom/Desktop/Alma50A/app/src/main/res/layout/activity_add_post.xml" value="0.13055555555555556" />
         <entry key="..\:/Users/Shlom/Desktop/Alma50A/app/src/main/res/layout/activity_main.xml" value="0.13055555555555556" />
         <entry key="..\:/Users/Shlom/Desktop/Alma50A/app/src/main/res/layout/activity_splash.xml" value="0.14444444444444443" />

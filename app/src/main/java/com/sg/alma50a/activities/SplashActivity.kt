@@ -23,8 +23,9 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        logi("Splash  26 ")
         setText()
-        pauseIt()
+       // pauseIt()
 
     }
 

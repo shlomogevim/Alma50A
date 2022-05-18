@@ -29,13 +29,13 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        logi("MainActivity 37  ")
-        val posts = downloadAllPost()
+        logi("MainActivity 32   stam  ")
+    /*    val posts = downloadAllPost()
         //  logi("MainActivity 39     =======>  posts[0]=${posts[0]}  ")
         pager = binding.viewPager
         postAdapter = PostAdapter(pager, this, posts)
         pager.adapter = postAdapter
-        addAnimation(pager)
+        addAnimation(pager)*/
     }
 
 

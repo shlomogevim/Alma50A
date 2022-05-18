@@ -75,7 +75,6 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
             val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
              DrawGeneralPost().drawPost(context,post,layout)
 
-
           /*  val intent = Intent(context, MainActivityPostFragment::class.java)
             //intent.putExtra(POST_EXSTRA,post)
             context.startActivity(intent)*/
