@@ -82,9 +82,7 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
           /*  val intent = Intent(context, MainActivityPostFragment::class.java)
             //intent.putExtra(POST_EXSTRA,post)
             context.startActivity(intent)*/
-
-              util.logi("PostAdapter 85")
-
+          //    util.logi("PostAdapter 85")
             postImage.setOnClickListener {
             //  context.startActivity(Intent(context,PostDetailesActivity::class.java))
             // context.startActivity(Intent(context,StamActivity::class.java))

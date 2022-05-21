@@ -90,10 +90,16 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
         currentUser = user
         if (currentUser == null) {
             binding.nameCurrentUserName.setText("אנונימי")
+
         } else {
+            logi("PostDetailActivity 94      {currentUser!!.userName}=${currentUser!!.userName}")
+           val addr= binding.nameCurrentUserName
             binding.nameCurrentUserName.setText("${currentUser!!.userName}")
+
         }
     }
+
+
 
     private fun btnSetting() {
      //   logi("PostDetaileActivity 79 =====>  currentPost=$currentPost ")

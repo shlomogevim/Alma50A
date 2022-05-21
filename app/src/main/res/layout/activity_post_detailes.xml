@@ -45,6 +45,7 @@
             android:text="אנונימי"
             android:textSize="16sp"
             style="@style/AppTheme.Button1"
+            android:textAllCaps="false"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"
              />
         <Button

@@ -56,7 +56,8 @@ class FirestoreClass{
     }
 
     fun getUserDetails(activity: Activity) {
-        val currentId=getCurrentUserID()
+        var currentId=getCurrentUserID()
+       // currentId=""
         if (currentId.isNotEmpty()) {
             mFirestore.collection(USER_REF).document(getCurrentUserID())
                 .get()
