@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainCommentLayout"
+
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     android:background="@drawable/back_ui"
 
@@ -29,7 +32,7 @@
             android:layout_marginRight="2dp"
             android:text="פרופיל"
             android:textSize="16sp"
-            android:textColor="@color/white"
+           style="@style/AppTheme.Button1"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"
             />
         <Button
@@ -41,9 +44,9 @@
             android:layout_marginRight="2dp"
             android:text="אנונימי"
             android:textSize="16sp"
-            android:textColor="@color/white"
+            style="@style/AppTheme.Button1"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-            />
+             />
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -53,9 +56,9 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:textSize="16sp"
-            android:textColor="@color/white"
+            style="@style/AppTheme.Button1"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-            />
+             />
     </LinearLayout>             // bottomLayout
 
     <TextView
@@ -67,7 +70,7 @@
         android:layout_marginTop="2dp"
         android:background="@drawable/button_black_background"
         android:backgroundTint="@color/broun1"
-        android:fontFamily="@font/a200_comixno2clm_bold_webfont"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center"
         android:padding="1dp"
         android:paddingLeft="10dp"
@@ -214,6 +217,7 @@
         android:layout_below="@id/textPost"
         android:layout_margin="2dp"/>
 
+
     <RelativeLayout
         android:id="@+id/addCommentLayout"
         android:layout_width="match_parent"
@@ -221,7 +225,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:clickable="true"
         android:background="@drawable/comment_background"
         >
 
@@ -233,6 +236,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
+            android:clickable="false"
             android:src="@drawable/ic_send" />
 
         <EditText
@@ -243,18 +247,13 @@
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:layout_toRightOf="@id/profile_image_comment"
+            android:clickable="false"
             android:hint="ומה שיש לי להגיד הוא ..."
             android:maxLines="9"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:textColorHint="@color/white"/>
     </RelativeLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/messageLayout"
-        android:elevation="10dp"
-        android:visibility="gone"/>
+
 
 </RelativeLayout>
 

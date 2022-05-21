@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        logi("MainActivity 32   stam  ")
+//        logi("MainActivity 32   stam  ")
         val posts = downloadAllPost()
         //  logi("MainActivity 39     =======>  posts[0]=${posts[0]}  ")
         pager = binding.viewPager
@@ -44,7 +44,7 @@ class MainActivity : BaseActivity() {
         FirebaseFirestore.getInstance().collection(POST_REF)
             .orderBy(POST_TIME_STAMP, Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
-                logi("  MainActivity 53    ===>value= ${value} ")
+//                logi("  MainActivity 47    ===>value= ${value} ")
                 if (value != null) {
                     for (doc in value.documents) {
                         // logi("  MainActivity 56    ===>doc= ${doc} " )

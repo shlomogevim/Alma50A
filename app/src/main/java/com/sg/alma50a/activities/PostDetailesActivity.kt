@@ -2,11 +2,13 @@ package com.sg.alma50a.activities
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,10 +34,11 @@ import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.USER_EXTRA
 import com.sg.alma50a.utilities.FirestoreClass
 import com.sg.alma50a.utilities.UtilityPost
-import java.util.ArrayList
+
 
 class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
 
+    private lateinit var binding: ActivityPostDetailesBinding
     private var currentUser: User? = null
     var util = UtilityPost()
     var textViewArray = ArrayList<TextView>()
@@ -44,7 +47,7 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
     val comments = ArrayList<Comment>()
     lateinit var currentPost: Post
     var message = ""
-    private lateinit var binding: ActivityPostDetailesBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityPostDetailesBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -53,12 +56,30 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
             currentPost = intent.getParcelableExtra(POST_EXSTRA)!!
 
         }
-        // logi("PostDetailActivity  58          currentPost===>> $currentPost  /n")
+         // logi("PostDetailActivity  58          currentPost===>> $currentPost  /n")
         drawHeadline()
         create_commentsRv()
-        btnSetting()
+         btnSetting()
         retriveComments()
+       binding.postCommentText.addTextChangedListener(textWatcher)
     }
+    val textWatcher=object :TextWatcher{
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            if (currentUser == null) {
+                hideKeyboard()
+                val st1="צריך ל  "
+                val st2="הכנס"
+                val st3="  כדי לכתוב הערה."
+                val st12="\""
+                message = st1+st12+st2+st12+st3
+               showErrorSnackBar(message, true)
+            }
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+        override fun afterTextChanged(p0: Editable?) {   }
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -75,42 +96,36 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
     }
 
     private fun btnSetting() {
+     //   logi("PostDetaileActivity 79 =====>  currentPost=$currentPost ")
+
         binding.signInBtn.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
         binding.profileBtn.setOnClickListener {
-            //  logi("PostDetaileActivity  92   =====> /n  currentPost=$currentPost ")
+          //  logi("PostDetaileActivity  in profileBtn 84   =====>  currentPost=$currentPost ")
             val intent = Intent(this, SettingActivity::class.java)
             intent.putExtra(USER_EXTRA, currentUser)
             startActivity(intent)
         }
+
         binding.profileImageComment.setOnClickListener {
+           // logi("PostDetaileActivity  in profileImage 90   =====>  currentPost=$currentPost ")
             press_on_comment_icon()
-        }
-
-        binding.postCommentText.setOnClickListener {
-            press_on_text_comment()
-
-        }
-    }
-
-
-    private fun press_on_text_comment() {
-        if (currentUser == null) {
-            hideKeyboard()
-            message = "צריך להכנס כדי לכתוב הערה"
-            showErrorSnackBar(message, true)
         }
     }
 
     private fun press_on_comment_icon() {
         if (currentUser == null) {
             hideKeyboard()
-            message = "צריך להכנס כדי לכתוב הערה"
+            val st1="צריך ל  "
+            val st2="הכנס"
+            val st3="  כדי לשלוח הערה."
+            val st12="\""
+            message = st1+st12+st2+st12+st3
             showErrorSnackBar(message, true)
         } else {
-            val commentText = binding.postCommentText.text.toString()
+          val commentText = binding.postCommentText.text.toString()
             if (commentText == "") {
                 message = " היי , קודם תכתוב משהו בהערה ואחר כך תלחץ ..."
                 showErrorSnackBar(message, true)
@@ -121,7 +136,6 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
     }
 
     private fun sendComment() {
-
         hideKeyboard()
         FirebaseFirestore.getInstance().collection(POST_REF)
             .document(currentPost.postNum.toString())
@@ -344,6 +358,8 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
             binding.tvPost9.text = currentPost.postText[8]
         }
     }
+
+
 
 
 }

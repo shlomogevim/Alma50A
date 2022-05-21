@@ -5,7 +5,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -14,12 +16,13 @@ import com.sg.alma50a.activities.PostDetailesActivity
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.post_drawing.DrawGeneralPost
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
+import com.sg.alma50a.utilities.UtilityPost
 
 
 class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: ArrayList<Post>) :
     RecyclerView.Adapter<PostAdapter.PagerViewHolder>() {
 
-   // val util = UtilityPost()
+    val util = UtilityPost()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
        // val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
@@ -68,6 +71,7 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
     override fun getItemCount() = posts.size
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         val postImage = itemView?.findViewById<ImageView>(R.id.pagerImage)
 
         fun bindImage(post: Post) {
@@ -79,15 +83,17 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
             //intent.putExtra(POST_EXSTRA,post)
             context.startActivity(intent)*/
 
-            // drawPost.drawPost(post, layout)
-
+              util.logi("PostAdapter 85")
 
             postImage.setOnClickListener {
             //  context.startActivity(Intent(context,PostDetailesActivity::class.java))
             // context.startActivity(Intent(context,StamActivity::class.java))
-                val intent = Intent(context, PostDetailesActivity::class.java)
+
+               // ***  go to DrawGeneral
+
+              /*  val intent = Intent(context, PostDetailesActivity::class.java)
             intent.putExtra(POST_EXSTRA,post)
-               context.startActivity(intent)
+               context.startActivity(intent)*/
 
             }
         }

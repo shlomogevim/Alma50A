@@ -2,6 +2,7 @@ package com.sg.alma50a.post_drawing
 
 import android.app.ActionBar
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
@@ -22,9 +23,11 @@ import androidx.core.widget.TextViewCompat
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.sg.alma50a.R
+import com.sg.alma50a.activities.PostDetailesActivity
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants.CONSTANT
+import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 import com.sg.alma50a.utilities.FontFamilies
 import java.util.*
 import java.util.logging.Handler
@@ -40,9 +43,15 @@ class DrawGeneralPost() : BaseActivity() {
 
 
     fun drawPost(context: Context, post: Post, constraintLayout: ConstraintLayout) {
-        constraintLayout.removeAllViewsInLayout()
+       constraintLayout.removeAllViewsInLayout()
 
         val imageView: ImageView = createImageView(context, constraintLayout)
+        imageView.setOnClickListener {
+             // logi("  DrawGeneralPost    47")
+            val intent = Intent(context, PostDetailesActivity::class.java)
+            intent.putExtra(POST_EXSTRA,post)
+            context.startActivity(intent)
+        }
 
         imageView.load(post.imageUri) {
             crossfade(true)
