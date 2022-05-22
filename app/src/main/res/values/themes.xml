@@ -40,7 +40,7 @@
     <style name="AppTheme.Button1" parent="Widget.AppCompat.Button.Colored">
         <item name="android:elevation">1dp</item>
         <item name="android:translationZ">1dp</item>
-        <item name="android:background">@drawable/priamary_round</item>
+
 
     </style>
 
@@ -50,10 +50,11 @@
 
         <item name="android:elevation">1dp</item>
         <item name="android:translationZ">1dp</item>
-        <item name="android:background">@drawable/priamary_round</item>
+
     </style>
 
 </resources>
+<!-- <item name="android:background">@drawable/priamary_round</item>-->
 
 
 
