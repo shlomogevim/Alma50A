@@ -200,17 +200,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/il_moto"
             android:layout_gravity="center"
-            app:cornerRadius="15dp"
-            android:shadowRadius="@integer/material_motion_duration_long_1"
             android:layout_marginStart="@dimen/settings_button_marginStartEnd"
             android:layout_marginTop="110dp"
             android:layout_marginEnd="@dimen/settings_button_marginStartEnd"
             android:layout_marginBottom="@dimen/settings_button_marginTopBottom"
             android:backgroundTint="@color/light_green"
             android:gravity="center"
+            android:shadowRadius="@integer/material_motion_duration_long_1"
             android:text="@string/btn_lbl_logout"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/btn_textSize" />
+            android:textSize="@dimen/btn_textSize"
+            app:cornerRadius="15dp" />
 
     </RelativeLayout>
 </ScrollView>

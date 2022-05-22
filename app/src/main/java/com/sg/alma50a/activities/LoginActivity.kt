@@ -21,7 +21,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         setContentView(binding.root)
         //   DemiData()
 
-        binding.tvRegister.setOnClickListener(this)
+        binding.registerBtn.setOnClickListener(this)
         binding.btnLogin.setOnClickListener(this)
         binding.tvForgotPassword.setOnClickListener(this)
 
@@ -83,7 +83,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 R.id.btn_login -> {
                     logInRegisteredUser()
                 }
-                R.id.tv_register -> {
+                R.id.registerBtn -> {
                     startActivity(Intent(this, RegisterActivity::class.java))
                 }
                 R.id.tv_forgot_password -> {

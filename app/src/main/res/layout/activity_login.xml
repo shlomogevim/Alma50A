@@ -9,7 +9,6 @@
     android:keepScreenOn="true"
 
 
-
     tools:context="activities.LoginActivity">
 
     <FrameLayout
@@ -33,11 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="ברוך הבא"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center"
+        android:text="ברוך הבא"
         android:textColor="@color/colorPrimaryText"
         android:textSize="22sp"
-        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fl_header_image" />
@@ -46,14 +45,15 @@
         android:id="@+id/tv_title1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="מוזמן להכנס..."
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center"
+        android:text="מוזמן להכנס..."
         android:textColor="@color/colorPrimaryText"
         android:textSize="22sp"
-        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_email"
@@ -83,10 +83,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="הכנס כתובת מייל ..."
-                    android:paddingRight="10dp"
                     android:inputType="text"
+                    android:paddingRight="10dp"
 
-                    android:textSize="24dp"  />
+                    android:textSize="24dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,16 +110,15 @@
                     android:inputType="text"
                     android:paddingRight="10dp"
 
-                    android:textSize="24dp"  />
+                    android:textSize="24dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/tv_forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="20dp"
-
                 android:text="@string/lbl_forgot_password"
                 android:textColor="@color/black"
                 android:textSize="14sp"
@@ -133,235 +132,218 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/teal_700"
+                android:fontFamily="@font/a101_ankaclm_bold_webfont"
                 android:gravity="center"
                 android:paddingTop="@dimen/btn_padding"
                 android:paddingBottom="@dimen/btn_padding"
                 android:text="לחץ כדי להיכנס"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/btn_textSize"
-                android:fontFamily="@font/a101_ankaclm_bold_webfont"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_login">
-
-
-                <TextView
-                    android:id="@+id/tv_don_t_have_an_account"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/registerBtn"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:padding="@dimen/clickable_text_view_padding"
-                    android:text="@string/don_t_have_an_account"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/lbl_text_view_textSize" />
-                <TextView
-                    android:id="@+id/tv_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:padding="@dimen/clickable_text_view_padding"
-                    android:text="@string/register"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/lbl_text_view_textSize" />
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:backgroundTint="@color/light_green"
+                    android:textColor="@android:color/white"
+                    android:shadowRadius="@integer/material_motion_duration_long_1"
+                    android:text="אם אין לך חשבון: לחץ כאן"
+                    android:fontFamily="@font/a101_ankaclm_bold_webfont"
+                    android:textSize="18sp"
+                    app:cornerRadius="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_login"/>
 
-
-
-            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--  <FrameLayout
+            android:id="@+id/fl_header_image"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-<!--  <FrameLayout
-        android:id="@+id/fl_header_image"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_profile_image_comment"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/alma3" />
+        </FrameLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_profile_image_comment"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:src="@drawable/alma3" />
-    </FrameLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="ברוך הבא"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="22sp"
+            android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fl_header_image" />
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="ברוך הבא"
-        android:gravity="center"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="22sp"
-        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fl_header_image" />
-
-    <TextView
-        android:id="@+id/tv_title1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="מוזמן להכנס..."
-        android:gravity="center"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="22sp"
-        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@id/tv_title1">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/tv_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="מוזמן להכנס..."
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="22sp"
+            android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
-            >
+            app:layout_constraintTop_toBottomOf="@id/tv_title1">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_email"
-                style="@style/LoginTextInputLayoutStyle1"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_email"
-                    style="@style/HelperTextAppearance"
+                >
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_email"
+                    style="@style/LoginTextInputLayoutStyle1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="הכנס כתובת מייל ..."
-                    android:paddingRight="10dp"
-                    android:inputType="text"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    android:textSize="24dp"  />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_email"
+                        style="@style/HelperTextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="הכנס כתובת מייל ..."
+                        android:paddingRight="10dp"
+                        android:inputType="text"
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_password"
-                style="@style/LoginTextInputLayoutStyle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_email">
+                        android:textSize="24dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_password"
-                    style="@style/HelperTextAppearance"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_password"
+                    style="@style/LoginTextInputLayoutStyle1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="הכנס  סיסמה ..."
-                    android:inputType="text"
-                    android:paddingRight="10dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_email">
 
-                    android:textSize="24dp"  />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_password"
+                        style="@style/HelperTextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="הכנס  סיסמה ..."
+                        android:inputType="text"
+                        android:paddingRight="10dp"
 
-            <TextView
-                android:id="@+id/tv_forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="20dp"
-
-                android:text="@string/lbl_forgot_password"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_password" />
-
-            <Button
-                android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/teal_700"
-                android:gravity="center"
-                android:paddingTop="@dimen/btn_padding"
-                android:paddingBottom="@dimen/btn_padding"
-                android:text="לחץ כדי להיכנס"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/btn_textSize"
-                android:fontFamily="@font/a101_ankaclm_bold_webfont"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_login">
-
+                        android:textSize="24dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/tv_don_t_have_an_account"
+                    android:id="@+id/tv_forgot_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:padding="@dimen/clickable_text_view_padding"
-                    android:text="@string/don_t_have_an_account"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="20dp"
+
+                    android:text="@string/lbl_forgot_password"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/lbl_text_view_textSize" />
-                <TextView
-                    android:id="@+id/tv_register"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_password" />
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/teal_700"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/btn_padding"
+                    android:paddingBottom="@dimen/btn_padding"
+                    android:text="לחץ כדי להיכנס"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/btn_textSize"
+                    android:fontFamily="@font/a101_ankaclm_bold_webfont"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:padding="@dimen/clickable_text_view_padding"
-                    android:text="@string/register"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/lbl_text_view_textSize" />
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_login">
+
+
+                    <TextView
+                        android:id="@+id/tv_don_t_have_an_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:padding="@dimen/clickable_text_view_padding"
+                        android:text="@string/don_t_have_an_account"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/lbl_text_view_textSize" />
+                    <TextView
+                        android:id="@+id/tv_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/clickable_text_view_padding"
+                        android:text="@string/register"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/lbl_text_view_textSize" />
 
 
 
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
--->
+    -->
 
 
