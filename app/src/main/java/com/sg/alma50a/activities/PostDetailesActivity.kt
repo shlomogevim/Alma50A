@@ -1,6 +1,7 @@
 package com.sg.alma50a.activities
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -33,6 +35,7 @@ import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.USER_EXTRA
 import com.sg.alma50a.utilities.FirestoreClass
+import com.sg.alma50a.utilities.Utility
 import com.sg.alma50a.utilities.UtilityPost
 
 
@@ -47,6 +50,7 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
     val comments = ArrayList<Comment>()
     lateinit var currentPost: Post
     var message = ""
+    val util1=Utility()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityPostDetailesBinding.inflate(layoutInflater)
@@ -92,7 +96,7 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
             binding.nameCurrentUserName.setText("אנונימי")
 
         } else {
-            logi("PostDetailActivity 94      {currentUser!!.userName}=${currentUser!!.userName}")
+         //   logi("PostDetailActivity 99      {currentUser!!.userName}=${currentUser!!.userName}")
            val addr= binding.nameCurrentUserName
             binding.nameCurrentUserName.setText("${currentUser!!.userName}")
 
@@ -119,7 +123,13 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
            // logi("PostDetaileActivity  in profileImage 90   =====>  currentPost=$currentPost ")
             press_on_comment_icon()
         }
+        binding.postNumber.setOnClickListener {
+               startActivity(Intent(this,GetNextPost::class.java))
+            finish()
+        }
     }
+
+
 
     private fun press_on_comment_icon() {
         if (currentUser == null) {

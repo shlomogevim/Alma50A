@@ -1,18 +1,13 @@
 package com.sg.alma50a.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.sg.alma50a.R
-import com.sg.alma50a.adapters.PostAdapter
 import com.sg.alma50a.adapters.ViewPagerAdapter
 import com.sg.alma50a.databinding.ActivityMainPostFragmentBinding
-import com.sg.alma50a.fragment.FirstFragment
-import com.sg.alma50a.fragment.SecondFragment
-import com.sg.alma50a.fragment.ThirdFragment
+
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
@@ -29,20 +24,14 @@ class MainActivityPostFragment : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityMainPostFragmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setFragmentsArrayList()
+
         viewPager=binding.viewPager
         val adapter=ViewPagerAdapter(fragments,this)
 
        viewPager.adapter=adapter
     }
 
-    private fun setFragmentsArrayList() {
-       fragments= arrayListOf(
-           FirstFragment(),
-           SecondFragment(),
-           ThirdFragment()
-       )
-    }
+
 
     fun downloadAllPost(): java.util.ArrayList<Post> {
         posts.clear()

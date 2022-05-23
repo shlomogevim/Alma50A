@@ -54,7 +54,8 @@ object Constants {
     const val POST_REF_STAM = "Posts Stam"
     const val POST_IMAGE_STAM = "Posts Image Stam"
 
-    const val SHARPREF_REF = "POST_PREF"
+    const val SHARPREF_POST_NUM = "ShareprefPostNum"
+    const val SHARPREF_NUM = "ShareprefNum"
 
 
     const val POST_EXSTRA="post_exstra"

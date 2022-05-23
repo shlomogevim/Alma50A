@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="הכנס כתובת מייל ..."
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     android:paddingRight="10dp"
 
                     android:textSize="24dp" />

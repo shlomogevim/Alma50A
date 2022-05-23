@@ -61,6 +61,25 @@
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"
              />
     </LinearLayout>             // bottomLayout
+<!--
+    <TextView
+        android:id="@+id/postNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttomLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/button_black_background"
+        android:backgroundTint="@color/broun1"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center"
+        android:padding="1dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="100"
+        android:textColor="@color/orenge1"
+        android:textSize="18sp" />                      //postNumber-->
+
 
     <TextView
         android:id="@+id/postNumber"

@@ -14,44 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sg.alma50a.R
-
 import com.sg.alma50a.activities.DialogActivity
-import com.sg.alma50a.modeles.Comment
-import com.sg.alma50a.modeles.Post
-import com.sg.alma50a.modeles.User
-import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
-import com.sg.alma50a.utilities.Constants.COMMENT_ID
-import com.sg.alma50a.utilities.Constants.COMMENT_LIST
-import com.sg.alma50a.utilities.Constants.COMMENT_POST_ID
-import com.sg.alma50a.utilities.Constants.COMMENT_REF
-import com.sg.alma50a.utilities.Constants.COMMENT_TEXT
-import com.sg.alma50a.utilities.Constants.COMMENT_USER_ID
-import com.sg.alma50a.utilities.Constants.COMMENT_USER_NAME
 import com.sg.alma50a.utilities.Constants.DIALOG_EXSTRA
-import com.sg.alma50a.utilities.Constants.FIRESTORE_USER_ID
-import com.sg.alma50a.utilities.Constants.POST_BACKGROUND
-import com.sg.alma50a.utilities.Constants.POST_FONT_FAMILY
-import com.sg.alma50a.utilities.Constants.POST_ID
-import com.sg.alma50a.utilities.Constants.POST_IMAGE_URI
-import com.sg.alma50a.utilities.Constants.POST_LINE_NUM
-import com.sg.alma50a.utilities.Constants.POST_MARGIN
-import com.sg.alma50a.utilities.Constants.POST_NUM
-import com.sg.alma50a.utilities.Constants.POST_PADDING
-import com.sg.alma50a.utilities.Constants.POST_RADIUS
-import com.sg.alma50a.utilities.Constants.POST_REF
-import com.sg.alma50a.utilities.Constants.POST_TEXT
-import com.sg.alma50a.utilities.Constants.POST_TEXT_COLOR
-import com.sg.alma50a.utilities.Constants.POST_TEXT_SIZE
-import com.sg.alma50a.utilities.Constants.POST_TRANPARECY
-import com.sg.alma50a.utilities.Constants.USER_BIO
-import com.sg.alma50a.utilities.Constants.USER_EMAIL
-import com.sg.alma50a.utilities.Constants.USER_FULLNAME
-import com.sg.alma50a.utilities.Constants.USER_ID
-import com.sg.alma50a.utilities.Constants.USER_IMAGE
-import com.sg.alma50a.utilities.Constants.USER_PASSWORD
-import com.sg.alma50a.utilities.Constants.USER_TIME
-import com.sg.alma50a.utilities.Constants.USER_USERNAME
 
 
 import kotlin.collections.ArrayList
@@ -59,7 +23,7 @@ import kotlin.collections.HashMap
 import kotlin.coroutines.suspendCoroutine
 
 
-class UtilityPost {
+class Utility {
 
     val currentUser = FirebaseAuth.getInstance().currentUser
 
@@ -71,42 +35,43 @@ class UtilityPost {
         context.startActivity(intent)
 
 
-              //   logi("Utility 32 createDialoge   =====> ind=$ind      contex=$context")
+   /*      //   logi("Utility 32 createDialoge   =====> ind=$ind      contex=$context")
 
-             val dialog = Dialog(context)
-            // logi("Utility 39 createDialoge   =====> ind=$ind")
-             dialog.setCancelable(false)
-             dialog.setContentView(R.layout.option_menu1)
-             val btn1 = dialog.findViewById<Button>(R.id.btn1_dialog)
-             val btn2 = dialog.findViewById<Button>(R.id.btn2_dialog)
-             val btn3 = dialog.findViewById<Button>(R.id.btn3_dialog)
-             val loti = dialog.findViewById<LottieAnimationView>(R.id.lottie_anim_dialog)
-             val dialogText1 = dialog.findViewById<TextView>(R.id.text_dialog1)
-             val dialogText2 = dialog.findViewById<TextView>(R.id.text_dialog2)
-             val dialogText3 = dialog.findViewById<TextView>(R.id.text_dialog3)
-             val dialogText4 = dialog.findViewById<TextView>(R.id.text_dialog4)
-             btn1.visibility = View.GONE
-             btn2.visibility = View.GONE
+        val dialog = Dialog(context)
+       // logi("Utility 39 createDialoge   =====> ind=$ind")
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.option_menu1)
+        val btn1 = dialog.findViewById<Button>(R.id.btn1_dialog)
+        val btn2 = dialog.findViewById<Button>(R.id.btn2_dialog)
+        val btn3 = dialog.findViewById<Button>(R.id.btn3_dialog)
+        val loti = dialog.findViewById<LottieAnimationView>(R.id.lottie_anim_dialog)
+        val dialogText1 = dialog.findViewById<TextView>(R.id.text_dialog1)
+        val dialogText2 = dialog.findViewById<TextView>(R.id.text_dialog2)
+        val dialogText3 = dialog.findViewById<TextView>(R.id.text_dialog3)
+        val dialogText4 = dialog.findViewById<TextView>(R.id.text_dialog4)
+        btn1.visibility = View.GONE
+        btn2.visibility = View.GONE
 
-         //   logi("Utility  createDialoge   =====> ind=$ind")
+    //   logi("Utility  createDialoge   =====> ind=$ind")
 
-             val arString:ArrayList<String> =getDialogMessage(ind)
+        val arString:ArrayList<String> =getDialogMessage(ind)
 
-           logi("Utility 95  createDialoge   =====> ind=$ind")
-             dialogText1.text =arString[0]
-             dialogText2.text =arString[1]
-             dialogText3.text =arString[2]
-             dialogText4.text =arString[3]
-             btn3.text =arString[4]
-             loti.setAnimation(arString[5])
-             btn1.setOnClickListener { }
-             btn2.setOnClickListener { }
-             btn3.setOnClickListener {
-                 dialog.dismiss()
-             }
-        dialog.show()
+    // m    logi("Utility 52  createDialoge   =====> ind=$ind")
+        dialogText1.text =arString[0]
+        dialogText2.text =arString[1]
+        dialogText3.text =arString[2]
+        dialogText4.text =arString[3]
+        btn3.text =arString[4]
+        loti.setAnimation(arString[5])
+        btn1.setOnClickListener { }
+        btn2.setOnClickListener { }
+        btn3.setOnClickListener {
+            dialog.dismiss()
+        }
+   dialog.show()*/
 
     }
+
     private fun getDialogMessage(ind: Int): ArrayList<String> {
         var stMessage1 = ""
         var stMessage2 = ""
@@ -251,8 +216,8 @@ class UtilityPost {
                })
            alertDialog.show()
        }*/
-    fun convertToUser(snap: DocumentSnapshot?): User {
-        var userName =""
+   /* fun convertToUser(snap: DocumentSnapshot?): User {
+        var userName = "no userNameString"
         var fullName = "no fullName"
         var email: String = "no email"
         var profileImage =
@@ -266,21 +231,12 @@ class UtilityPost {
         dio = snap?.getString(USER_BIO).toString()
         uid = snap?.getString(FIRESTORE_USER_ID).toString()
 
-        val newUser = User(uid=uid, userName = userName, lastName = fullName, email, image = profileImage, moto=dio)
+        val newUser = User(userName, fullName, email, profileImage, dio, uid)
         return newUser
-    }
-    /* val uid: String = "",
-    val firstName: String = "",
-    val lastName: String = "",
-    val email: String = "",
-    val image: String = "",
-    val mobile: Long = 0,
-    val gender: String = "",
-    var dio: String = "",
-    val profileCompleted: Int = 0*/
+    }*/
 
 
-    fun downloadPost1(context: Context, index: Int) {
+  /*  fun downloadPost1(context: Context, index: Int) {
         // val layout1: ConstraintLayout = (context as Activity).findViewById(R.id.mainLayout1)
         //  val createPost1 = CreatePost1(context, layout1)
         FirebaseFirestore.getInstance().collection(POST_REF).document(index.toString()).get()
@@ -291,18 +247,17 @@ class UtilityPost {
                     //  createPost1.drawPost(post)
                 }
             }
-        /*FirebaseUser*/
-    }
+        *//*FirebaseUser*//*
+    }*/
 
 
-    fun createComment(post: Post, commentText: String,currentUser:User) {
-        logi("UtilityPost 298     commentText=$commentText")
+   /* fun createComment(post: Post, commentText: String) {
         val data = HashMap<String, Any>()
         data[COMMENT_ID] = "1"
         data[COMMENT_POST_ID] = post.postNum.toString()
         data[COMMENT_TEXT] = commentText
-        data[COMMENT_USER_NAME] = currentUser.userName
-        data[COMMENT_USER_ID] = currentUser.uid
+        data[COMMENT_USER_NAME] = currentUser?.displayName.toString()
+        data[COMMENT_USER_ID] = currentUser?.uid.toString()
         data[COMMEND_TIME_STAMP] = FieldValue.serverTimestamp()
         val ref = FirebaseFirestore.getInstance().collection(COMMENT_REF)
             .document(post.postNum.toString())
@@ -312,9 +267,9 @@ class UtilityPost {
                 data[COMMENT_ID] = it.id
                 ref.document(it.id).update(data)
             }
-    }
+    }*/
 
-    fun deleteComment(comment: Comment) {
+   /* fun deleteComment(comment: Comment) {
         //  logi("Utility 111      comment.postId=${comment.postId}           comment.commntId=${comment.commntId}")
         FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.postId)
             .collection(COMMENT_LIST).document(comment.commntId).delete()
@@ -332,11 +287,17 @@ class UtilityPost {
         return newComment
     }
 
-
+    *//*data[USER_ID] = uid!!
+        data[USER_FULLNAME] = fullName.lowercase(Locale.getDefault())
+        data[USER_USERNAME] = userNameString.lowercase(Locale.getDefault())
+        data[USER_EMAIL] = email
+        data[USER_PASSWORD] = password
+        data[USER_BIO] = "It's me man..."
+        data[USER_TIME] = FieldValue.serverTimestamp()*//*
 
     fun retrieveUserFromFirestore(snap: DocumentSnapshot?): User {
 
-        val uid = snap?.get(USER_ID).toString()
+        val id = snap?.get(USER_ID).toString()
         val fullName = snap?.get(USER_FULLNAME).toString()
         val name = snap?.get(USER_USERNAME).toString()
         val email = snap?.get(USER_EMAIL).toString()
@@ -344,7 +305,7 @@ class UtilityPost {
         val dio = snap?.get(USER_BIO).toString()
         val timestamp = snap?.getTimestamp(USER_TIME)
 
-        val newUser = User(uid,name,fullName,email,"",moto=dio)
+        val newUser = User(name,fullName,email,"",dio,id)
         return newUser
     }
 
@@ -382,7 +343,7 @@ class UtilityPost {
             postFontFamily,
             postRadius
         )
-      // logi("Utility 384   post=${newPost1}")
+        //logi("Utility 207   post=${newPost1}")
         return newPost1
     }
 
@@ -423,7 +384,7 @@ class UtilityPost {
         //logi("Utility 207   post=${newPost1}")
         return newPost1
     }
-
+*/
     private fun convertFromStringArrayToIntArry(str: String): ArrayList<Int> {
         var newAr = ArrayList<Int>()
         return littleHelper(str, newAr)
@@ -769,7 +730,7 @@ class UtilityPost {
     }
 
 
-    fun sendPostToStringFirestore(post: Post) {
+   /* fun sendPostToStringFirestore(post: Post) {
         val data = HashMap<String, Any>()
         with(post) {
             data[POST_ID] = 1
@@ -813,7 +774,7 @@ class UtilityPost {
             Log.d("gg", "${element1} ,${element2} ${element3},${element4}")
         }
     }
-
+*/
 
 
 

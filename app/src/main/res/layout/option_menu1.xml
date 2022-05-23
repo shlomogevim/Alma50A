@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#FFF548" >
+    android:background="#FFF548"
+   >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +53,7 @@
         android:textSize="14sp"
         android:textColor="#3C1A5B"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/lottie_anim_dialog"
+         android:layout_below="@id/lottie_anim_dialog"
         android:padding="5dp"/>
     <TextView
         android:layout_width="wrap_content"
@@ -90,14 +91,14 @@
     <Button
         android:id="@+id/btn3_dialog"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+              android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+android:layout_marginBottom="10dp"
         android:backgroundTint="#3AE4E3"
         android:text="Btn3"
         android:background="@drawable/comment_background"
         android:textAllCaps="false"
-        android:layout_centerHorizontal="true"
+       android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_below="@id/text_dialog4"/>

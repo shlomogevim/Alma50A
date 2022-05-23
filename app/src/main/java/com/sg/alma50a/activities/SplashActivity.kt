@@ -1,5 +1,6 @@
 package com.sg.alma50a.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.sg.alma50a.R
 import com.sg.alma50a.databinding.ActivitySplashBinding
 import com.sg.alma50a.utilities.BaseActivity
+import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.FirestoreClass
 import com.sg.alma50a.utilities.FontFamilies
 
@@ -23,6 +25,9 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val pref=getSharedPreferences(Constants.SHARPREF_POST_NUM, Context.MODE_PRIVATE)
+        pref.edit().putInt(Constants.SHARPREF_NUM,0).apply()
 //        logi("Splash  26 ")
         setText()
        pauseIt()

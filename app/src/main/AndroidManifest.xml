@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Alma50A">
-
-
+        <activity
+            android:name=".activities.GetNextPost"
+            android:exported="false" />
         <activity
             android:name=".activities.UpdateCommentActivity"
             android:exported="false" />
@@ -37,12 +38,12 @@
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.RegisterActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true">
@@ -55,9 +56,9 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="true" />
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

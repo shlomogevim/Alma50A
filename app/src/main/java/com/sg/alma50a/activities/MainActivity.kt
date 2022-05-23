@@ -1,28 +1,33 @@
 package com.sg.alma50a.activities
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.sg.alma50a.adapters.InfiniteRecyclerAdapter
 import com.sg.alma50a.adapters.PostAdapter
 
 import com.sg.alma50a.databinding.ActivityMainBinding
 import com.sg.alma50a.modeles.Post
-import com.sg.alma50a.models.Sample
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.BookFlipPageTransformer2
 import com.sg.alma50a.utilities.CardFlipPageTransformer2
 import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.POST_TIME_STAMP
+import com.sg.alma50a.utilities.Constants.SHARPREF_NUM
+import com.sg.alma50a.utilities.Constants.SHARPREF_POST_NUM
 import com.sg.alma50a.utilities.UtilityPost
 
+//class MainActivity : BaseActivity(),PassToNewPostInterface {
 class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
     val util = UtilityPost()
     val posts = ArrayList<Post>()
     lateinit var postAdapter: PostAdapter
     lateinit var pager: ViewPager2
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +40,31 @@ class MainActivity : BaseActivity() {
         pager = binding.viewPager
         postAdapter = PostAdapter(pager, this, posts)
         pager.adapter = postAdapter
-        addAnimation(pager)
+
+       addAnimation(pager)
     }
+
+    override fun onResume() {
+        super.onResume()
+        val pref=getSharedPreferences(SHARPREF_POST_NUM,Context.MODE_PRIVATE)
+       val  newPostNum1=pref.getInt(SHARPREF_NUM,0)
+        if (newPostNum1>0) {
+              moveIt(newPostNum1)
+        }
+    }
+
+    private fun moveIt(index: Int) {
+        Handler().postDelayed(
+            {
+                for (counter in 0 until posts.size){
+                    if (posts[counter].postNum==index){
+                        pager.setCurrentItem(counter)
+                    }
+                }
+        },3)
+
+    }
+
 
 
     fun downloadAllPost(): ArrayList<Post> {
@@ -58,6 +86,7 @@ class MainActivity : BaseActivity() {
             }
         return posts
     }
+    
 
     private fun addAnimation(pager: ViewPager2) {
         val book = BookFlipPageTransformer2()
@@ -69,6 +98,8 @@ class MainActivity : BaseActivity() {
         card.setScalable(false)
         pager.setPageTransformer(card)
     }
+
+
 
 }
 

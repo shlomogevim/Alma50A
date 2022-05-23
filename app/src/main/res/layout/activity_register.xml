@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:hint="הכנס כתובת מייל ..."
                     android:paddingRight="10dp"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
 
                     android:textSize="24dp"  />
             </com.google.android.material.textfield.TextInputLayout>
