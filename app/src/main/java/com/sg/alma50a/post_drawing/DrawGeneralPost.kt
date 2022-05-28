@@ -118,6 +118,9 @@ class DrawGeneralPost() : BaseActivity() {
     ) {
         val textView = TextView(context)
         val ind = index - 1
+
+        textView.setLineSpacing(1f,1.4f)    // space between to line of broken long line
+
         textView.text = post.postText[ind]
         //  logi("DrawGeneral2 125 ==> ind=$ind  , post.postText[ind]=${post.postText[ind]} ")
         val fontAddress = helper.getFamilyFont(post.postFontFamily)

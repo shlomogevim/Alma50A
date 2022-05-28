@@ -72,12 +72,14 @@ class FirestoreClass{
                         is LoginActivity -> {
                             activity.userLoggedInSuccess(user)
                         }
-
                         is PostDetailesActivity -> {
                             activity.getUserNameSetting(user)
                         }
                         is SettingActivity -> {
                             activity.getUserNameSetting(user)
+                        }
+                        is SplashActivity -> {
+                            activity.getingUserData(user)
                         }
                     }
                 }

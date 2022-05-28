@@ -1,33 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back_ui"
 
-    android:background="@color/material_dynamic_primary80"
     android:keepScreenOn="true"
-    tools:context=".activities.SplashActivity">
+
+    tools:context=".activities.SplashActivity"  >
+
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="350dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:background="@drawable/alma2"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="86dp"/>
+        android:scaleType="fitCenter"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_text1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tv_app_name"
-        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:layout_height="wrap_content"
         android:layout_below="@id/imageView"
-        android:layout_marginTop="12dp"
-        android:textSize="32sp"
-        android:textColor="#343148"
+        android:paddingTop="20dp"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center_horizontal"
-        android:text="זה מה שלימדו אותנו היום בגן"/>
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+    <TextView
+        android:id="@+id/tv_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:paddingTop="10dp"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text1" />
+    <TextView
+        android:id="@+id/tv_text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:paddingTop="10dp"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text2" />
+    <TextView
+        android:id="@+id/tv_text4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:paddingTop="10dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text3" />
+    <TextView
+        android:id="@+id/tv_text5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:paddingTop="10dp"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text4" />
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
