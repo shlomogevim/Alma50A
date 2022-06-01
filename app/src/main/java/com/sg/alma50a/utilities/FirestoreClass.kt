@@ -11,6 +11,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.sg.alma50a.activities.*
+import com.sg.alma50a.activities_tt.GradePostActivity
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.Constants.LOGGED_IN_USERNAME
 import com.sg.alma50a.utilities.Constants.MYSHOPPAL_PREFERENCES
@@ -81,6 +82,7 @@ class FirestoreClass{
                         is SplashActivity -> {
                             activity.getingUserData(user)
                         }
+
                     }
                 }
 

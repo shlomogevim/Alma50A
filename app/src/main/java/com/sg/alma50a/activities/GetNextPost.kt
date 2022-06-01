@@ -34,7 +34,7 @@ class GetNextPost() : BaseActivity() {
 
 
 
-                val pref=getSharedPreferences(Constants.SHARPREF_POST_NUM, Context.MODE_PRIVATE)
+                val pref=getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
                  pref.edit().putInt(SHARPREF_NUM,newPostNum).apply()
                 startActivity(Intent(this,MainActivity::class.java))
             finish()

@@ -3,6 +3,7 @@ package com.sg.alma50a.activities
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,13 +19,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.sg.alma50a.R
+import com.sg.alma50a.activities_tt.GradePostActivity
 import com.sg.alma50a.adapters.CommentAdapter
+import com.sg.alma50a.databinding.ActivityGradePostBinding
 import com.sg.alma50a.databinding.ActivityPostDetailesBinding
 import com.sg.alma50a.interfaces.CommentsOptionClickListener
 import com.sg.alma50a.modeles.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
-import com.sg.alma50a.utilities.BaseActivity
+import com.sg.alma50a.utilities.*
 import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.COMMENT_ID
 import com.sg.alma50a.utilities.Constants.COMMENT_LIST
@@ -33,13 +36,11 @@ import com.sg.alma50a.utilities.Constants.COMMENT_REF
 import com.sg.alma50a.utilities.Constants.COMMENT_TEXT
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 import com.sg.alma50a.utilities.Constants.POST_REF
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.USER_EXTRA
-import com.sg.alma50a.utilities.FirestoreClass
-import com.sg.alma50a.utilities.Utility
-import com.sg.alma50a.utilities.UtilityPost
 
 
-class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
+class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
 
     private lateinit var binding: ActivityPostDetailesBinding
     private var currentUser: User? = null
@@ -50,38 +51,43 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
     val comments = ArrayList<Comment>()
     lateinit var currentPost: Post
     var message = ""
-    val util1=Utility()
+    val util1 = Utility()
+    lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding= ActivityPostDetailesBinding.inflate(layoutInflater)
+        binding = ActivityPostDetailesBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         if (intent.hasExtra(POST_EXSTRA)) {
             currentPost = intent.getParcelableExtra(POST_EXSTRA)!!
+            pref=getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
+            pref.edit().putInt(SHARPREF_CURRENT_POST_NUM,currentPost.postNum).apply()
 
         }
-         // logi("PostDetailActivity  58          currentPost===>> $currentPost  /n")
+
+        // logi("PostDetailActivity  58          currentPost===>> $currentPost  /n")
         drawHeadline()
         create_commentsRv()
-         btnSetting()
+        btnSetting()
         retriveComments()
-       binding.postCommentText.addTextChangedListener(textWatcher)
+        binding.postCommentText.addTextChangedListener(textWatcher)
     }
-    val textWatcher=object :TextWatcher{
+
+    val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             if (currentUser == null) {
                 hideKeyboard()
-                val st1="צריך ל  "
-                val st2="הכנס"
-                val st3="  כדי לכתוב הערה."
-                val st12="\""
-                message = st1+st12+st2+st12+st3
-               showErrorSnackBar(message, true)
+                val st1 = "צריך ל  "
+                val st2 = "הכנס"
+                val st3 = "  כדי לכתוב הערה."
+                val st12 = "\""
+                message = st1 + st12 + st2 + st12 + st3
+                showErrorSnackBar(message, true)
             }
         }
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
-        override fun afterTextChanged(p0: Editable?) {   }
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun afterTextChanged(p0: Editable?) {}
     }
 
 
@@ -96,52 +102,55 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
             binding.nameCurrentUserName.setText("אנונימי")
 
         } else {
-         //   logi("PostDetailActivity 99      {currentUser!!.userName}=${currentUser!!.userName}")
-           val addr= binding.nameCurrentUserName
+            //   logi("PostDetailActivity 99      {currentUser!!.userName}=${currentUser!!.userName}")
+            val addr = binding.nameCurrentUserName
             binding.nameCurrentUserName.setText("${currentUser!!.userName}")
 
         }
     }
 
 
-
     private fun btnSetting() {
-     //   logi("PostDetaileActivity 79 =====>  currentPost=$currentPost ")
+        //   logi("PostDetaileActivity 79 =====>  currentPost=$currentPost ")
 
         binding.signInBtn.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
         binding.profileBtn.setOnClickListener {
-          //  logi("PostDetaileActivity  in profileBtn 84   =====>  currentPost=$currentPost ")
+            //  logi("PostDetaileActivity  in profileBtn 84   =====>  currentPost=$currentPost ")
             val intent = Intent(this, SettingActivity::class.java)
             intent.putExtra(USER_EXTRA, currentUser)
             startActivity(intent)
         }
 
         binding.profileImageComment.setOnClickListener {
-           // logi("PostDetaileActivity  in profileImage 90   =====>  currentPost=$currentPost ")
+            // logi("PostDetaileActivity  in profileImage 90   =====>  currentPost=$currentPost ")
             press_on_comment_icon()
         }
         binding.postNumber.setOnClickListener {
-               startActivity(Intent(this,GetNextPost::class.java))
+            startActivity(Intent(this, GetNextPost::class.java))
             finish()
         }
-    }
+        binding.gradeBtn.setOnClickListener {
+            startActivity(Intent(this, GradePostActivity::class.java))
+            finish()
 
+        }
+    }
 
 
     private fun press_on_comment_icon() {
         if (currentUser == null) {
             hideKeyboard()
-            val st1="צריך ל  "
-            val st2="הכנס"
-            val st3="  כדי לשלוח הערה."
-            val st12="\""
-            message = st1+st12+st2+st12+st3
+            val st1 = "צריך ל  "
+            val st2 = "הכנס"
+            val st3 = "  כדי לשלוח הערה."
+            val st12 = "\""
+            message = st1 + st12 + st2 + st12 + st3
             showErrorSnackBar(message, true)
         } else {
-          val commentText = binding.postCommentText.text.toString()
+            val commentText = binding.postCommentText.text.toString()
             if (commentText == "") {
                 message = " היי , קודם תכתוב משהו בהערה ואחר כך תלחץ ..."
                 showErrorSnackBar(message, true)
@@ -168,6 +177,7 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
                 }
             }
     }
+
     private fun drawHeadline() {
         val num = currentPost.postNum
         val st = "   פוסט מספר: " + "$num   "
@@ -374,8 +384,6 @@ class PostDetailesActivity :  BaseActivity(), CommentsOptionClickListener {
             binding.tvPost9.text = currentPost.postText[8]
         }
     }
-
-
 
 
 }

@@ -13,6 +13,9 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Alma50A">
         <activity
+            android:name=".activities_tt.GradePostActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.GetNextPost"
             android:exported="false" />
         <activity

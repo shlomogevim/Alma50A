@@ -16,7 +16,8 @@ data class User(
     val moto: String = "החיים זה מה שזה ...",
     val time: Timestamp?=null,
     val profileCompleted: Int = 0,
-    val password:String=""
+    val password:String="",
+    val gradeArray:ArrayList<Int> = arrayListOf<Int>()
 ) : Parcelable
 
 /*data class User(

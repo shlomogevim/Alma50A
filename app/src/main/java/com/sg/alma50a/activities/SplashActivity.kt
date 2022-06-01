@@ -38,7 +38,7 @@ class SplashActivity : BaseActivity() {
 
 //        logi("Splash 30     currentUserID=$currentUserID")
 
-        val pref=getSharedPreferences(Constants.SHARPREF_POST_NUM, Context.MODE_PRIVATE)
+        val pref=getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         pref.edit().putInt(Constants.SHARPREF_NUM,0).apply()
      //setText()
        pauseIt()
@@ -52,7 +52,7 @@ class SplashActivity : BaseActivity() {
         }else{
             name="אורח"
         }
-        logi("Splash 30        currentUser = $currentUser       name=$name"         )
+       // logi("Splash 55       currentUser = $currentUser       name=$name"         )
 
        binding.tvText1.text="ברוך הבא "
       binding.tvText2.text= name
@@ -65,13 +65,10 @@ class SplashActivity : BaseActivity() {
     fun getingUserData(user: User) {
         currentUser=user
         setText()
-        logi("Splash 67        currentUser = $currentUser      "         )
+       // logi("Splash 67        currentUser = $currentUser      "         )
     }
 
     private fun pauseIt() {
-
-
-
         Handler().postDelayed(
             {
                 //  var currentUserID = FirestoreClass().getCurrentUserID()
@@ -88,10 +85,10 @@ class SplashActivity : BaseActivity() {
               startActivity(Intent(this, LoginActivity::class.java))
           }*/
 
-                startActivity(Intent(this,MainActivity::class.java))
+              startActivity(Intent(this,MainActivity::class.java))
 
                 finish()
-            },6000
+            },3
         )
     }
 }

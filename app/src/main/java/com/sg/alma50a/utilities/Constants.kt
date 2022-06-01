@@ -54,8 +54,12 @@ object Constants {
     const val POST_REF_STAM = "Posts Stam"
     const val POST_IMAGE_STAM = "Posts Image Stam"
 
-    const val SHARPREF_POST_NUM = "ShareprefPostNum"
+   // const val SHARPREF_POST_NUM = "ShareprefPostNum"
+    const val SHARPREF_ALMA = "ShareprefAlma"
     const val SHARPREF_NUM = "ShareprefNum"
+    const val SHARPREF_TOTAL_POSTS = "ShareprefTotalPost"
+    const val SHARPREF_CURRENT_POST_NUM = "ShareprefCurrentPostNum"
+    const val SHARPREF_GRADE="sheareGrade"
 
 
     const val POST_EXSTRA="post_exstra"
@@ -73,6 +77,7 @@ object Constants {
     const val USER_TIME = "time"
     const val USER_PASSWORD = "userPassword"
     const val USER_ID = "userId"
+    const val USER_GRADE_AR="userGradeAr"
 
 
 
