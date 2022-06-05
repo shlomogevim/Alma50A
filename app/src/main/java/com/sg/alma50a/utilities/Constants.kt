@@ -50,6 +50,7 @@ object Constants {
     const val POST_FONT_FAMILY = "post_fontFamily"
     const val POST_RADIUS = "post_radius"
     const val POST_TIME_STAMP = "post_time_stamp"
+    const val POST_LINE_SPACING = "post_line_spacing"
 
     const val POST_REF_STAM = "Posts Stam"
     const val POST_IMAGE_STAM = "Posts Image Stam"

@@ -35,6 +35,7 @@ import com.sg.alma50a.utilities.Constants.POST_FONT_FAMILY
 import com.sg.alma50a.utilities.Constants.POST_ID
 import com.sg.alma50a.utilities.Constants.POST_IMAGE_URI
 import com.sg.alma50a.utilities.Constants.POST_LINE_NUM
+import com.sg.alma50a.utilities.Constants.POST_LINE_SPACING
 import com.sg.alma50a.utilities.Constants.POST_MARGIN
 import com.sg.alma50a.utilities.Constants.POST_NUM
 import com.sg.alma50a.utilities.Constants.POST_PADDING
@@ -43,6 +44,7 @@ import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.POST_TEXT
 import com.sg.alma50a.utilities.Constants.POST_TEXT_COLOR
 import com.sg.alma50a.utilities.Constants.POST_TEXT_SIZE
+import com.sg.alma50a.utilities.Constants.POST_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.POST_TRANPARECY
 import com.sg.alma50a.utilities.Constants.USER_BIO
 import com.sg.alma50a.utilities.Constants.USER_EMAIL
@@ -348,6 +350,8 @@ class UtilityPost {
         return newUser
     }
 
+
+
     fun retrivePostFromFirestore(snap: DocumentSnapshot?): Post {
         val postId = snap?.get(POST_ID).toString()
         val postNum = snap?.getLong(POST_NUM)!!.toInt()
@@ -359,13 +363,17 @@ class UtilityPost {
         val postTextColor: ArrayList<String> = snap?.get(POST_TEXT_COLOR) as ArrayList<String>
         val postFontFamily = snap?.getLong(POST_FONT_FAMILY)!!.toInt()
         val postRadius = snap?.getLong(POST_RADIUS)!!.toInt()
-
+        val timestamp = snap?.getTimestamp(POST_TIME_STAMP)
         val postTextSize1 = snap?.getString(POST_TEXT_SIZE).toString()
         val postTextSize: ArrayList<Int> = convertFromStringArrayToIntArry(postTextSize1)
         val postPadding1 = snap?.getString(POST_PADDING).toString()
         val postPadding: ArrayList<Int> = convertFromStringArrayToIntArry(postPadding1)
         val postMargin1 = snap?.getString(POST_MARGIN).toString()
         val postMargin: ArrayList<ArrayList<Int>> = convertFromStringArrayToIntArry2(postMargin1)
+        var postLineSpacing=1.4f
+        if ( snap?.getLong(POST_LINE_SPACING) !=null) {
+             postLineSpacing = snap?.getLong(POST_LINE_SPACING)!!.toFloat()
+        }
 
         val newPost1 = Post(
             postId,
@@ -380,7 +388,10 @@ class UtilityPost {
             postPadding,
             postTextColor,
             postFontFamily,
-            postRadius
+            postRadius,
+            timestamp,
+            postLineSpacing
+
         )
       // logi("Utility 384   post=${newPost1}")
         return newPost1
@@ -785,6 +796,8 @@ class UtilityPost {
             data[POST_TEXT_COLOR] = postTextColor
             data[POST_FONT_FAMILY] = postFontFamily
             data[POST_RADIUS] = postRadiuas
+            data[POST_TIME_STAMP] = FieldValue.serverTimestamp()
+            data[POST_LINE_SPACING]=lineSpacing
         }
         FirebaseFirestore.getInstance().collection(POST_REF).document(post.postNum.toString())
             .set(data)

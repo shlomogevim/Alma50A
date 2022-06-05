@@ -48,6 +48,10 @@
             android:textAllCaps="false"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa" />
 
+
+
+
+
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
