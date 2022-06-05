@@ -12,7 +12,7 @@
     app:layout_constraintStart_toStartOf="parent"
     android:background="@drawable/back_ui"
 
-    tools:context=".activities.SettingActivity">
+    tools:context=".activities.PostSettingActivity">
 
 
     <RelativeLayout

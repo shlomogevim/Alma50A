@@ -23,9 +23,9 @@
         android:orientation="horizontal"
         android:id="@+id/buttomLayout"
         android:layout_margin="1dp">
-        <Button
+       <!-- <Button
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:layout_height="match_parent"
             android:id="@+id/profileBtn"
             android:layout_marginLeft="2dp"
@@ -34,6 +34,20 @@
             android:textSize="16sp"
            style="@style/AppTheme.Button1"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"  />
+-->
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/settingUpBtn"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="הגדרות"
+            android:textSize="16sp"
+            style="@style/AppTheme.Button1"
+            android:textAllCaps="false"
+            android:fontFamily="@font/a103_gadi_almog_regular_aaa" />
+
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -42,18 +56,6 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:text="אורח"
-            android:textSize="16sp"
-            style="@style/AppTheme.Button1"
-            android:textAllCaps="false"
-            android:fontFamily="@font/a103_gadi_almog_regular_aaa" />
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:id="@+id/gradeBtn"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:text="דרג"
             android:textSize="16sp"
             style="@style/AppTheme.Button1"
             android:textAllCaps="false"

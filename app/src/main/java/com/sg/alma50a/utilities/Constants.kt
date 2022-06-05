@@ -60,6 +60,12 @@ object Constants {
     const val SHARPREF_TOTAL_POSTS = "ShareprefTotalPost"
     const val SHARPREF_CURRENT_POST_NUM = "ShareprefCurrentPostNum"
     const val SHARPREF_GRADE="sheareGrade"
+    const val SHARPREF_SORT_TOTAL="SharprefSortTotal"
+    const val SHARPREF_SORT_BY_GRADE="SharprefSortByGrade"
+    const val SHARPREF_SORT_BY_TIME_PUBLISH="SharprefSortByTimePublish"
+
+
+
 
 
     const val POST_EXSTRA="post_exstra"

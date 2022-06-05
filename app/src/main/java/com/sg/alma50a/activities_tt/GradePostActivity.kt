@@ -44,6 +44,8 @@ lateinit var  gson : Gson
            gradeHashMap=gson.fromJson(storeMappingString,type)
             val currentGradNum=gradeHashMap[currentPostNum]
 
+
+            
             binding.etGradeNum.hint=currentGradNum.toString()
 
         }

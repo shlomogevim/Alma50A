@@ -19,5 +19,6 @@ data class Post(
     var postTextColor:ArrayList<String> = arrayListOf<String>(),
     var postFontFamily:Int=0,
     var postRadiuas:Int=0,
-    var timestamp: Timestamp?=null
+    var timestamp: Timestamp?=null,
+    var grade:Int=0
 ): Parcelable

@@ -13,6 +13,9 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Alma50A">
         <activity
+            android:name=".activities.SetupActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities_tt.GradePostActivity"
             android:exported="false" />
         <activity
@@ -34,7 +37,7 @@
             android:name=".activities.UserProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SettingActivity"
+            android:name=".activities.PostSettingActivity"
             android:exported="false" />
         <activity
             android:name=".activities.PostDetailesActivity"

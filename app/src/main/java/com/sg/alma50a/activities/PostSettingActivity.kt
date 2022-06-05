@@ -7,18 +7,20 @@ import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.sg.alma50.utilities.GlideLoader
 import com.sg.alma50a.R
-import com.sg.alma50a.databinding.ActivitySettingBinding
+import com.sg.alma50a.databinding.ActivityPostSettingBinding
+
+
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants.USER_EXTRA
 import com.sg.alma50a.utilities.FirestoreClass
 
-class SettingActivity : BaseActivity(),View.OnClickListener {
-    private lateinit var binding: ActivitySettingBinding
+class PostSettingActivity : BaseActivity(),View.OnClickListener {
+    private lateinit var binding: ActivityPostSettingBinding
     private lateinit var currentUser: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingBinding.inflate(layoutInflater)
+        binding = ActivityPostSettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //  currentUser = intent.getParcelableExtra(Constants.USER_EXTRA)!!
         // logi("SettingActivity   26 =======>  /n $currentUser  ")
