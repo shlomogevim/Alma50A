@@ -1,11 +1,15 @@
 package com.sg.alma50a
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sg.alma50a.activities.MainActivity
+import com.sg.alma50a.activities_tt.HowToActivity
 import com.sg.alma50a.databinding.ActivityHelpBinding
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.FirestoreClass
 
 class HelpActivity : AppCompatActivity() {
@@ -22,7 +26,11 @@ class HelpActivity : AppCompatActivity() {
         }
 
         val pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
-        pref.edit().putInt(Constants.SHARPREF_NUM, 0).apply()
+        pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
+        binding.howToBtn.setOnClickListener {
+            startActivity(Intent(this,HowToActivity::class.java))
+
+        }
 
     }
     fun getingUserData(user: User) {
@@ -30,6 +38,10 @@ class HelpActivity : AppCompatActivity() {
         setText()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, MainActivity::class.java))
+    }
     private fun setText() {
         var name = ""
         if (currentUser != null) {

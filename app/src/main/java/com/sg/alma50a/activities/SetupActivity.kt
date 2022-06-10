@@ -53,6 +53,10 @@ class SetupActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        binding.btnPassToNewPost.setOnClickListener {
+            startActivity(Intent(this,GetNextPost::class.java))
+            finish()
+        }
     }
 
     fun getingUserData(user: User) {

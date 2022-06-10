@@ -71,43 +71,13 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
     override fun getItemCount() = posts.size
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val postImage = itemView?.findViewById<ImageView>(R.id.pagerImage)
+        val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
+      //  val postImage = itemView?.findViewById<ImageView>(R.id.pagerImage)
 
         fun bindImage(post: Post) {
-
-            val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
-             DrawGeneralPost().drawPost(context,post,layout)
-
-          /*  val intent = Intent(context, MainActivityPostFragment::class.java)
-            //intent.putExtra(POST_EXSTRA,post)
-            context.startActivity(intent)*/
-          //    util.logi("PostAdapter 85")
-            postImage.setOnClickListener {
-            //  context.startActivity(Intent(context,PostDetailesActivity::class.java))
-            // context.startActivity(Intent(context,StamActivity::class.java))
-
-               // ***  go to DrawGeneral
-
-              /*  val intent = Intent(context, PostDetailesActivity::class.java)
-            intent.putExtra(POST_EXSTRA,post)
-               context.startActivity(intent)*/
-
-            }
+             DrawGeneralPost().drawPost(context,post,layout)  // onClick include in here
         }
-
-
-
-
-
-
-     /*  fun bindImageCor(post: Post) {
-            val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
-            drawPost.drawPost(post, layout)
-
-        }*/
     }
-
 
     //-------------------
     val run = object : Runnable {            // for automate scrolling

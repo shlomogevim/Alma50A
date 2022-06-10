@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -14,12 +13,10 @@ import com.sg.alma50a.adapters.PostAdapter
 
 import com.sg.alma50a.databinding.ActivityMainBinding
 import com.sg.alma50a.modeles.Post
-import com.sg.alma50a.models.Person
-import com.sg.alma50a.models.Personal
 import com.sg.alma50a.utilities.*
 import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.POST_TIME_STAMP
-import com.sg.alma50a.utilities.Constants.SHARPREF_NUM
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
@@ -37,6 +34,8 @@ class MainActivity : BaseActivity() {
     lateinit var pref:SharedPreferences
     lateinit var gradeHashMap: HashMap<Int,Int>
     lateinit var  gson : Gson
+    var  newPostNum=0
+    var sortSystem=""
 
     //private var personalArrayList: ArrayList<Personal>? = null
 
@@ -47,44 +46,42 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         gradeArray= arrayListOf()
         gson=Gson()
+        newPostNum=pref.getInt(SHARPREF_CURRENT_POST_NUM,0)
 
         val posts = downloadAllPost()
 
-        pager = binding.viewPager
-        postAdapter = PostAdapter(pager, this, posts)
-        pager.adapter = postAdapter
-
-       addAnimation(pager)
-      //createGradeArray()
+            pager = binding.viewPager
+            postAdapter = PostAdapter(pager, this, posts)
+            pager.adapter = postAdapter
+            addAnimation(pager)
     }
 
     override fun onResume() {
         super.onResume()
-     val  newPostNum1=pref.getInt(SHARPREF_NUM,0)
-        if (newPostNum1>0) {
-              moveIt(newPostNum1)
+         sortSystem= pref.getString(SHARPREF_SORT_TOTAL,"NoSystem").toString()
+       newPostNum=pref.getInt(SHARPREF_CURRENT_POST_NUM,0)
+        if (newPostNum>0) {
+              moveIt(newPostNum)
         }
     }
 
-    private fun moveIt(index: Int) {
-
+    private fun moveIt(index: Int) {              // starts to show post from posts num - index
         Handler().postDelayed(
             {
 
-              //  saveData()
                 for (counter in 0 until posts.size){
                     if (posts[counter].postNum==index){
                         pager.setCurrentItem(counter)
                     }
                 }
-        },3000)
+        },3)
 
     }
 
     fun downloadAllPost(): ArrayList<Post> {
         posts.clear()
         FirebaseFirestore.getInstance().collection(POST_REF)
-           .orderBy(POST_TIME_STAMP, Query.Direction.DESCENDING)
+            .orderBy(POST_TIME_STAMP, Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
 //                logi("  MainActivity 47    ===>value= ${value} ")
                 if (value != null) {
@@ -93,11 +90,11 @@ class MainActivity : BaseActivity() {
                         val post = util.retrivePostFromFirestore(doc)
                         posts.add(post)
                     }
-                    postAdapter.notifyDataSetChanged()
+
                     pref.edit().putInt(SHARPREF_TOTAL_POSTS,posts.size).apply()
                     retriveGradeMapFromSharPref()
                     sortPosts()
-
+                    postAdapter.notifyDataSetChanged()
                 }
             }
         return posts
@@ -105,9 +102,9 @@ class MainActivity : BaseActivity() {
 
     private fun sortPosts() {
 //          persons.sortWith(compareBy({ it.name }, { it.age }))
-        val sortSystem=pref.getString(SHARPREF_SORT_TOTAL,"NoSystem")
+
       if (sortSystem== SHARPREF_SORT_BY_GRADE) {
-          posts.sortWith(compareByDescending({ it.grade }))
+         posts.sortWith(compareByDescending({ it.grade }))
           postAdapter.notifyDataSetChanged()
       }
         if (sortSystem== SHARPREF_SORT_BY_TIME_PUBLISH) {
@@ -115,81 +112,7 @@ class MainActivity : BaseActivity() {
             postAdapter.notifyDataSetChanged()
         }
 
-        //logi("MainAvtivity 109")
-        //val cloneNames = names.map{it.copy()}
-
-      /*  printPosts("post",posts)
-        val posts1=posts.map{it.copy()}
-        posts1.sortedWith(compareBy({it.grade}))
-        printPosts("post1",posts)*/
-
-        //sortHashMap()
-
     }
-
-    private fun sortHashMap() {
-        printHashMap(gradeHashMap)
-        val result=gradeHashMap.toList().sortedByDescending { (_,value)->value }.toMap()
-        printHashMap(result)
-    }
-
-    private fun printHashMap(map:Map<Int, Int>) {
-        var size=0
-        for (entery in map){
-            if (size<6) {
-                println("gg, Key: " + entery.key +" Value: " + entery.value)
-                size++
-            }
-        }
-        println("gg,  ---------------")
-
-    }
-
-
-    fun littleSort(){
-
-
-
-        /*val result = capitals.toList().sortedBy { (_, value) -> value}.toMap()
-        for (entry in result) {
-            print("gg, Key: " + entry.key)
-            println("gg,  Value: " + entry.value)
-        }*/
-
-
-
-
-
-
-
-      /*  val persons = arrayListOf(
-            Person("Olivia", 25),
-            Person("George", 15),
-            Person("Olivia", 20),
-            Person("Harry", 10)
-        )
-
-        for (person in persons) {
-            println(person)
-        }
-        println("gg, --------------------------")
-        persons.sortWith(compareBy({ it.name }, { it.age }))
-
-        for (person in persons) {
-            println(person)
-        }*/
-    }
-
-    private fun printPosts(st:String,postsx: ArrayList<Post>) {
-        logi("MainActivity 124   $st")
-        for (index in 0 until 5){
-            val num=postsx[index].postNum
-            val value = postsx[index].grade
-         //   logi("MainActivity 135   num=$num     value=$value")
-
-        }
-    }
-
 
     private fun retriveGradeMapFromSharPref() {
          val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
@@ -238,6 +161,25 @@ class MainActivity : BaseActivity() {
         card.setScalable(false)
         pager.setPageTransformer(card)
     }
+
+
+    /* private fun sortHashMap() {
+         printHashMap(gradeHashMap)
+         val result=gradeHashMap.toList().sortedByDescending { (_,value)->value }.toMap()
+         printHashMap(result)
+     }*/
+
+    /*  private fun printHashMap(map:Map<Int, Int>) {
+          var size=0
+          for (entery in map){
+              if (size<6) {
+                  println("gg, Key: " + entery.key +" Value: " + entery.value)
+                  size++
+              }
+          }
+          println("gg,  ---------------")
+
+      }*/
 
 
 

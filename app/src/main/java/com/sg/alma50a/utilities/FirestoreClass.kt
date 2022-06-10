@@ -12,6 +12,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.sg.alma50a.HelpActivity
 import com.sg.alma50a.activities.*
+import com.sg.alma50a.activities_tt.HowToActivity
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.Constants.LOGGED_IN_USERNAME
 import com.sg.alma50a.utilities.Constants.MYSHOPPAL_PREFERENCES
@@ -86,6 +87,9 @@ class FirestoreClass{
                             activity.getingUserData(user)
                         }
                         is HelpActivity -> {
+                            activity.getingUserData(user)
+                        }
+                        is HowToActivity -> {
                             activity.getingUserData(user)
                         }
                     }

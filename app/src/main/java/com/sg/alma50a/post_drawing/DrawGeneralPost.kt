@@ -59,6 +59,7 @@ class DrawGeneralPost() : BaseActivity() {
             transformations(RoundedCornersTransformation(50f))
         }
          addText(context, post, constraintLayout)
+
     }
 
     private fun createImageView(contex: Context, constraintLayout: ConstraintLayout): ImageView {

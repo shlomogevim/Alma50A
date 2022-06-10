@@ -3,21 +3,17 @@ package com.sg.alma50a.activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.res.ResourcesCompat
 import com.sg.alma50a.HelpActivity
 
 
-import com.sg.alma50a.R
 import com.sg.alma50a.databinding.ActivitySplashBinding
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.FirestoreClass
-import com.sg.alma50a.utilities.FontFamilies
 
 class SplashActivity : BaseActivity() {
 
@@ -36,14 +32,13 @@ class SplashActivity : BaseActivity() {
         if (currentUserID != null) {
             FirestoreClass().getUserDetails(this)
         }
-//        logi("Splash 30     currentUserID=$currentUserID")
 
-        pref.edit().putInt(Constants.SHARPREF_NUM, 0).apply()
+        pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
 
         binding.btnHelp.setOnClickListener {
             pressHelpBtn = true
             startActivity(Intent(this, HelpActivity::class.java))
-            finish()
+
         }
             pauseIt()
     }
@@ -94,7 +89,7 @@ class SplashActivity : BaseActivity() {
 
 
 
-            }, 9000
+            }, 6000
         )
     }
 }

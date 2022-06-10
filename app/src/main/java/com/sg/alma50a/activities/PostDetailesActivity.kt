@@ -32,7 +32,6 @@ import com.sg.alma50a.utilities.Constants.COMMENT_TEXT
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
-import com.sg.alma50a.utilities.Constants.USER_EXTRA
 
 
 class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {

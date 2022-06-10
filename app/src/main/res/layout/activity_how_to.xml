@@ -8,7 +8,7 @@
 
     android:keepScreenOn="true"
 
-    tools:context=".HelpActivity">
+    tools:context=".activities_tt.HowToActivity">
 
 
     <TextView
@@ -18,7 +18,7 @@
         android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center_horizontal"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,67 +30,19 @@
         android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center_horizontal"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_text1" />
 
-    <LinearLayout
-        android:id="@+id/buttonsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_text2">
 
-        <Button
-            android:id="@+id/settingUpBtn"
-            style="@style/AppTheme.Button1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="0.5"
-            android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-            android:text="----"
-            android:textAllCaps="false"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/nameCurrentUserName"
-            style="@style/AppTheme.Button1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="0.5"
-            android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-            android:text="---"
-            android:textAllCaps="false"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/howToBtn"
-            style="@style/AppTheme.Button1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-            android:text="איך  ל ..."
-            android:textSize="16sp" />
-    </LinearLayout>
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text2"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="5dp"
         android:fillViewport="true">
@@ -100,12 +52,12 @@
             android:layout_height="wrap_content"  >
 
             <TextView
-                android:id="@+id/tv_HowTo"
+                android:id="@+id/tv_HowToExplanation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+                android:fontFamily="@font/a103_gadi_almog_regular_aaa"
                 android:gravity="center_horizontal"
-               android:textColor="#FFFFFF"
+                android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:lineSpacingExtra="5sp"
                 app:layout_constraintEnd_toEndOf="parent"

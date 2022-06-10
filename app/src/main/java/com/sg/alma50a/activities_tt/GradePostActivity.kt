@@ -1,25 +1,15 @@
 package com.sg.alma50a.activities_tt
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sg.alma50a.R
-import com.sg.alma50a.activities.MainActivity
 import com.sg.alma50a.databinding.ActivityGradePostBinding
-import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
-import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_TOTAL_POSTS
-import com.sg.alma50a.utilities.Constants.USER_GRADE_AR
-import com.sg.alma50a.utilities.FirestoreClass
 
 class GradePostActivity : BaseActivity() {
     private lateinit var binding:ActivityGradePostBinding
