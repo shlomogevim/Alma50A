@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.sg.alma50a.HelpActivity
 import com.sg.alma50a.activities.*
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.Constants.LOGGED_IN_USERNAME
@@ -84,7 +85,9 @@ class FirestoreClass{
                         is SetupActivity -> {
                             activity.getingUserData(user)
                         }
-
+                        is HelpActivity -> {
+                            activity.getingUserData(user)
+                        }
                     }
                 }
 

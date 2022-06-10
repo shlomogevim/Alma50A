@@ -2,11 +2,13 @@ package com.sg.alma50a.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
+import com.sg.alma50a.HelpActivity
 
 
 import com.sg.alma50a.R
@@ -18,54 +20,55 @@ import com.sg.alma50a.utilities.FirestoreClass
 import com.sg.alma50a.utilities.FontFamilies
 
 class SplashActivity : BaseActivity() {
-    lateinit var binding: ActivitySplashBinding
-    var currentUser: User? =null
 
+    lateinit var binding: ActivitySplashBinding
+    var currentUser: User? = null
+    lateinit var pref : SharedPreferences
+    var pressHelpBtn = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivitySplashBinding.inflate(layoutInflater)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         val currentUserID = FirestoreClass().getCurrentUserID()
-        if (currentUserID!=null){
+        if (currentUserID != null) {
             FirestoreClass().getUserDetails(this)
         }
-
-
-
-
 //        logi("Splash 30     currentUserID=$currentUserID")
 
-        val pref=getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
-        pref.edit().putInt(Constants.SHARPREF_NUM,0).apply()
-     //setText()
-       pauseIt()
+        pref.edit().putInt(Constants.SHARPREF_NUM, 0).apply()
 
+        binding.btnHelp.setOnClickListener {
+            pressHelpBtn = true
+            startActivity(Intent(this, HelpActivity::class.java))
+            finish()
+        }
+            pauseIt()
     }
 
     private fun setText() {
-        var name=""
-        if (currentUser!=null){
-            name= "${currentUser!!.userName} ${currentUser!!.lastName} "
-        }else{
-            name="אורח"
+        var name = ""
+        if (currentUser != null) {
+            name = "${currentUser!!.userName} ${currentUser!!.lastName} "
+        } else {
+            name = "אורח"
         }
-       // logi("Splash 55       currentUser = $currentUser       name=$name"         )
+        // logi("Splash 55       currentUser = $currentUser       name=$name"         )
 
-       binding.tvText1.text="ברוך הבא "
-      binding.tvText2.text= name
-        binding.tvText3.text= "לכבוד יום ההולדת 2 שלי"
-        binding.tvText4.text="אני רוצה לספר לך"
-       binding.tvText5.text=" מה שלימדו אותנו היום בגן ..."
+        binding.tvText1.text = "ברוך הבא "
+        binding.tvText2.text = name
+//        binding.tvText3.text= "לכבוד יום ההולדת 2 שלי"
+//        binding.tvText4.text="אני רוצה לספר לך"
+//       binding.tvText5.text=" מה שלימדו אותנו היום בגן ..."
     }
 
 
     fun getingUserData(user: User) {
-        currentUser=user
+        currentUser = user
         setText()
-       // logi("Splash 67        currentUser = $currentUser      "         )
+        // logi("Splash 67        currentUser = $currentUser      "         )
     }
 
     private fun pauseIt() {
@@ -84,11 +87,14 @@ class SplashActivity : BaseActivity() {
           } else{
               startActivity(Intent(this, LoginActivity::class.java))
           }*/
+                if (!pressHelpBtn) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                                   }
 
-              startActivity(Intent(this,MainActivity::class.java))
 
-                finish()
-            },3
+
+
+            }, 9000
         )
     }
 }
