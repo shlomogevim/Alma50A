@@ -9,7 +9,7 @@ import com.sg.alma50a.databinding.ActivityGradePostBinding
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
-import com.sg.alma50a.utilities.Constants.SHARPREF_TOTAL_POSTS
+import com.sg.alma50a.utilities.Constants.SHARPREF_TOTAL_POSTS_SIZE
 
 class GradePostActivity : BaseActivity() {
     private lateinit var binding:ActivityGradePostBinding
@@ -24,7 +24,7 @@ lateinit var  gson : Gson
         binding= ActivityGradePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
          pref=getSharedPreferences(Constants.SHARPREF_ALMA , Context.MODE_PRIVATE)
-        totalPostsNun=pref.getInt(SHARPREF_TOTAL_POSTS,0)
+        totalPostsNun=pref.getInt(SHARPREF_TOTAL_POSTS_SIZE,0)
          currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
         gradeHashMap=HashMap()
         gson = Gson()

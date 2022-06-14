@@ -20,135 +20,82 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
-import com.sg.alma50a.utilities.Constants.SHARPREF_TOTAL_POSTS
+import com.sg.alma50a.utilities.Constants.SHARPREF_TOTAL_POSTS_SIZE
+import java.lang.reflect.Type
 
 //class MainActivity : BaseActivity(),PassToNewPostInterface {
 class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
     val util = UtilityPost()
-    val posts = ArrayList<Post>()
+    var posts = ArrayList<Post>()
 
     lateinit var postAdapter: PostAdapter
     lateinit var pager: ViewPager2
-    lateinit var gradeArray:ArrayList<Int>
-    lateinit var pref:SharedPreferences
-    lateinit var gradeHashMap: HashMap<Int,Int>
-    lateinit var  gson : Gson
-    var  newPostNum=0
-    var sortSystem=""
+    lateinit var gradeArray: ArrayList<Int>
+    lateinit var pref: SharedPreferences
+    lateinit var gradeHashMap: HashMap<Int, Int>
+    lateinit var gson: Gson
+    var newPostNum = 0
 
-    //private var personalArrayList: ArrayList<Personal>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-         pref=getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
+        pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         setContentView(binding.root)
-        gradeArray= arrayListOf()
-        gson=Gson()
-        newPostNum=pref.getInt(SHARPREF_CURRENT_POST_NUM,0)
+        gradeArray = arrayListOf()
+        gson = Gson()
+        newPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
 
-        val posts = downloadAllPost()
+        posts = loadPosts()
+        pager = binding.viewPager
+        postAdapter = PostAdapter(pager, this, posts)
+        pager.adapter = postAdapter
+//        postAdapter.notifyDataSetChanged()
+        sortPosts()
+        addAnimation(pager)
 
-            pager = binding.viewPager
-            postAdapter = PostAdapter(pager, this, posts)
-            pager.adapter = postAdapter
-            addAnimation(pager)
+    }
+    private fun sortPosts() {
+//          persons.sortWith(compareBy({ it.name }, { it.age }))
+        var sortSystem =
+            pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
+
+        if (sortSystem == SHARPREF_SORT_BY_GRADE) {
+            posts.sortWith(compareByDescending({ it.grade }))
+           // logi("MainActivity in sortPosts  115       sortSystem=$sortSystem       posts.size=${posts.size}")
+        }
+        if (sortSystem == SHARPREF_SORT_BY_TIME_PUBLISH) {
+            posts.sortWith(compareByDescending({ it.timestamp }))
+          //  logi("MainActivity in sortPosts  119       sortSystem=$sortSystem       posts.size=${posts.size}")
+        }
+
     }
 
-    override fun onResume() {
-        super.onResume()
-         sortSystem= pref.getString(SHARPREF_SORT_TOTAL,"NoSystem").toString()
-       newPostNum=pref.getInt(SHARPREF_CURRENT_POST_NUM,0)
-        if (newPostNum>0) {
-              moveIt(newPostNum)
-        }
+
+
+    fun loadPosts(): ArrayList<Post> {
+        posts.clear()
+        val gson = Gson()
+        val json: String? = pref.getString(Constants.SHARPREF_POSTS_ARRAY, null)
+        val type: Type = object : TypeToken<ArrayList<Post>>() {}.type
+        // val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
+        val arr: ArrayList<Post> = gson.fromJson(json, type)
+        return arr
     }
 
     private fun moveIt(index: Int) {              // starts to show post from posts num - index
         Handler().postDelayed(
             {
 
-                for (counter in 0 until posts.size){
-                    if (posts[counter].postNum==index){
+                for (counter in 0 until posts.size) {
+                    if (posts[counter].postNum == index) {
                         pager.setCurrentItem(counter)
                     }
                 }
-        },3)
+            }, 100
+        )
 
-    }
-
-    fun downloadAllPost(): ArrayList<Post> {
-        posts.clear()
-        FirebaseFirestore.getInstance().collection(POST_REF)
-            .orderBy(POST_TIME_STAMP, Query.Direction.DESCENDING)
-            .addSnapshotListener { value, error ->
-//                logi("  MainActivity 47    ===>value= ${value} ")
-                if (value != null) {
-                    for (doc in value.documents) {
-                        // logi("  MainActivity 56    ===>doc= ${doc} " )
-                        val post = util.retrivePostFromFirestore(doc)
-                        posts.add(post)
-                    }
-
-                    pref.edit().putInt(SHARPREF_TOTAL_POSTS,posts.size).apply()
-                    retriveGradeMapFromSharPref()
-                    sortPosts()
-                    postAdapter.notifyDataSetChanged()
-                }
-            }
-        return posts
-    }
-
-    private fun sortPosts() {
-//          persons.sortWith(compareBy({ it.name }, { it.age }))
-
-      if (sortSystem== SHARPREF_SORT_BY_GRADE) {
-         posts.sortWith(compareByDescending({ it.grade }))
-          postAdapter.notifyDataSetChanged()
-      }
-        if (sortSystem== SHARPREF_SORT_BY_TIME_PUBLISH) {
-            posts.sortWith(compareByDescending({ it.timestamp}))
-            postAdapter.notifyDataSetChanged()
-        }
-
-    }
-
-    private fun retriveGradeMapFromSharPref() {
-         val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
-      // logi("MainActivity 110  storeMappingString=$storeMappingString")
-        if (storeMappingString=="oppsNotExist"){
-            logi("MainActivity 112  not exist")
-           val gradeMap:HashMap<Int,Int> = hashMapOf()
-           for (index in 0 until posts.size){
-               val post=posts[index]
-             gradeMap[post.postNum]=0
-               post.grade=0
-           }
-            val gson=Gson()
-            val hashMapString = gson.toJson(gradeMap)
-            pref.edit().putString("SHARPREF_GRADE", hashMapString).apply()
-        }
-        else{
-          //  logi("MainActivity 123  exist")
-            val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
-            gradeHashMap=gson.fromJson(storeMappingString,type)
-            for (entery in   gradeHashMap ){
-                // logi("MainActivity 127  key=${entery.key}   value=${entery.value}")
-                val post:Post=findPost(entery.key)
-                post.grade=entery.value
-            }
-        }
-    }
-
-    private fun findPost(key: Int): Post {
-        val post=Post()
-        for (post in posts){
-            if (post.postNum==key){
-                return post
-            }
-        }
-        return post
     }
 
     private fun addAnimation(pager: ViewPager2) {
@@ -161,6 +108,99 @@ class MainActivity : BaseActivity() {
         card.setScalable(false)
         pager.setPageTransformer(card)
     }
+
+
+    /* fun downloadAllPost(): ArrayList<Post> {
+         posts.clear()
+         FirebaseFirestore.getInstance().collection(POST_REF)
+            .orderBy(POST_TIME_STAMP, Query.Direction.DESCENDING)
+             .addSnapshotListener { value, error ->
+ //                logi("  MainActivity 47    ===>value= ${value} ")
+                 if (value != null) {
+                     for (doc in value.documents) {
+                         // logi("  MainActivity 56    ===>doc= ${doc} " )
+                         val post = util.retrivePostFromFirestore(doc)
+                         posts.add(post)
+                     }
+
+                     pref.edit().putInt(SHARPREF_TOTAL_POSTS_SIZE,posts.size).apply()
+                     retriveGradeMapFromSharPref()
+                   //  sortPosts()
+                     savePosts(pref,posts)
+                  //   logi("MainActivity 53   posts=$posts")
+                     postAdapter.notifyDataSetChanged()
+                 }
+             }
+         return posts
+     }*/
+    /* fun savePosts(pref: SharedPreferences, posts: ArrayList<Post>) {
+         val editor=pref.edit()
+         val gson= Gson()
+         val json:String=gson.toJson(posts)
+         editor.putString(Constants.SHARPREF_POSTS_ARRAY,json)
+         editor.apply()
+       //
+     }*/
+
+    /* fun downloadAllPost(): ArrayList<Post> {
+         posts.clear()
+         FirebaseFirestore.getInstance().collection(POST_REF)
+             .orderBy(POST_TIME_STAMP, Query.Direction.DESCENDING)
+             .addSnapshotListener { value, error ->
+ //                logi("  MainActivity 47    ===>value= ${value} ")
+                 if (value != null) {
+                     for (doc in value.documents) {
+                         // logi("  MainActivity 56    ===>doc= ${doc} " )
+                         val post = util.retrivePostFromFirestore(doc)
+                         posts.add(post)
+                     }
+
+                     pref.edit().putInt(SHARPREF_TOTAL_POSTS_SIZE,posts.size).apply()
+                     retriveGradeMapFromSharPref()
+                     sortPosts()
+                     postAdapter.notifyDataSetChanged()
+                 }
+             }
+         return posts
+     }*/
+
+
+    /*  private fun retriveGradeMapFromSharPref() {
+           val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
+        // logi("MainActivity 110  storeMappingString=$storeMappingString")
+          if (storeMappingString=="oppsNotExist"){
+              logi("MainActivity 112  not exist")
+             val gradeMap:HashMap<Int,Int> = hashMapOf()
+             for (index in 0 until posts.size){
+                 val post=posts[index]
+               gradeMap[post.postNum]=0
+                 post.grade=0
+             }
+              val gson=Gson()
+              val hashMapString = gson.toJson(gradeMap)
+              pref.edit().putString("SHARPREF_GRADE", hashMapString).apply()
+          }
+          else{
+            //  logi("MainActivity 123  exist")
+              val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
+              gradeHashMap=gson.fromJson(storeMappingString,type)
+              for (entery in   gradeHashMap ){
+                  // logi("MainActivity 127  key=${entery.key}   value=${entery.value}")
+                  val post:Post=findPost(entery.key)
+                  post.grade=entery.value
+              }
+          }
+      }
+
+      private fun findPost(key: Int): Post {
+          val post=Post()
+          for (post in posts){
+              if (post.postNum==key){
+                  return post
+              }
+          }
+          return post
+      }*/
 
 
     /* private fun sortHashMap() {
@@ -182,65 +222,33 @@ class MainActivity : BaseActivity() {
       }*/
 
 
-
 }
 
 
+/*private fun createGradeArray() {
+    for (index in 0 until posts.size){
+        gradeArray[index]=0
+    }
+
+ val gradeStringArray=ArrayList<String>()
+    for (index in 0 until posts.size){
+        gradeStringArray[index]="$index+aa"
+        val prsonal=Personal(index, index+22)
+        personalArrayList.add(prsonal)
+    }
 
 
+     val categoryList=gradeStringArray.toCollection(ArrayList())
+      val set=HashSet<String>()
+  set.addAll(categoryList)
+    val pref=getSharedPreferences(SHARPREF_POST_NUM,Context.MODE_PRIVATE)
+        pref.edit().putStringSet(SHARPREF_GRAD_ARRAY,set).commit()
 
 
+}*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*private fun createGradeArray() {
-        for (index in 0 until posts.size){
-            gradeArray[index]=0
-        }
-
-     val gradeStringArray=ArrayList<String>()
-        for (index in 0 until posts.size){
-            gradeStringArray[index]="$index+aa"
-            val prsonal=Personal(index, index+22)
-            personalArrayList.add(prsonal)
-        }
-
-
-         val categoryList=gradeStringArray.toCollection(ArrayList())
-          val set=HashSet<String>()
-      set.addAll(categoryList)
-        val pref=getSharedPreferences(SHARPREF_POST_NUM,Context.MODE_PRIVATE)
-            pref.edit().putStringSet(SHARPREF_GRAD_ARRAY,set).commit()
-
-
-    }*/
-
-
-    /*Set<String> set = myScores.getStringSet("key", null);
+/*Set<String> set = myScores.getStringSet("key", null);
 
 //Set the values
 Set<String> set = new HashSet<String>();
@@ -248,15 +256,15 @@ set.addAll(listOfExistingScores);
 scoreEditor.putStringSet("key", set);
 scoreEditor.commit();*/
 
-    /*private fun saveData() {
-        val pref=getSharedPreferences(SHARPREF_POST_NUM,Context.MODE_PRIVATE)
-        val editor= pref.edit()
-        val gson = Gson()
-        val json=gson.toJson(personalArrayList)
-        editor.putString(SHARPREF_GRAD_ARRAY,json)
-        editor.apply()
+/*private fun saveData() {
+    val pref=getSharedPreferences(SHARPREF_POST_NUM,Context.MODE_PRIVATE)
+    val editor= pref.edit()
+    val gson = Gson()
+    val json=gson.toJson(personalArrayList)
+    editor.putString(SHARPREF_GRAD_ARRAY,json)
+    editor.apply()
 
-     *//*   val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
+ *//*   val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(courseModalArrayList)
@@ -265,16 +273,16 @@ scoreEditor.commit();*/
         editor.apply()
         Toast.makeText(this, "Saved to Shared preferences. ", Toast.LENGTH_SHORT).show()*//*
     }*/
-    /*private fun loadData() {
-        personalArrayList=ArrayList()
-        val pref=getSharedPreferences(SHARPREF_POST_NUM,Context.MODE_PRIVATE)
-        val gson = Gson()
-        val json=pref.getString(SHARPREF_GRAD_ARRAY,null)
-        val type = object : TypeToken<ArrayList<Personal>>() {}.type
-        var newArrayList=gson.fromJson<Personal>(json,type)
-        if (newArrayList==null){
-            newArrayList= ArrayList()
-        }
+/*private fun loadData() {
+    personalArrayList=ArrayList()
+    val pref=getSharedPreferences(SHARPREF_POST_NUM,Context.MODE_PRIVATE)
+    val gson = Gson()
+    val json=pref.getString(SHARPREF_GRAD_ARRAY,null)
+    val type = object : TypeToken<ArrayList<Personal>>() {}.type
+    var newArrayList=gson.fromJson<Personal>(json,type)
+    if (newArrayList==null){
+        newArrayList= ArrayList()
+    }
 
 //        val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
 //        val gson = Gson()
@@ -293,9 +301,7 @@ scoreEditor.commit();*/
 //        }
 
 
-    }*/
-
-
+}*/
 
 
 /*
@@ -464,39 +470,32 @@ private fun getSampleData() {
 */
 
 
+/* private fun to_Automate_Scrolling_addThisInto_onCreate(pager: ViewPager2) {
+     lateinit var sliderHandler: Handler
+     lateinit var sliderRun: Runnable
 
+     pager.clipToPadding = false
+     pager.clipChildren = false
+     pager.offscreenPageLimit = 3
+     pager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
-
-
-
-
-
-   /* private fun to_Automate_Scrolling_addThisInto_onCreate(pager: ViewPager2) {
-        lateinit var sliderHandler: Handler
-        lateinit var sliderRun: Runnable
-
-        pager.clipToPadding = false
-        pager.clipChildren = false
-        pager.offscreenPageLimit = 3
-        pager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
-        val comPostPageTarnn = CompositePageTransformer()
-        comPostPageTarnn.addTransformer(MarginPageTransformer(40))
-        comPostPageTarnn.addTransformer { page, position ->
-            val r: Float = 1 - Math.abs(position)
-            page.scaleY = 0.85f + r * 0.15f
-        }
-        pager.setPageTransformer(comPostPageTarnn)
-        sliderHandler = Handler()
-        sliderRun = Runnable {
-            pager.currentItem = pager.currentItem + 1
-        }
-        pager.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    sliderHandler.removeCallbacks(sliderRun)
-                    sliderHandler.postDelayed(sliderRun, 2000)
-                }
-            })
-    }*/
+     val comPostPageTarnn = CompositePageTransformer()
+     comPostPageTarnn.addTransformer(MarginPageTransformer(40))
+     comPostPageTarnn.addTransformer { page, position ->
+         val r: Float = 1 - Math.abs(position)
+         page.scaleY = 0.85f + r * 0.15f
+     }
+     pager.setPageTransformer(comPostPageTarnn)
+     sliderHandler = Handler()
+     sliderRun = Runnable {
+         pager.currentItem = pager.currentItem + 1
+     }
+     pager.registerOnPageChangeCallback(
+         object : ViewPager2.OnPageChangeCallback() {
+             override fun onPageSelected(position: Int) {
+                 super.onPageSelected(position)
+                 sliderHandler.removeCallbacks(sliderRun)
+                 sliderHandler.postDelayed(sliderRun, 2000)
+             }
+         })
+ }*/

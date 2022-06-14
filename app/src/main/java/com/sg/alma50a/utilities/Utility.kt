@@ -28,8 +28,8 @@ class Utility {
     val currentUser = FirebaseAuth.getInstance().currentUser
 
 
-    fun createDialog(context: Context, ind: Int) {
 
+    fun createDialog(context: Context, ind: Int) {
         val intent= Intent(context, DialogActivity::class.java)
         intent.putExtra(DIALOG_EXSTRA,ind)
         context.startActivity(intent)

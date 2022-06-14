@@ -1,5 +1,6 @@
 package com.sg.alma50a.utilities
 
+import android.app.Activity
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Handler
@@ -9,7 +10,11 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
+import com.sg.alma50a.HelpActivity
 import com.sg.alma50a.R
+import com.sg.alma50a.activities.*
+import com.sg.alma50a.activities_tt.HowToActivity
+import com.sg.alma50a.modeles.User
 
 
 open class BaseActivity : AppCompatActivity() {
