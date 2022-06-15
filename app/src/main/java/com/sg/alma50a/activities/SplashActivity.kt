@@ -56,6 +56,7 @@ class SplashActivity : BaseActivity() {
             FirestoreClass().getUserDetails(this)
         }
         pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
+     //   pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
         binding.btnHelp.setOnClickListener {
             pressHelpBtn = true
             startActivity(Intent(this, HelpActivity::class.java))
@@ -194,7 +195,7 @@ class SplashActivity : BaseActivity() {
             {  if (!pressHelpBtn) {
                 startActivity(Intent(this, MainActivity::class.java))
             }
-            }, 10
+            }, 1000
         )
     }
     fun loadPosts():ArrayList<Post>{

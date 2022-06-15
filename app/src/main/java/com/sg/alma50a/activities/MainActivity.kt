@@ -1,6 +1,7 @@
 package com.sg.alma50a.activities
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
@@ -35,7 +36,6 @@ class MainActivity : BaseActivity() {
     lateinit var pref: SharedPreferences
     lateinit var gradeHashMap: HashMap<Int, Int>
     lateinit var gson: Gson
-    var newPostNum = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,31 +45,72 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         gradeArray = arrayListOf()
         gson = Gson()
-        newPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
 
-        posts = loadPosts()
+      //  posts = loadPosts()
+      //  sortPosts()
         pager = binding.viewPager
         postAdapter = PostAdapter(pager, this, posts)
-        pager.adapter = postAdapter
-//        postAdapter.notifyDataSetChanged()
-        sortPosts()
-        addAnimation(pager)
+         pager.adapter = postAdapter
+         postAdapter.notifyDataSetChanged()
+
+       addAnimation(pager)
+       moveIt()
 
     }
+
+
+       /* Handler().postDelayed(
+            {  if (!pressHelpBtn) {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+            }, 6000
+        )*/
+
+
+    override fun onResume() {
+        super.onResume()
+
+      val currentPost= pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
+      //  logi("MainActivity 66    currentPost=$currentPost")
+//        if (currentPost>0) {
+
+
+
+
+            posts = loadPosts()
+            sortPosts()
+//             logi("MainActivity  79     posts[0].postNum=${posts[0].postNum}")
+//             logi("MainActivity  79     posts[1].postNum=${posts[1].postNum}")
+//             logi("MainActivity  79     posts[2].postNum=${posts[2].postNum}")
+//             logi("MainActivity  79     posts[3].postNum=${posts[3].postNum}")
+            pager = binding.viewPager
+
+            postAdapter = PostAdapter(pager, this, posts)
+            pager.adapter = postAdapter
+            postAdapter.notifyDataSetChanged()
+
+//               }
+      //  addAnimation(pager)
+    //    moveIt()
+
+
+    }
+
     private fun sortPosts() {
 //          persons.sortWith(compareBy({ it.name }, { it.age }))
         var sortSystem =
             pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
-
+        //  sortSystem= SHARPREF_SORT_BY_GRADE
+        logi("MainActivity in sortPosts  93       sortSystem=$sortSystem       posts.size=${posts.size}")
         if (sortSystem == SHARPREF_SORT_BY_GRADE) {
             posts.sortWith(compareByDescending({ it.grade }))
-           // logi("MainActivity in sortPosts  115       sortSystem=$sortSystem       posts.size=${posts.size}")
+            logi("MainActivity in sortPosts  95       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
         if (sortSystem == SHARPREF_SORT_BY_TIME_PUBLISH) {
             posts.sortWith(compareByDescending({ it.timestamp }))
-          //  logi("MainActivity in sortPosts  119       sortSystem=$sortSystem       posts.size=${posts.size}")
+            logi("MainActivity in sortPosts  98       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
-
+    postAdapter.notifyDataSetChanged()  //not workink
     }
 
 
@@ -84,18 +125,19 @@ class MainActivity : BaseActivity() {
         return arr
     }
 
-    private fun moveIt(index: Int) {              // starts to show post from posts num - index
-        Handler().postDelayed(
-            {
-
-                for (counter in 0 until posts.size) {
-                    if (posts[counter].postNum == index) {
-                        pager.setCurrentItem(counter)
+    private fun moveIt() {
+        val newPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
+        if (newPostNum>0) {
+            Handler().postDelayed(
+                {
+                    for (counter in 0 until posts.size) {
+                        if (posts[counter].postNum == newPostNum) {
+                            pager.setCurrentItem(counter)
+                        }
                     }
-                }
-            }, 100
-        )
-
+                }, 100
+            )
+        }
     }
 
     private fun addAnimation(pager: ViewPager2) {

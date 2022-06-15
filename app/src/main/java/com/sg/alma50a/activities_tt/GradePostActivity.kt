@@ -18,6 +18,7 @@ class GradePostActivity : BaseActivity() {
 lateinit var  gson : Gson
    private var totalPostsNun=0
     private var currentPostNum=0
+    private var gradeSt=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,29 +29,24 @@ lateinit var  gson : Gson
          currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
         gradeHashMap=HashMap()
         gson = Gson()
+
         val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
+//        logi("GradePostActivity 33  storeMappingString=$storeMappingString")
         if (storeMappingString!="oppsNotExist") {
             val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
            gradeHashMap=gson.fromJson(storeMappingString,type)
             val currentGradNum=gradeHashMap[currentPostNum]
-
-
-            
-            binding.etGradeNum.hint=currentGradNum.toString()
-
+            if (currentGradNum==null || currentGradNum==0){
+                 gradeSt="הפוסט הזה לא מדורג אצלך עדיין ..."
+            }else{
+                val st1="הדירוג הנוכחי של הפוסט :"
+                gradeSt="$st1 $currentGradNum"
+            }
+         //   logi("GradePostActivity 38  currentGradNum=$currentGradNum")
+            binding.etGradeNum.hint=gradeSt
         }
 
-
-
-
         binding.btnPassPost.setOnClickListener {
-
-
-         /*   if (TextUtils.isEmpty(binding.etGradeNum.text.toString().trim { it <= ' ' }) -> {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
-
-            false
-        }*/
             val newGradePostNum=binding.etGradeNum.text.toString().toInt()
             if (newGradePostNum>=0 && newGradePostNum<=100) {
                gradeHashMap[currentPostNum] = newGradePostNum

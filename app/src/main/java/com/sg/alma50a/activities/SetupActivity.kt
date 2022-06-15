@@ -13,6 +13,7 @@ import com.sg.alma50a.databinding.ActivitySetupBinding
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
@@ -29,7 +30,7 @@ class SetupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivitySetupBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        pref=getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
+        pref=getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
 
 
         setupButtons()
@@ -52,7 +53,7 @@ class SetupActivity : AppCompatActivity() {
     private fun setupButtons() {
         binding.btnGradePost.setOnClickListener {
             startActivity(Intent(this, GradePostActivity::class.java))
-          //  finish()
+          finish()
         }
         binding.btnGradeOrder.setOnClickListener {
            pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_GRADE).apply()
