@@ -16,6 +16,7 @@ import com.sg.alma50a.R
 import com.sg.alma50a.activities.PostDetailesActivity
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.post_drawing.DrawGeneralPost
+import com.sg.alma50a.post_drawing.DrawPostCenter
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
@@ -54,11 +55,14 @@ class PostAdapter( val context: Context,val posts: ArrayList<Post>) :
 
         fun bindImage(post: Post) {
             pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
-             DrawGeneralPost().drawPost(context,post,layout)  // onClick include in here
+           DrawGeneralPost().drawPost(context,post,layout)  // onClick include in here
+           // DrawPostCenter(context).drawPostFire(post,layout)
         }
 
     }
 }
+
+
 
 
 /*class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: ArrayList<Post>) :
