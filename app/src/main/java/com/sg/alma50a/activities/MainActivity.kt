@@ -1,31 +1,27 @@
 package com.sg.alma50a.activities
 
+import com.sg.alma50a.Cstom_Zoom.CenterZoomLayout
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.sg.alma50a.R
 import com.sg.alma50a.adapters.PostAdapter
-import com.sg.alma50a.adapters.PostAdapterGrade
 
 import com.sg.alma50a.databinding.ActivityMainBinding
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.utilities.*
-import com.sg.alma50a.utilities.Constants.POST_REF
-import com.sg.alma50a.utilities.Constants.POST_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_POSTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
-import com.sg.alma50a.utilities.Constants.SHARPREF_TOTAL_POSTS_SIZE
 import java.lang.reflect.Type
 
 class MainActivity : BaseActivity() {
@@ -34,9 +30,9 @@ class MainActivity : BaseActivity() {
     var posts = ArrayList<Post>()
 
 
-    //   lateinit var pager: ViewPager2
 
-    lateinit var rvPosts: RecyclerView
+
+   lateinit var rvPosts: RecyclerView
     lateinit var postAdapter: PostAdapter
 
 
@@ -53,6 +49,8 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         gson = Gson()
+       rvPosts = binding.rvPosts
+        val rvPosts = findViewById<RecyclerView>(R.id.rvPosts)
 
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
@@ -81,12 +79,30 @@ class MainActivity : BaseActivity() {
         create_rvPost()
     }
 
-    private fun create_rvPost() {
-        rvPosts = binding.rvPosts
-        postAdapter = PostAdapter(this, posts)
+   /* private fun create_rvPost() {
+           postAdapter = PostAdapter(this, posts)
         val layoutManger = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        //   layoutManger.reverseLayout = true
         rvPosts.layoutManager = layoutManger
+        //   layoutManger.reverseLayout = true
+        rvPosts.adapter = postAdapter
+        rvPosts.setHasFixedSize(true)
+        postAdapter.notifyDataSetChanged()
+
+    }*/
+
+    private fun create_rvPost() {                                     //Animation 1
+        val layoutManger = CenterZoomLayout(this)
+        layoutManger.orientation=LinearLayoutManager.HORIZONTAL
+        layoutManger.reverseLayout = true
+       // layoutManger.stackFromEnd=true
+        rvPosts.layoutManager = layoutManger
+
+        val snapHelper=LinearSnapHelper()
+        rvPosts.setOnFlingListener(null)
+        snapHelper.attachToRecyclerView(rvPosts)
+        rvPosts.isNestedScrollingEnabled = false
+
+        postAdapter = PostAdapter(this, posts)
         rvPosts.adapter = postAdapter
         rvPosts.setHasFixedSize(true)
         postAdapter.notifyDataSetChanged()

@@ -412,7 +412,7 @@ class UtilityPost {
        var postLineSpacing=1.4f
       if ( snap?.getLong(POST_LINE_SPACING) !=null) {
             val  postLineSpacing = snap?.getDouble(POST_LINE_SPACING)!!                      //save it in Double
-          logi("UtilityPost 415       postLineSpacing=$postLineSpacing")
+         // logi("UtilityPost 415       postLineSpacing=$postLineSpacing")
       }
 
         val newPost1 = Post(

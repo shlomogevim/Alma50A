@@ -68,6 +68,7 @@ class DrawGeneralPost():BaseActivity() {
 
         imageView.load(post.imageUri)
 
+
         constraintSet.clone(layout)
 
         for (index in 1..post.lineNum) {
@@ -114,7 +115,7 @@ class DrawGeneralPost():BaseActivity() {
         val ind = index - 1
         //   val add=textView.lineHeight
 
-        logi("Draw General 117      post.lineSpacing= ${post.lineSpacing}")
+    //    logi("Draw General 117      post.lineSpacing= ${post.lineSpacing}")
         textView.setLineSpacing(1f,post.lineSpacing)
 
 

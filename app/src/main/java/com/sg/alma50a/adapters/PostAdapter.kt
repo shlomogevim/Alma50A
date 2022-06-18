@@ -45,16 +45,26 @@ class PostAdapter( val context: Context,val posts: ArrayList<Post>) :
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.bindImage(posts[position])
 
+
     }
+    /*
+        holder.itemView.tour_image.clipToOutline = true
+        Picasso.get().load(places[position].url).into(holder.itemView.tour_image)*/
 
     override fun getItemCount() = posts.size
 
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
+        val ken=itemView.findViewById<com.flaviofaria.kenburnsview.KenBurnsView>(R.id.tour_image)
+
+
+        //com.flaviofaria.kenburnsview.KenBurnsView
       //  val postImage = itemView?.findViewById<ImageView>(R.id.pagerImage)
+
 
         fun bindImage(post: Post) {
             pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
+            ken.clipToOutline = true
            DrawGeneralPost().drawPost(context,post,layout)  // onClick include in here
            // DrawPostCenter(context).drawPostFire(post,layout)
         }
