@@ -75,7 +75,6 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-
         logi("MainActivity onResum 107                  sortSystem$sortSystem")
         posts = loadPosts()
         sortPosts()

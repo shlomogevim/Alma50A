@@ -35,12 +35,10 @@ class SplashActivity : BaseActivity() {
     var pressHelpBtn = false
 
     var posts = ArrayList<Post>()
-//    lateinit var postAdapter: PostAdapter
- //  lateinit var pager: ViewPager2
+
     lateinit var gradeArray:ArrayList<Int>
    lateinit var gradeHashMap: HashMap<Int,Int>
     lateinit var  gson : Gson
-//   var sortSystem=""
     val util = UtilityPost()
 
 
@@ -159,6 +157,5 @@ class SplashActivity : BaseActivity() {
             }, 1000
         )
     }
-
 }
 
