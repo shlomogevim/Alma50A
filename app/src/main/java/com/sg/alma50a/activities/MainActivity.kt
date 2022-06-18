@@ -57,7 +57,7 @@ class MainActivity : BaseActivity() {
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
         currentPost = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
-        logi("MainActivity onCreate 60            sortSystem$sortSystem")
+     // logi("MainActivity onCreate 60            sortSystem$sortSystem")
 
         posts = loadPosts()
         sortPosts()
@@ -75,7 +75,7 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        logi("MainActivity onResum 107                  sortSystem$sortSystem")
+        //logi("MainActivity onResum 78                 sortSystem$sortSystem")
         posts = loadPosts()
         sortPosts()
         create_rvPost()
@@ -97,11 +97,11 @@ class MainActivity : BaseActivity() {
 //          persons.sortWith(compareBy({ it.name }, { it.age }))
         if (sortSystem == SHARPREF_SORT_BY_GRADE) {
             posts.sortWith(compareByDescending({ it.grade }))
-            logi("MainActivity in sortPosts  150       sortSystem=$sortSystem       posts.size=${posts.size}")
+            //logi("MainActivity in sortPosts  150       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
         if (sortSystem == SHARPREF_SORT_BY_TIME_PUBLISH) {
             posts.sortWith(compareByDescending({ it.timestamp }))
-            logi("MainActivity in sortPosts  154       sortSystem=$sortSystem       posts.size=${posts.size}")
+          // logi("MainActivity in sortPosts  154       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
 
     }

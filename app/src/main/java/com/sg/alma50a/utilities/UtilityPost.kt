@@ -409,10 +409,11 @@ class UtilityPost {
         val postPadding: ArrayList<Int> = convertFromStringArrayToIntArry(postPadding1)
         val postMargin1 = snap?.getString(POST_MARGIN).toString()
         val postMargin: ArrayList<ArrayList<Int>> = convertFromStringArrayToIntArry2(postMargin1)
-        var postLineSpacing=1.4f
-        if ( snap?.getLong(POST_LINE_SPACING) !=null) {
-             postLineSpacing = snap?.getLong(POST_LINE_SPACING)!!.toFloat()
-        }
+       var postLineSpacing=1.4f
+      if ( snap?.getLong(POST_LINE_SPACING) !=null) {
+            val  postLineSpacing = snap?.getDouble(POST_LINE_SPACING)!!                      //save it in Double
+          logi("UtilityPost 415       postLineSpacing=$postLineSpacing")
+      }
 
         val newPost1 = Post(
             postId,
