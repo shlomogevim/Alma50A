@@ -48,41 +48,28 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         gradeArray= arrayListOf()
         gson=Gson()
+
+        pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
+        pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
+        pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
+        //  pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_GRADE).apply()
+
         val currentUserID = FirestoreClass().getCurrentUserID()
         if (currentUserID != null) {
             FirestoreClass().getUserDetails(this)
         }
-        pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
-     //   pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
+
         binding.btnHelp.setOnClickListener {
             pressHelpBtn = true
             startActivity(Intent(this, HelpActivity::class.java))
         }
 
-        getPosts()
+        downloadAllPost()
         pauseIt()
 
     }
-
-
-
-
-    private fun getPosts() {
-      /* posts=loadPosts()
-        if (posts==null){
-            posts=downloadAllPost()
-
-       }
-        sortSystem= pref.getString(
-            SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH
-        ).toString()*/
-         posts = downloadAllPost()
-    }
-
-
 
     fun downloadAllPost(): ArrayList<Post> {
         posts.clear()
@@ -105,7 +92,7 @@ class SplashActivity : BaseActivity() {
     }
     private fun retriveGradeMapFromSharPref() {
         val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
-       // logi("Splash 110  storeMappingString=$storeMappingString")
+       // logi("Splash 95  storeMappingString=$storeMappingString")
         if (storeMappingString=="oppsNotExist"){
             val gradeMap:HashMap<Int,Int> = hashMapOf()
             for (index in 0 until posts.size){
@@ -137,37 +124,19 @@ class SplashActivity : BaseActivity() {
         }
         return post
     }
-    private fun sortPosts() {
-//          persons.sortWith(compareBy({ it.name }, { it.age }))
-
-        val sortSystem=SHARPREF_SORT_BY_GRADE
-
-         logi("Splash 184  sortSystem=${sortSystem}")
-
-        if (sortSystem== SHARPREF_SORT_BY_GRADE) {
-            posts.sortWith(compareByDescending({ it.grade }))
-           // logi("MainActivity 101   posts=${posts.size}")
-        }else{
-            posts.sortWith(compareByDescending({ it.timestamp}))
-        }
-        logi("Splash 192  sortSystem=${sortSystem}")
-
-        /*if (sortSystem== SHARPREF_SORT_BY_TIME_PUBLISH) {
-            posts.sortWith(compareByDescending({ it.timestamp}))
-            logi("MainActivity 105   posts=${posts.size}")
-        }*/
-
-    }
     fun savePosts(pref: SharedPreferences, posts: ArrayList<Post>) {
 
-       // posts.sortWith(compareByDescending({ it.grade }))
-
         val editor=pref.edit()
-         val gson= Gson()
+        val gson= Gson()
         val json:String=gson.toJson(posts)
         editor.putString(Constants.SHARPREF_POSTS_ARRAY,json)
         editor.apply()
         //
+    }
+    fun getingUserData(user: User) {
+        currentUser = user
+        setText()
+        // logi("Splash 67        currentUser = $currentUser      "         )
     }
     private fun setText() {
         var name = ""
@@ -176,21 +145,13 @@ class SplashActivity : BaseActivity() {
         } else {
             name = "אורח"
         }
-        // logi("Splash 55       currentUser = $currentUser       name=$name"         )
 
         binding.tvText1.text = "ברוך הבא "
         binding.tvText2.text = name
-
-    }
-
-
-    fun getingUserData(user: User) {
-        currentUser = user
-        setText()
-        // logi("Splash 67        currentUser = $currentUser      "         )
     }
 
     private fun pauseIt() {
+//        val sortSystem =  pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
         Handler().postDelayed(
             {  if (!pressHelpBtn) {
                 startActivity(Intent(this, MainActivity::class.java))
@@ -198,14 +159,6 @@ class SplashActivity : BaseActivity() {
             }, 1000
         )
     }
-    fun loadPosts():ArrayList<Post>{
-        posts.clear()
-        val gson=Gson()
-        val json: String? =pref.getString(Constants.SHARPREF_POSTS_ARRAY,null)
-        val type: Type =object :TypeToken<ArrayList<Post>>() {}.type
-        // val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
-        val arr:ArrayList<Post> =gson.fromJson(json,type)
-        return arr
-    }
+
 }
 
