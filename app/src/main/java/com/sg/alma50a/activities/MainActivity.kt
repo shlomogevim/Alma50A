@@ -23,6 +23,7 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import java.lang.reflect.Type
+import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
@@ -41,7 +42,7 @@ class MainActivity : BaseActivity() {
     lateinit var gradeHashMap: HashMap<Int, Int>
     lateinit var gson: Gson
     var sortSystem = "NoValue"
-    var currentPost = 0
+    var currentPostNum=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,41 +55,32 @@ class MainActivity : BaseActivity() {
 
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
-        currentPost = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
+        currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
      // logi("MainActivity onCreate 60            sortSystem$sortSystem")
 
         posts = loadPosts()
         sortPosts()
         create_rvPost()
+        moveIt()
 
     }
-
-    /* Handler().postDelayed(
-            {  if (!pressHelpBtn) {
-                startActivity(Intent(this, MainActivity::class.java))
-            }
-            }, 6000
-        )*/
 
 
     override fun onResume() {
         super.onResume()
         //logi("MainActivity onResum 78                 sortSystem$sortSystem")
         posts = loadPosts()
+        sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
+        currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
         sortPosts()
         create_rvPost()
+        moveIt()
     }
 
-   /* private fun create_rvPost() {
-           postAdapter = PostAdapter(this, posts)
-        val layoutManger = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvPosts.layoutManager = layoutManger
-        //   layoutManger.reverseLayout = true
-        rvPosts.adapter = postAdapter
-        rvPosts.setHasFixedSize(true)
-        postAdapter.notifyDataSetChanged()
-
-    }*/
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
 
     private fun create_rvPost() {                                     //Animation 1
         val layoutManger = CenterZoomLayout(this)
@@ -134,18 +126,19 @@ class MainActivity : BaseActivity() {
     }
 
     private fun moveIt() {
-        val newPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
-        if (newPostNum > 0) {
+        logi("MainActivity 139   currentPostNum=$currentPostNum")
+//        val newPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
+    //    if (newPostNum > 0) {
             Handler().postDelayed(
                 {
                     for (counter in 0 until posts.size) {
-                        if (posts[counter].postNum == newPostNum) {
-                            //pager.setCurrentItem(counter)
+                        if (posts[counter].postNum == currentPostNum) {
+                            rvPosts.scrollToPosition(counter)
                         }
                     }
                 }, 100
             )
-        }
+       // }
     }
 
     private fun addAnimation(pager: ViewPager2) {

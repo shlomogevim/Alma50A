@@ -26,22 +26,20 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-
-
-
-class PostAdapter( val context: Context,val posts: ArrayList<Post>) :
+class PostAdapter(val context: Context, val posts: ArrayList<Post>) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     val util = UtilityPost()
 
-    val base= BaseActivity()
- val  pref=context.getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
+    val base = BaseActivity()
+    val pref = context.getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-              val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
         return PostViewHolder(view)
     }
+
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.bindImage(posts[position])
 
@@ -55,24 +53,27 @@ class PostAdapter( val context: Context,val posts: ArrayList<Post>) :
 
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
-        val ken=itemView.findViewById<com.flaviofaria.kenburnsview.KenBurnsView>(R.id.tour_image)
+        val image = itemView?.findViewById<ImageView>(R.id.pagerImage)
+        val ken = itemView.findViewById<com.flaviofaria.kenburnsview.KenBurnsView>(R.id.tour_image)
 
 
-        //com.flaviofaria.kenburnsview.KenBurnsView
-      //  val postImage = itemView?.findViewById<ImageView>(R.id.pagerImage)
+        //  val postImage = itemView?.findViewById<ImageView>(R.id.pagerImage)
 
 
         fun bindImage(post: Post) {
             pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
             ken.clipToOutline = true
-           DrawGeneralPost().drawPost(context,post,layout)  // onClick include in here
-           // DrawPostCenter(context).drawPostFire(post,layout)
+            DrawGeneralPost().drawPost(context, post, layout)  // onClick include in here
+            image.setOnClickListener {
+                val intent = Intent(context, PostDetailesActivity::class.java)
+                intent.putExtra(POST_EXSTRA, post)
+                context.startActivity(intent)
+
+            }
         }
 
     }
 }
-
-
 
 
 /*class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: ArrayList<Post>) :
