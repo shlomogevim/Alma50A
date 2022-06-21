@@ -35,7 +35,7 @@
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv1"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -47,7 +47,7 @@
         android:id="@+id/tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv2"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -58,7 +58,7 @@
         android:id="@+id/tv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv3"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -70,7 +70,7 @@
         android:id="@+id/tv4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv4"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -82,7 +82,7 @@
         android:id="@+id/tv5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv5"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -93,7 +93,7 @@
         android:id="@+id/tv6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv6"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -104,7 +104,7 @@
         android:id="@+id/tv7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv7"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -115,7 +115,7 @@
         android:id="@+id/tv8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv8"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -126,7 +126,7 @@
         android:id="@+id/tv9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tv9"
+
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -115,8 +115,8 @@ class DrawGeneralPost():BaseActivity() {
         val ind = index - 1
         //   val add=textView.lineHeight
 
-    //    logi("Draw General 117      post.lineSpacing= ${post.lineSpacing}")
-        textView.setLineSpacing(1f,post.lineSpacing)
+       logi("Draw General 117     postNum=${post.postNum}  lineSpacing= ${post.lineSpacing}")
+        textView.setLineSpacing(1f,post.lineSpacing!!.toFloat())
 
 
 /*int lineHeight = textView.getLineHeight();

@@ -58,17 +58,17 @@ class MainActivity : BaseActivity() {
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
      // logi("MainActivity onCreate 60            sortSystem$sortSystem")
 
+       /* posts.clear()
         posts = loadPosts()
         sortPosts()
         create_rvPost()
-        moveIt()
-
+        moveIt()*/
     }
-
 
     override fun onResume() {
         super.onResume()
         //logi("MainActivity onResum 78                 sortSystem$sortSystem")
+        posts.clear()
         posts = loadPosts()
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
@@ -98,7 +98,6 @@ class MainActivity : BaseActivity() {
         rvPosts.adapter = postAdapter
         rvPosts.setHasFixedSize(true)
         postAdapter.notifyDataSetChanged()
-
     }
 
     private fun sortPosts() {
@@ -111,9 +110,7 @@ class MainActivity : BaseActivity() {
             posts.sortWith(compareByDescending({ it.timestamp }))
           // logi("MainActivity in sortPosts  154       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
-
     }
-
 
     fun loadPosts(): ArrayList<Post> {
         posts.clear()
@@ -126,9 +123,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun moveIt() {
-        logi("MainActivity 139   currentPostNum=$currentPostNum")
-//        val newPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
-    //    if (newPostNum > 0) {
+    //    logi("MainActivity 139   currentPostNum=$currentPostNum")
             Handler().postDelayed(
                 {
                     for (counter in 0 until posts.size) {
@@ -138,7 +133,6 @@ class MainActivity : BaseActivity() {
                     }
                 }, 100
             )
-       // }
     }
 
     private fun addAnimation(pager: ViewPager2) {

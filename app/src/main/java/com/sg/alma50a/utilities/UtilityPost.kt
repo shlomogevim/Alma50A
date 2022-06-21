@@ -4,20 +4,16 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.sg.alma50a.R
 
 import com.sg.alma50a.activities.DialogActivity
@@ -50,7 +46,6 @@ import com.sg.alma50a.utilities.Constants.POST_TEXT_COLOR
 import com.sg.alma50a.utilities.Constants.POST_TEXT_SIZE
 import com.sg.alma50a.utilities.Constants.POST_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.POST_TRANPARECY
-import com.sg.alma50a.utilities.Constants.SHARPREF_POSTS_ARRAY
 import com.sg.alma50a.utilities.Constants.USER_BIO
 import com.sg.alma50a.utilities.Constants.USER_EMAIL
 import com.sg.alma50a.utilities.Constants.USER_FULLNAME
@@ -59,12 +54,10 @@ import com.sg.alma50a.utilities.Constants.USER_IMAGE
 import com.sg.alma50a.utilities.Constants.USER_PASSWORD
 import com.sg.alma50a.utilities.Constants.USER_TIME
 import com.sg.alma50a.utilities.Constants.USER_USERNAME
-import java.lang.reflect.Type
 
 
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-import kotlin.coroutines.suspendCoroutine
 
 
 class UtilityPost {
@@ -111,59 +104,50 @@ class UtilityPost {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     fun createDialog(context: Context, ind: Int) {
 
-        val intent= Intent(context, DialogActivity::class.java)
-        intent.putExtra(DIALOG_EXSTRA,ind)
+        val intent = Intent(context, DialogActivity::class.java)
+        intent.putExtra(DIALOG_EXSTRA, ind)
         context.startActivity(intent)
 
 
-              //   logi("Utility 32 createDialoge   =====> ind=$ind      contex=$context")
+        //   logi("Utility 32 createDialoge   =====> ind=$ind      contex=$context")
 
-             val dialog = Dialog(context)
-            // logi("Utility 39 createDialoge   =====> ind=$ind")
-             dialog.setCancelable(false)
-             dialog.setContentView(R.layout.option_menu1)
-             val btn1 = dialog.findViewById<Button>(R.id.btn1_dialog)
-             val btn2 = dialog.findViewById<Button>(R.id.btn2_dialog)
-             val btn3 = dialog.findViewById<Button>(R.id.btn3_dialog)
-             val loti = dialog.findViewById<LottieAnimationView>(R.id.lottie_anim_dialog)
-             val dialogText1 = dialog.findViewById<TextView>(R.id.text_dialog1)
-             val dialogText2 = dialog.findViewById<TextView>(R.id.text_dialog2)
-             val dialogText3 = dialog.findViewById<TextView>(R.id.text_dialog3)
-             val dialogText4 = dialog.findViewById<TextView>(R.id.text_dialog4)
-             btn1.visibility = View.GONE
-             btn2.visibility = View.GONE
+        val dialog = Dialog(context)
+        // logi("Utility 39 createDialoge   =====> ind=$ind")
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.option_menu1)
+        val btn1 = dialog.findViewById<Button>(R.id.btn1_dialog)
+        val btn2 = dialog.findViewById<Button>(R.id.btn2_dialog)
+        val btn3 = dialog.findViewById<Button>(R.id.btn3_dialog)
+        val loti = dialog.findViewById<LottieAnimationView>(R.id.lottie_anim_dialog)
+        val dialogText1 = dialog.findViewById<TextView>(R.id.text_dialog1)
+        val dialogText2 = dialog.findViewById<TextView>(R.id.text_dialog2)
+        val dialogText3 = dialog.findViewById<TextView>(R.id.text_dialog3)
+        val dialogText4 = dialog.findViewById<TextView>(R.id.text_dialog4)
+        btn1.visibility = View.GONE
+        btn2.visibility = View.GONE
 
-         //   logi("Utility  createDialoge   =====> ind=$ind")
+        //   logi("Utility  createDialoge   =====> ind=$ind")
 
-             val arString:ArrayList<String> =getDialogMessage(ind)
+        val arString: ArrayList<String> = getDialogMessage(ind)
 
-           logi("Utility 95  createDialoge   =====> ind=$ind")
-             dialogText1.text =arString[0]
-             dialogText2.text =arString[1]
-             dialogText3.text =arString[2]
-             dialogText4.text =arString[3]
-             btn3.text =arString[4]
-             loti.setAnimation(arString[5])
-             btn1.setOnClickListener { }
-             btn2.setOnClickListener { }
-             btn3.setOnClickListener {
-                 dialog.dismiss()
-             }
+        logi("Utility 95  createDialoge   =====> ind=$ind")
+        dialogText1.text = arString[0]
+        dialogText2.text = arString[1]
+        dialogText3.text = arString[2]
+        dialogText4.text = arString[3]
+        btn3.text = arString[4]
+        loti.setAnimation(arString[5])
+        btn1.setOnClickListener { }
+        btn2.setOnClickListener { }
+        btn3.setOnClickListener {
+            dialog.dismiss()
+        }
         dialog.show()
 
     }
+
     private fun getDialogMessage(ind: Int): ArrayList<String> {
         var stMessage1 = ""
         var stMessage2 = ""
@@ -171,111 +155,111 @@ class UtilityPost {
         var stMessage4 = ""
         var stBackBtn = ""
         var stAnimation = ""
-        if (ind ==2) {
+        if (ind == 2) {
             stMessage1 = "אתה כרגע משתתף אנונימי "
-            stMessage2 ="ולכן אין לך אישור לכתוב הערות ,"
-            stMessage3 =  "אתה צריך קודם  להיכנס ..."
+            stMessage2 = "ולכן אין לך אישור לכתוב הערות ,"
+            stMessage3 = "אתה צריך קודם  להיכנס ..."
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור להערות"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור להערות"
+            stAnimation = "right.json"
         }
-      /*  if (ind == 1) {
-            stMessage1 = "אתה כרגע משתתף אנונימי "
-            stMessage2 ="ולכן לא יעזור לך ללחוץ על צלמית השלח ,"
-            stMessage3 =  "אתה צריך קודם להיכנס..."
-            stMessage4 = " "
-            stBackBtn= "לחץ פה כדי לחזור להערות"
-            stAnimation="right.json"
-        }*/
+        /*  if (ind == 1) {
+              stMessage1 = "אתה כרגע משתתף אנונימי "
+              stMessage2 ="ולכן לא יעזור לך ללחוץ על צלמית השלח ,"
+              stMessage3 =  "אתה צריך קודם להיכנס..."
+              stMessage4 = " "
+              stBackBtn= "לחץ פה כדי לחזור להערות"
+              stAnimation="right.json"
+          }*/
         if (ind == 3) {
             stMessage1 = " לא כתבת כלום בהערה ..."
             stMessage2 = "קודם תכתוב משהו,"
             stMessage3 = "ואחר כך לחץ על שלח ..."
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור להערות"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור להערות"
+            stAnimation = "right.json"
         }
         if (ind == 4) {
             stMessage1 = " לא הכנסת מייל..."
             stMessage2 = ""
             stMessage3 = ""
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך הכניסה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך הכניסה"
+            stAnimation = "right.json"
         }
         if (ind == 5) {
             stMessage1 = " לא הכנסת סיסמה..."
             stMessage2 = ""
             stMessage3 = ""
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך הכניסה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך הכניסה"
+            stAnimation = "right.json"
         }
         if (ind == 6) {
             stMessage1 = " לא הכנסת שם משתמש..."
             stMessage2 = "זה שם שיזהה אותך"
             stMessage3 = "(יכול להיות פקטיבי)"
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
         if (ind == 7) {
             stMessage1 = " לא הכנסת מייל..."
             stMessage2 = ""
             stMessage3 = ""
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
         if (ind == 8) {
             stMessage1 = " לא הכנסת סיסמה..."
             stMessage2 = ""
             stMessage3 = ""
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
         if (ind == 9) {
             stMessage1 = "חביבי, מישהו כבר משתמש במייל הזה,"
             stMessage2 = "נסה להכניס מייל אחר"
             stMessage3 = ""
             stMessage4 = " "
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
         if (ind == 10) {
             stMessage1 = "הסיסמה לא תקינה"
             stMessage2 = "צריך להיות לפחות 6 מספרים"
             stMessage3 = ""
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
         if (ind == 11) {
             stMessage1 = "המייל שהכנסת לא תקין ... "
             stMessage2 = "נסה להכניס מייל אחר"
             stMessage3 = "כמובן יכול להיות סתם מייל פקטיבי"
             stMessage4 = " משהוא כמו:        a@bc.com"
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
         if (ind == 12) {
             stMessage1 = "השם הזה כבר קיים במערכת ... "
             stMessage2 = "מצא לעצמך שם אחר"
             stMessage3 = ""
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
         if (ind == 13) {
             stMessage1 = "מזל טוב ... "
             stMessage2 = "הצלחת להרשם בהצלחה"
             stMessage3 = "ברוך הבא"
             stMessage4 = ""
-            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
-            stAnimation="right.json"
+            stBackBtn = "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation = "right.json"
         }
-        return arrayListOf(stMessage1,stMessage2,stMessage3,stMessage4,stBackBtn,stAnimation)
+        return arrayListOf(stMessage1, stMessage2, stMessage3, stMessage4, stBackBtn, stAnimation)
     }
 
 
@@ -293,7 +277,7 @@ class UtilityPost {
            alertDialog.show()
        }*/
     fun convertToUser(snap: DocumentSnapshot?): User {
-        var userName =""
+        var userName = ""
         var fullName = "no fullName"
         var email: String = "no email"
         var profileImage =
@@ -307,7 +291,14 @@ class UtilityPost {
         dio = snap?.getString(USER_BIO).toString()
         uid = snap?.getString(FIRESTORE_USER_ID).toString()
 
-        val newUser = User(uid=uid, userName = userName, lastName = fullName, email, image = profileImage, moto=dio)
+        val newUser = User(
+            uid = uid,
+            userName = userName,
+            lastName = fullName,
+            email,
+            image = profileImage,
+            moto = dio
+        )
         return newUser
     }
     /* val uid: String = "",
@@ -336,7 +327,7 @@ class UtilityPost {
     }
 
 
-    fun createComment(post: Post, commentText: String,currentUser:User) {
+    fun createComment(post: Post, commentText: String, currentUser: User) {
         logi("UtilityPost 298     commentText=$commentText")
         val data = HashMap<String, Any>()
         data[COMMENT_ID] = "1"
@@ -374,7 +365,6 @@ class UtilityPost {
     }
 
 
-
     fun retrieveUserFromFirestore(snap: DocumentSnapshot?): User {
 
         val uid = snap?.get(USER_ID).toString()
@@ -385,10 +375,9 @@ class UtilityPost {
         val dio = snap?.get(USER_BIO).toString()
         val timestamp = snap?.getTimestamp(USER_TIME)
 
-        val newUser = User(uid,name,fullName,email,"",moto=dio)
+        val newUser = User(uid, name, fullName, email, "", moto = dio)
         return newUser
     }
-
 
 
     fun retrivePostFromFirestore(snap: DocumentSnapshot?): Post {
@@ -409,11 +398,11 @@ class UtilityPost {
         val postPadding: ArrayList<Int> = convertFromStringArrayToIntArry(postPadding1)
         val postMargin1 = snap?.getString(POST_MARGIN).toString()
         val postMargin: ArrayList<ArrayList<Int>> = convertFromStringArrayToIntArry2(postMargin1)
-       var postLineSpacing=1.4f
-      if ( snap?.getLong(POST_LINE_SPACING) !=null) {
-            val  postLineSpacing = snap?.getDouble(POST_LINE_SPACING)!!                      //save it in Double
-         // logi("UtilityPost 415       postLineSpacing=$postLineSpacing")
-      }
+        // var postLineSpacing=1.4f
+        //  if ( snap?.getLong(POST_LINE_SPACING) !=null) {
+        val postLineSpacing = snap.getDouble(POST_LINE_SPACING)               //save it in Double
+        // logi("UtilityPost 415       postLineSpacing=$postLineSpacing")
+        // }
 
         val newPost1 = Post(
             postId,
@@ -433,7 +422,7 @@ class UtilityPost {
             postLineSpacing
 
         )
-      // logi("Utility 384   post=${newPost1}")
+        // logi("Utility 384   post=${newPost1}")
         return newPost1
     }
 
@@ -837,7 +826,9 @@ class UtilityPost {
             data[POST_FONT_FAMILY] = postFontFamily
             data[POST_RADIUS] = postRadiuas
             data[POST_TIME_STAMP] = FieldValue.serverTimestamp()
-            data[POST_LINE_SPACING]=lineSpacing
+            if (lineSpacing!=null) {
+                data[POST_LINE_SPACING] = lineSpacing!!
+            }
         }
         FirebaseFirestore.getInstance().collection(POST_REF).document(post.postNum.toString())
             .set(data)

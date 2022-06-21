@@ -5,13 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sg.alma50a.HelpActivity
-import com.sg.alma50a.adapters.PostAdapter
 
 
 import com.sg.alma50a.databinding.ActivitySplashBinding
@@ -20,12 +17,10 @@ import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
-import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import com.sg.alma50a.utilities.FirestoreClass
 import com.sg.alma50a.utilities.UtilityPost
-import java.lang.reflect.Type
 
 class SplashActivity : BaseActivity() {
 

@@ -20,7 +20,7 @@ data class Post(
     var postFontFamily:Int=0,
     var postRadiuas:Int=0,
     var timestamp: Timestamp?=null,
-    var lineSpacing:Float=1.4f,
+    var lineSpacing: Double? =1.4,
     var grade:Int=0
 
 ): Parcelable
