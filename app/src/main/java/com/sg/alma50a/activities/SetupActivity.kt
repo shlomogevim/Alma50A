@@ -57,11 +57,13 @@ class SetupActivity : AppCompatActivity() {
         }
         binding.btnGradeOrder.setOnClickListener {
            pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_GRADE).apply()
+            pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, 0).apply()
             startActivity(Intent(this, MainActivity::class.java))
             //finish()
         }
         binding.btnTimeOrder.setOnClickListener {
             pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
+            pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, 0).apply()
             startActivity(Intent(this, MainActivity::class.java))
         }
         binding.btnChangeProfile.setOnClickListener {

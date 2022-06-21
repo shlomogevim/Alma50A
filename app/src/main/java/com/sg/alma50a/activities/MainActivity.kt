@@ -67,7 +67,7 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        //logi("MainActivity onResum 78                 sortSystem$sortSystem")
+     //  logi("MainActivity onResum 70               sortSystem$sortSystem")
         posts.clear()
         posts = loadPosts()
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
@@ -104,11 +104,11 @@ class MainActivity : BaseActivity() {
 //          persons.sortWith(compareBy({ it.name }, { it.age }))
         if (sortSystem == SHARPREF_SORT_BY_GRADE) {
             posts.sortWith(compareByDescending({ it.grade }))
-            //logi("MainActivity in sortPosts  150       sortSystem=$sortSystem       posts.size=${posts.size}")
+           logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
         if (sortSystem == SHARPREF_SORT_BY_TIME_PUBLISH) {
             posts.sortWith(compareByDescending({ it.timestamp }))
-          // logi("MainActivity in sortPosts  154       sortSystem=$sortSystem       posts.size=${posts.size}")
+           logi("MainActivity in sortPosts  111       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
     }
 
@@ -123,7 +123,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun moveIt() {
-    //    logi("MainActivity 139   currentPostNum=$currentPostNum")
+     logi("MainActivity 139   currentPostNum=$currentPostNum")
+
             Handler().postDelayed(
                 {
                     for (counter in 0 until posts.size) {
@@ -135,7 +136,10 @@ class MainActivity : BaseActivity() {
             )
     }
 
-    private fun addAnimation(pager: ViewPager2) {
+
+}
+
+/*  private fun addAnimation(pager: ViewPager2) {
         val book = BookFlipPageTransformer2()
         book.setEnableScale(true)
         book.setScaleAmountPercent(90f)
@@ -144,6 +148,4 @@ class MainActivity : BaseActivity() {
         val card = CardFlipPageTransformer2()
         card.setScalable(false)
         pager.setPageTransformer(card)
-    }
-
-}
+    }*/

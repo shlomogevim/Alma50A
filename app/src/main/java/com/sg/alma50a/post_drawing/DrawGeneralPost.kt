@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.RoundedCorner
@@ -35,7 +36,7 @@ import java.util.logging.Handler
 import kotlin.concurrent.schedule
 class DrawGeneralPost():BaseActivity() {
     val util = Utility()
-    fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+    fun Int.toPx(): Int = (this *Resources.getSystem().displayMetrics.density).toInt()
     val helper =FontFamilies()
 
     var constraintSet = ConstraintSet()
@@ -85,8 +86,8 @@ class DrawGeneralPost():BaseActivity() {
                 else -> textView1
             }
 
-          createTextView(index, textView, post, context, layout)
-            locateTextView(index, textView, post)
+        createTextView(index, textView, post, context, layout)
+          locateTextView(index, textView, post)
 
         }
 
@@ -100,10 +101,7 @@ class DrawGeneralPost():BaseActivity() {
        // util.logi("Draw GeneralPost99  ${post.postTextColor.joinToString()}")
 
         for (index in 1..post.postTextColor.size - 1) {
-            /* if (!post.postTextColor[index].contains("#")) {
-                 post.postTextColor[index] = "#" + post.postTextColor[index]
-             }*/
-            var col= post.postTextColor[index]
+          var col= post.postTextColor[index]
           //  util.logi("Draw GeneralPost 147    col=$col")
             col=col.replace("$","")
             col= col.replace("#","")
@@ -113,21 +111,12 @@ class DrawGeneralPost():BaseActivity() {
             //  util.logi("Draw GeneralPost 152  ${post.postTextColor.joinToString()}")
         }
         val ind = index - 1
-        //   val add=textView.lineHeight
-
-       logi("Draw General 117     postNum=${post.postNum}  lineSpacing= ${post.lineSpacing}")
+     //  logi("Draw General 117     postNum=${post.postNum}  lineSpacing= ${post.lineSpacing}")
         textView.setLineSpacing(1f,post.lineSpacing!!.toFloat())
 
-
-/*int lineHeight = textView.getLineHeight();
-float add = tvSampleText.getLineSpacingExtra();          // API 16+
-float mult = tvSampleText.getLineSpacingMultiplier(); */
-        /*textView.setLineSpacing(float add, float mult)*/
-
-
-        textView.text = post.postText[ind]
+     textView.text = post.postText[ind]
 //  util.logi("Draw GeneralPost 149   ${post.postTextColor.joinToString()}")
-        if (post.postTextColor[0] == CONSTANT) {
+         if (post.postTextColor[0] == CONSTANT) {
             textView.setTextColor(Color.parseColor(post.postTextColor[1]))
         } else {
             textView.setTextColor(Color.parseColor(post.postTextColor[1]))
@@ -137,26 +126,33 @@ float mult = tvSampleText.getLineSpacingMultiplier(); */
         } else {
             textView.textSize = post.postTextSize[index].toFloat()
         }
-        val tra = helper.getTransfo(post.postTransparency)
-        val shape = GradientDrawable()
-        shape.cornerRadius = post.postRadiuas.toPx().toFloat()
-// util.logi("Draw GeneralPost 164  post.postBackground= ${post.postBackground}")
+          val tra = helper.getTransfo(post.postTransparency)
+          val shape = GradientDrawable()
+          shape.cornerRadius = post.postRadiuas.toPx().toFloat()
+  // util.logi("Draw GeneralPost 164  post.postBackground= ${post.postBackground}")
 
-        post.postBackground= post.postBackground.replace("#","")
-        post.postBackground= post.postBackground.replace("$","")
+           post.postBackground= post.postBackground.replace("#","")
+           post.postBackground= post.postBackground.replace("$","")
 
         shape.setColor(Color.parseColor("#$tra${post.postBackground}"))
-        textView.background = shape
-        val fontAddress = helper.getFamilyFont(post.postFontFamily)
+           textView.background = shape
+           val fontAddress = helper.getFamilyFont(post.postFontFamily)
 
-        textView.typeface = ResourcesCompat.getFont(context, fontAddress)
-        textView.setPadding(
-            post.postPadding[0].toPx(),
-            post.postPadding[1].toPx(),
-            post.postPadding[2].toPx(),
-            post.postPadding[3].toPx()
-        )
-        textView.gravity = Gravity.CENTER
+       textView.typeface = ResourcesCompat.getFont(context, fontAddress)
+        if (post.postNum==358) {
+         //   logi(" Draw GeneralPost 143    postPadding=${post.postPadding.joinToString()}")
+        }
+          textView.setPadding(
+//          post.postPadding[0].toPx(),
+//          post.postPadding[1].toPx(),
+//          post.postPadding[2].toPx(),
+//          post.postPadding[3].toPx()
+             0.toPx(),
+              post.postPadding[1].toPx(),
+             0.toPx(),
+              post.postPadding[3].toPx()
+      )
+            textView.gravity = Gravity.CENTER
     }
 
     private fun locateTextView(
