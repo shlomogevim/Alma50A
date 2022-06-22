@@ -33,7 +33,7 @@ class MainActivityPostFragment : BaseActivity() {
 
 
 
-    fun downloadAllPost(): java.util.ArrayList<Post> {
+   /* fun downloadAllPost(): java.util.ArrayList<Post> {
         posts.clear()
 
         FirebaseFirestore.getInstance().collection(Constants.POST_REF)
@@ -52,7 +52,7 @@ class MainActivityPostFragment : BaseActivity() {
                 }
             }
         return posts
-    }
+    }*/
 }
 
 /*

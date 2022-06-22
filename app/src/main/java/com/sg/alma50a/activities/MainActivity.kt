@@ -104,11 +104,11 @@ class MainActivity : BaseActivity() {
 //          persons.sortWith(compareBy({ it.name }, { it.age }))
         if (sortSystem == SHARPREF_SORT_BY_GRADE) {
             posts.sortWith(compareByDescending({ it.grade }))
-           logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
+          // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
         if (sortSystem == SHARPREF_SORT_BY_TIME_PUBLISH) {
             posts.sortWith(compareByDescending({ it.timestamp }))
-           logi("MainActivity in sortPosts  111       sortSystem=$sortSystem       posts.size=${posts.size}")
+         //  logi("MainActivity in sortPosts  111       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
     }
 
@@ -123,7 +123,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun moveIt() {
-     logi("MainActivity 139   currentPostNum=$currentPostNum")
+   //  logi("MainActivity 126   currentPostNum=$currentPostNum")
 
             Handler().postDelayed(
                 {
