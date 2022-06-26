@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sg.alma50a.databinding.ActivityUpdateCommentBinding
 import com.sg.alma50a.utilities.Constants.COMMENT_ID
 import com.sg.alma50a.utilities.Constants.COMMENT_LIST
-import com.sg.alma50a.utilities.Constants.COMMENT_POST_ID
+import com.sg.alma50a.utilities.Constants.COMMENT_POST_NUM_STRING
 import com.sg.alma50a.utilities.Constants.COMMENT_REF
 import com.sg.alma50a.utilities.Constants.COMMENT_TEXT
 import com.sg.alma50a.utilities.UtilityPost
@@ -26,7 +26,7 @@ class UpdateCommentActivity : AppCompatActivity() {
         binding= ActivityUpdateCommentBinding.inflate(layoutInflater)
         setContentView(binding.root)
         commentId=intent.getStringExtra(COMMENT_ID).toString()
-        commentPostId=intent.getStringExtra(COMMENT_POST_ID).toString()
+        commentPostId=intent.getStringExtra(COMMENT_POST_NUM_STRING).toString()
         commentText=intent.getStringExtra(COMMENT_TEXT).toString()
         binding.updateCommentTxt.setText(commentText)
         binding.updateCommentBtn.setOnClickListener {

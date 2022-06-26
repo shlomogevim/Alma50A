@@ -65,7 +65,11 @@ object Constants {
     const val SHARPREF_SORT_BY_TIME_PUBLISH="SharprefSortByTimePublish"
 
 
+    const val SHARPREF_COMMENTS_ARRAY="ShearePrefCommentsArray"
+    const val SHARPREF_CURRENT_POST = "ShareprefCurrentPost"
+    const val SHARPREF_CURRENT_POST_NUM_STRING = "ShareprefCurrentPostNumString"
 
+    const val SHARPREF_CURRENT_USER_NAME = "ShareprefCurrentUserName"
 
 
     const val POST_EXSTRA="post_exstra"
@@ -97,11 +101,12 @@ object Constants {
     const val USER_USERNAME = "user name1"
 
     const val COMMENT_REF = "Comments"
+  //  const val NEW_COMMENT_REF = "New Comments"
     const val COMMENT_LIST = "Comment List"
     const val COMMENT_TEXT = "comment_text"
     const val COMMENT_USER_NAME = "comment_user_name"
     const val COMMENT_USER_ID = "comment_user_id"
-    const val COMMENT_POST_ID = "comment_post_id"
+    const val COMMENT_POST_NUM_STRING = "comment_post_num_string"
     const val COMMENT_ID = "comment_id"
     const val COMMEND_TIME_STAMP = "comment_time_stamp"
 

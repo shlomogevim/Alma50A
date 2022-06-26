@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil.DiffResult.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.gson.Gson
 import com.sg.alma50a.R
 import com.sg.alma50a.activities.PostDetailesActivity
 import com.sg.alma50a.modeles.Post
@@ -21,6 +22,8 @@ import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM_STRING
 import com.sg.alma50a.utilities.UtilityPost
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,6 +36,7 @@ class PostAdapter(val context: Context, val posts: ArrayList<Post>) :
 
     val base = BaseActivity()
     val pref = context.getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -61,19 +65,33 @@ class PostAdapter(val context: Context, val posts: ArrayList<Post>) :
 
 
         fun bindImage(post: Post) {
-            pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
-            ken.clipToOutline = true
+
             DrawGeneralPost().drawPost(context, post, layout)  // onClick include in here
+
+
+         /*   pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
+            ken.clipToOutline = true
+
             image.setOnClickListener {
-                val intent = Intent(context, PostDetailesActivity::class.java)
+                val editor=pref.edit()
+                val gson= Gson()
+                val json:String=gson.toJson(post)
+                editor.putString(SHARPREF_CURRENT_POST,json)
+                editor.apply()
+                context.startActivity(Intent(context,PostDetailesActivity::class.java))*/
+
+
+              //  pref.edit().putString(SHARPREF_CURRENT_POST_NUM_STRING,post.postNum.toString())
+               /* val intent = Intent(context, PostDetailesActivity::class.java)
                 intent.putExtra(POST_EXSTRA, post)
-                context.startActivity(intent)
+                context.startActivity(intent)*/
 
             }
+
         }
 
     }
-}
+
 
 
 /*class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: ArrayList<Post>) :

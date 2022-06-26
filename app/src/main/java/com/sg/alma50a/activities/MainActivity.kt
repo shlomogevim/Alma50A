@@ -15,8 +15,10 @@ import com.sg.alma50a.R
 import com.sg.alma50a.adapters.PostAdapter
 
 import com.sg.alma50a.databinding.ActivityMainBinding
+import com.sg.alma50a.modeles.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.utilities.*
+import com.sg.alma50a.utilities.Constants.SHARPREF_COMMENTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_POSTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
@@ -29,7 +31,7 @@ class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
     val util = UtilityPost()
     var posts = ArrayList<Post>()
-
+    val comments = ArrayList<Comment>()
 
 
 
@@ -119,6 +121,15 @@ class MainActivity : BaseActivity() {
         val type: Type = object : TypeToken<ArrayList<Post>>() {}.type
         // val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
         val arr: ArrayList<Post> = gson.fromJson(json, type)
+        return arr
+    }
+    fun loadComments(): ArrayList<Comment> {
+        comments.clear()
+        val gson = Gson()
+        val json: String? = pref.getString(SHARPREF_COMMENTS_ARRAY, null)
+        val type: Type = object : TypeToken<ArrayList<Comment>>() {}.type
+        // val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
+        val arr: ArrayList<Comment> = gson.fromJson(json, type)
         return arr
     }
 

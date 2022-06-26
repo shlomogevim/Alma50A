@@ -2,11 +2,13 @@ package com.sg.alma50a.modeles
 
 import com.google.firebase.Timestamp
 
+
 data class Comment(
-    val commntId:String="",
-    val postId:String="",
-    val text:String="",
-    val userName:String="",
-    val userId:String="",
-    val timestamp: Timestamp?=null
+    var commntId:String="",
+    var postNumString:String="",
+    var text:String="",
+    var userName:String="",
+    var userId:String="",
+    var timestamp: Timestamp?=null
+
 )

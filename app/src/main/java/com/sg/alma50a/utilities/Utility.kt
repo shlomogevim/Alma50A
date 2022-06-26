@@ -272,7 +272,7 @@ class Utility {
    /* fun createComment(post: Post, commentText: String) {
         val data = HashMap<String, Any>()
         data[COMMENT_ID] = "1"
-        data[COMMENT_POST_ID] = post.postNum.toString()
+        data[COMMENT_POST_NUM_STRING] = post.postNum.toString()
         data[COMMENT_TEXT] = commentText
         data[COMMENT_USER_NAME] = currentUser?.displayName.toString()
         data[COMMENT_USER_ID] = currentUser?.uid.toString()
@@ -288,20 +288,20 @@ class Utility {
     }*/
 
    /* fun deleteComment(comment: Comment) {
-        //  logi("Utility 111      comment.postId=${comment.postId}           comment.commntId=${comment.commntId}")
-        FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.postId)
+        //  logi("Utility 111      comment.postNumString=${comment.postNumString}           comment.commntId=${comment.commntId}")
+        FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.postNumString)
             .collection(COMMENT_LIST).document(comment.commntId).delete()
     }
 
 
     fun retriveCommentFromFirestore(snap: DocumentSnapshot?): Comment {
         val comId = snap?.get(COMMENT_ID).toString()
-        val postId = snap?.get(COMMENT_POST_ID).toString()
+        val postNumString = snap?.get(COMMENT_POST_NUM_STRING).toString()
         val comText = snap?.get(COMMENT_TEXT).toString()
         val comUserName = snap?.get(COMMENT_USER_NAME).toString()
         val comUserId = snap?.get(COMMENT_USER_ID).toString()
         val timestamp = snap?.getTimestamp(COMMEND_TIME_STAMP)
-        val newComment = Comment(comId, postId, comText, comUserName, comUserId, timestamp)
+        val newComment = Comment(comId, postNumString, comText, comUserName, comUserId, timestamp)
         return newComment
     }
 
@@ -328,7 +328,7 @@ class Utility {
     }
 
     fun retrivePostFromFirestore(snap: DocumentSnapshot?): Post {
-        val postId = snap?.get(POST_ID).toString()
+        val postNumString = snap?.get(POST_ID).toString()
         val postNum = snap?.getLong(POST_NUM)!!.toInt()
         val lineNum = snap?.getLong(POST_LINE_NUM)!!.toInt()
         val imageUri = snap?.getString(POST_IMAGE_URI).toString()
@@ -347,7 +347,7 @@ class Utility {
         val postMargin: ArrayList<ArrayList<Int>> = convertFromStringArrayToIntArry2(postMargin1)
 
         val newPost1 = Post(
-            postId,
+            postNumString,
             postNum,
             lineNum,
             imageUri,
@@ -366,7 +366,7 @@ class Utility {
     }
 
     suspend fun retrivePostFromFirestore1(snap: DocumentSnapshot?): Post {
-        val postId = snap?.get(POST_ID).toString()
+        val postNumString = snap?.get(POST_ID).toString()
         val postNum = snap?.getLong(POST_NUM)!!.toInt()
         val lineNum = snap?.getLong(POST_LINE_NUM)!!.toInt()
         val imageUri = snap?.getString(POST_IMAGE_URI).toString()
@@ -385,7 +385,7 @@ class Utility {
         val postMargin: ArrayList<ArrayList<Int>> = convertFromStringArrayToIntArry2(postMargin1)
 
         val newPost1 = Post(
-            postId,
+            postNumString,
             postNum,
             lineNum,
             imageUri,

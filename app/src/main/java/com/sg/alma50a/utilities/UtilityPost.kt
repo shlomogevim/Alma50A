@@ -23,7 +23,7 @@ import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.COMMENT_ID
 import com.sg.alma50a.utilities.Constants.COMMENT_LIST
-import com.sg.alma50a.utilities.Constants.COMMENT_POST_ID
+import com.sg.alma50a.utilities.Constants.COMMENT_POST_NUM_STRING
 import com.sg.alma50a.utilities.Constants.COMMENT_REF
 import com.sg.alma50a.utilities.Constants.COMMENT_TEXT
 import com.sg.alma50a.utilities.Constants.COMMENT_USER_ID
@@ -331,7 +331,7 @@ class UtilityPost {
         logi("UtilityPost 298     commentText=$commentText")
         val data = HashMap<String, Any>()
         data[COMMENT_ID] = "1"
-        data[COMMENT_POST_ID] = post.postNum.toString()
+        data[COMMENT_POST_NUM_STRING] = post.postNum.toString()
         data[COMMENT_TEXT] = commentText
         data[COMMENT_USER_NAME] = currentUser.userName
         data[COMMENT_USER_ID] = currentUser.uid
@@ -346,16 +346,17 @@ class UtilityPost {
             }
     }
 
+
     fun deleteComment(comment: Comment) {
-        //  logi("Utility 111      comment.postId=${comment.postId}           comment.commntId=${comment.commntId}")
-        FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.postId)
+        //  logi("Utility 111      comment.postNumString=${comment.postNumString}           comment.commntId=${comment.commntId}")
+        FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.postNumString)
             .collection(COMMENT_LIST).document(comment.commntId).delete()
     }
 
 
     fun retriveCommentFromFirestore(snap: DocumentSnapshot?): Comment {
         val comId = snap?.get(COMMENT_ID).toString()
-        val postId = snap?.get(COMMENT_POST_ID).toString()
+        val postId = snap?.get(COMMENT_POST_NUM_STRING).toString()
         val comText = snap?.get(COMMENT_TEXT).toString()
         val comUserName = snap?.get(COMMENT_USER_NAME).toString()
         val comUserId = snap?.get(COMMENT_USER_ID).toString()

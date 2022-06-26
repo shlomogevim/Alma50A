@@ -12,13 +12,16 @@ import com.sg.alma50a.HelpActivity
 
 
 import com.sg.alma50a.databinding.ActivitySplashBinding
+import com.sg.alma50a.modeles.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
+import com.sg.alma50a.utilities.Constants.USER_REF
 import com.sg.alma50a.utilities.FirestoreClass
 import com.sg.alma50a.utilities.UtilityPost
 
@@ -28,12 +31,14 @@ class SplashActivity : BaseActivity() {
     var currentUser: User? = null
     lateinit var pref : SharedPreferences
     var pressHelpBtn = false
+    var currentUseName=""
 
     var posts = ArrayList<Post>()
+    val comments = ArrayList<Comment>()
 
     lateinit var gradeArray:ArrayList<Int>
    lateinit var gradeHashMap: HashMap<Int,Int>
-    lateinit var  gson : Gson
+
     val util = UtilityPost()
 
 
@@ -42,26 +47,54 @@ class SplashActivity : BaseActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         gradeArray= arrayListOf()
-        gson=Gson()
+     //   gson=Gson()
 
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
         pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
         //  pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_GRADE).apply()
-
-        val currentUserID = FirestoreClass().getCurrentUserID()
-        if (currentUserID != null) {
-            FirestoreClass().getUserDetails(this)
-        }
-
+        saveUserName()
         binding.btnHelp.setOnClickListener {
             pressHelpBtn = true
             startActivity(Intent(this, HelpActivity::class.java))
         }
 
         downloadAllPost()
+        retriveComments()
         pauseIt()
+    }
 
+    private fun saveUserName() {
+        val currentUserID = FirestoreClass().getCurrentUserID()
+        if (currentUserID != null) {
+            //  FirestoreClass().getUserDetails(this)
+            FirebaseFirestore.getInstance().collection(USER_REF).document(currentUserID)
+                .get()
+                .addOnSuccessListener { document ->
+                    val user = document.toObject(User::class.java)!!
+                    currentUser=user
+                    currentUseName=user.userName
+                    pref.edit().putString(SHARPREF_CURRENT_USER_NAME,"${user.userName}").apply()
+                }
+        }else{
+            pref.edit().putString(SHARPREF_CURRENT_USER_NAME,"אורח").apply()
+        }
+    }
+
+    private fun retriveComments() {
+        //  logi(" PostDetail 124")
+        comments.clear()
+        FirebaseFirestore.getInstance().collection(Constants.COMMENT_REF)
+            .addSnapshotListener { value, error ->
+                if (value != null) {
+                    for (doc in value.documents) {
+                        val comment = util.retriveCommentFromFirestore(doc)
+                        comments.add(comment)
+                    }
+                    saveComments()
+
+                }
+            }
     }
 
     fun downloadAllPost(): ArrayList<Post> {
@@ -78,12 +111,13 @@ class SplashActivity : BaseActivity() {
                     pref.edit().putInt(Constants.SHARPREF_TOTAL_POSTS_SIZE,posts.size).apply()
                     retriveGradeMapFromSharPref()
                   //  sortPosts()
-                    savePosts(pref,posts)
+                    savePosts()
                 }
             }
         return posts
     }
     private fun retriveGradeMapFromSharPref() {
+        val gson=Gson()
         val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
        // logi("Splash 95  storeMappingString=$storeMappingString")
         if (storeMappingString=="oppsNotExist"){
@@ -117,8 +151,7 @@ class SplashActivity : BaseActivity() {
         }
         return post
     }
-    fun savePosts(pref: SharedPreferences, posts: ArrayList<Post>) {
-
+    fun savePosts() {
         val editor=pref.edit()
         val gson= Gson()
         val json:String=gson.toJson(posts)
@@ -126,8 +159,17 @@ class SplashActivity : BaseActivity() {
         editor.apply()
         //
     }
+
+    fun saveComments() {
+        val editor=pref.edit()
+        val gson= Gson()
+        val json:String=gson.toJson(comments)
+        editor.putString(Constants.SHARPREF_COMMENTS_ARRAY,json)
+        editor.apply()
+        //
+    }
     fun getingUserData(user: User) {
-        currentUser = user
+       // currentUser = user
         setText()
         // logi("Splash 67        currentUser = $currentUser      "         )
     }

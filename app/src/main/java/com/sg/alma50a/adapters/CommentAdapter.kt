@@ -13,23 +13,26 @@ import com.sg.alma50a.interfaces.CommentsOptionClickListener
 import com.sg.alma50a.modeles.Comment
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
+import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 import com.sg.alma50a.utilities.Constants.USER_REF
 import com.sg.alma50a.utilities.UtilityPost
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 
-class CommentAdapter(
-    val comments: ArrayList<Comment>,
+class CommentAdapter(val context: Context, val comments: ArrayList<Comment>,
     val commentOptionListener: CommentsOptionClickListener
 ) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
-    private lateinit var context: Context
+
     val util = UtilityPost()
-    val base= BaseActivity()
+    val pref = context.getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
+    val currentUserName = pref.getString(SHARPREF_CURRENT_USER_NAME, null).toString()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        context = parent.context
+
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_comment, parent, false)
         return ViewHolder(view)
@@ -52,12 +55,13 @@ class CommentAdapter(
         fun bindComment(comment: Comment) {
 //            base.logi("CommentAdapter 56                      comment= $comment")
             setCurrentUserImage(imageProfile, comment)
-            userNameTV.text = comment.userName
+           // userNameTV.text = comment.userName
+            userNameTV.text = currentUserName
             commentTv.text = comment.text
 
             val formatTime = SimpleDateFormat("MM/dd/yyyy hh:mm")
             if (comment.timestamp!=null) {
-                val time = formatTime.format(comment.timestamp.toDate())
+                val time = formatTime.format(comment.timestamp!!.toDate())
                 commentTimeStamp.text = time.toString()
             }
 
