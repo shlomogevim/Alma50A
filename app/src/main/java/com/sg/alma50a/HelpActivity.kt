@@ -26,7 +26,7 @@ class HelpActivity : AppCompatActivity() {
         }
 
         val pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
-        pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
+     //  pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
         binding.howToBtn.setOnClickListener {
             startActivity(Intent(this,HowToActivity::class.java))
 

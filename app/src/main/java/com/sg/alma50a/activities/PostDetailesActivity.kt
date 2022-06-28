@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sg.alma50a.R
@@ -25,6 +28,7 @@ import com.sg.alma50a.interfaces.CommentsOptionClickListener
 import com.sg.alma50a.modeles.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.utilities.*
+import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.COMMENT_ID
 import com.sg.alma50a.utilities.Constants.COMMENT_POST_NUM_STRING
 import com.sg.alma50a.utilities.Constants.COMMENT_REF
@@ -32,7 +36,9 @@ import com.sg.alma50a.utilities.Constants.COMMENT_TEXT
 import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_COMMENTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM_STRING
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_POSITION
 import java.lang.reflect.Type
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 
@@ -47,13 +53,19 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
     lateinit var commentsRV: RecyclerView
     lateinit var commentAdapter: CommentAdapter
     var comments = ArrayList<Comment>()
-    var comments1 = ArrayList<Comment>()
+  //  var comments1 = ArrayList<Comment>()
    lateinit var currentPost: Post
     var message = ""
     lateinit var newUtil1: NewUtilities
     lateinit var pref: SharedPreferences
     var currentUserName=""
     var currentPostName=""
+
+
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityPostDetailesBinding.inflate(layoutInflater)
@@ -65,85 +77,44 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
         currentPost = loadCurrentPost()
         currentPostName=currentPost.postNum.toString()
 
-         //postNumString=pref.getString(SHARPREF_CURRENT_POST_NUM_STRING,null).toString()
+        pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, currentPost.postNum).apply()
+
         binding.nameCurrentUserName.setText(currentUserName)
-
-   //pref.edit().remove(SHARPREF_COMMENTS_ARRAY).commit()
-
-
-
-     //   logi("PostDetailActivity  75     currentPostName=$currentPostName ")
-        createComments()
-
-       //logi("PostDetailActivity  83      comments=${comments.joinToString()}  \n   ")
-
-
-      //  comments.filter { it.postNumString==currentPost.postNum.toString() }
 
         drawHeadline()
         create_commentsRv()
         btnSetting()
+        retriveComments()
 
 
         binding.postCommentText.addTextChangedListener(textWatcher)
     }
 
-    private fun createComments() {
-        comments1.clear()
-        comments.clear()
-        comments1 = loadComments()
-        show_comments1()
 
-       logi("PostDetailActivity  77      currentPostName=$currentPostName    \n")
-        for (index  in 0 until comments1.size){
-            /* logi("PostDetailActivity  76      index=$index    comments1[index].postNumString===>> ${comments1[index].postNumString}     currentPostName=$currentPostName        /n " +
-                     " ${comments1[index].postNumString==currentPostName}")*/
 
-            if (comments1[index].postNumString==currentPostName){
-                comments.add(comments1[index])
+    private fun retriveComments() {
+        //  logi(" PostDetail 124")
+        FirebaseFirestore.getInstance().collection(COMMENT_REF)
+           .orderBy(COMMEND_TIME_STAMP, Query.Direction.ASCENDING)
+            .addSnapshotListener { value, error ->
+                if (value != null) {
+                    comments.clear()
+                    for (doc in value.documents) {
+                        val comment = util.retriveCommentFromFirestore(doc)
+                        if (comment.postNumString==currentPostName){
+                            comments.add(comment)
+                        }
+
+                    }
+                commentAdapter.notifyDataSetChanged()
+                }
             }
-        }
-        show_comments()
-    }
-
-   /* override fun onResume() {
-        super.onResume()
-            createComments()
-
-        commentAdapter = CommentAdapter(this,comments, this)
-//        val layoutManger = LinearLayoutManager(this)
-//        layoutManger.reverseLayout = true
-//        commentsRV.layoutManager = layoutManger
-//        commentsRV.adapter = commentAdapter
-        commentAdapter.notifyDataSetChanged()
-
-
-    }*/
-
-    private fun show_comments1() {
-        for (index in 0 until comments1.size){
-           logi("PostDetailActivity 105 coments1   index=$index         ===> comment1  = ${comments1[index].postNumString}   \n")
-        }
-    }
-    private fun show_comments() {
-        for (index in 0 until comments.size){
-            logi("PostDetailActivity 110 coment  index=$index         ===> comment  = ${comments[index].postNumString}   \n")
-        }
     }
     private fun sendComment() {
         hideKeyboard()
         val commentText = binding.postCommentText.text.toString().trim { it <= ' ' }
-
-//        val comment=newUtil1.createNewComment(commentText,currentPostName)
-//        comments.add(comment)
-//        commentAdapter.notifyDataSetChanged()
-
         newUtil1.saveCommentInFirestore(commentText,currentPostName)
-
-
-
         binding.postCommentText.text.clear()
-
     }
 
     fun loadCurrentPost(): Post {
@@ -171,10 +142,6 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
         override fun afterTextChanged(p0: Editable?) {}
     }
 
-   /* override fun onStart() {
-        super.onStart()
-       FirestoreClass().getUserDetails(this)
-    }*/
 
     private fun btnSetting() {
         //   logi("PostDetaileActivity 79 =====>  currentPost=$currentPost ")
@@ -204,16 +171,6 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
 
         }
     }
-
-
-    fun loadComments( ): ArrayList<Comment> {
-        comments.clear()
-        val gson = Gson()
-        val json: String? = pref.getString(Constants.SHARPREF_COMMENTS_ARRAY, null)
-        val type: Type = object : TypeToken<ArrayList<Comment>>() {}.type
-        var arr: ArrayList<Comment> = gson.fromJson(json, type)
-        return arr
-    }
     private fun press_on_comment_icon() {
         if (currentUser == null) {
             hideKeyboard()
@@ -233,44 +190,15 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
             }
         }
     }
-
-
-    fun saveComments() {
-        val editor=pref.edit()
-        val gson= Gson()
-        val json:String=gson.toJson(comments)
-        editor.putString(SHARPREF_COMMENTS_ARRAY,json)
-        editor.apply()
-        //
-    }
-
     private fun create_commentsRv() {
         commentsRV = binding.rvPost
-//        commentAdapter = CommentAdapter(this,comments, this)
-       // commentAdapter = CommentAdapter(this,sortComments(), this)
-        commentAdapter = CommentAdapter(this,comments, this)
         val layoutManger = LinearLayoutManager(this)
         layoutManger.reverseLayout = true
         commentsRV.layoutManager = layoutManger
+        commentAdapter = CommentAdapter(this,comments, this)
         commentsRV.adapter = commentAdapter
         commentAdapter.notifyDataSetChanged()
     }
-
-    private fun sortComments(): MutableList<Comment> {
-
-       // var arr=ArrayList<Comment>()
-        var arr=comments.toMutableList()
-     //  arr.filter {  it.postNumString==currentPost.postId }
-         //   arr.sortWith(compareByDescending ({ it.timestamp}))
-        return arr
-
-    }
-    /*      persons.sortWith(compareBy({ it.name }, { it.age }))
-        if (sortSystem == SHARPREF_SORT_BY_GRADE) {
-            posts.sortWith(compareByDescending({ it.grade }))
-          // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
-        }*/
-
 
     private fun hideKeyboard() {
         val inputeManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -308,6 +236,101 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
         // logi("PostDetailsActivity  111  post=$currentPost    \n post.postText.size= ${currentPost.postText.size}")
         drawPostText()
     }
+    private fun sortComment(comments1: ArrayList<Comment>): ArrayList<Comment> {
+        var arr=ArrayList<Comment>()
+        comments.clear()
+        for (index  in 0 until comments1.size){
+            /* logi("PostDetailActivity  76      index=$index    comments1[index].postNumString===>> ${comments1[index].postNumString}     currentPostName=$currentPostName        /n " +
+                     " ${comments1[index].postNumString==currentPostName}")*/
+            if (comments1[index].postNumString==currentPostName){
+                arr.add(comments1[index])
+            }
+        }
+        return arr
+    }
+    private fun createComments() {
+     /*   comments1.clear()
+        comments.clear()
+        comments1 = loadComments()
+        show_comments1()
+
+       logi("PostDetailActivity  77      currentPostName=$currentPostName    \n")
+        for (index  in 0 until comments1.size){
+            *//* logi("PostDetailActivity  76      index=$index    comments1[index].postNumString===>> ${comments1[index].postNumString}     currentPostName=$currentPostName        /n " +
+                     " ${comments1[index].postNumString==currentPostName}")*//*
+
+            if (comments1[index].postNumString==currentPostName){
+                comments.add(comments1[index])
+            }
+        }
+        show_comments()*/
+    }
+
+   /* override fun onResume() {
+        super.onResume()
+            createComments()
+
+        commentAdapter = CommentAdapter(this,comments, this)
+//        val layoutManger = LinearLayoutManager(this)
+//        layoutManger.reverseLayout = true
+//        commentsRV.layoutManager = layoutManger
+//        commentsRV.adapter = commentAdapter
+        commentAdapter.notifyDataSetChanged()
+
+
+    }*/
+
+    private fun show_comments1() {
+//        for (index in 0 until comments1.size){
+//           logi("PostDetailActivity 105 coments1   index=$index         ===> comment1  = ${comments1[index].postNumString}   \n")
+//        }
+    }
+    private fun show_comments() {
+        for (index in 0 until comments.size){
+            logi("PostDetailActivity 110 coment  index=$index         ===> comment  = ${comments[index].postNumString}   \n")
+        }
+    }
+
+
+
+    fun loadComments( ): ArrayList<Comment> {
+        comments.clear()
+        val gson = Gson()
+        val json: String? = pref.getString(Constants.SHARPREF_COMMENTS_ARRAY, null)
+        val type: Type = object : TypeToken<ArrayList<Comment>>() {}.type
+        var arr: ArrayList<Comment> = gson.fromJson(json, type)
+        return arr
+    }
+
+
+
+    fun saveComments() {
+        val editor=pref.edit()
+        val gson= Gson()
+        val json:String=gson.toJson(comments)
+        editor.putString(SHARPREF_COMMENTS_ARRAY,json)
+        editor.apply()
+        //
+    }
+
+
+    private fun sortComments(): MutableList<Comment> {
+
+       // var arr=ArrayList<Comment>()
+        var arr=comments.toMutableList()
+     //  arr.filter {  it.postNumString==currentPost.postId }
+         //   arr.sortWith(compareByDescending ({ it.timestamp}))
+        return arr
+
+    }
+    /*      persons.sortWith(compareBy({ it.name }, { it.age }))
+        if (sortSystem == SHARPREF_SORT_BY_GRADE) {
+            posts.sortWith(compareByDescending({ it.grade }))
+          // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
+        }*/
+
+
+
 
 
     /* private fun sendComment() {
@@ -346,21 +369,7 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
             }
     }*/
 
-    private fun retriveComments() {
-        //  logi(" PostDetail 124")
-        comments.clear()
-        FirebaseFirestore.getInstance().collection(COMMENT_REF)
-            .addSnapshotListener { value, error ->
-                if (value != null) {
-                    for (doc in value.documents) {
-                        val comment = util.retriveCommentFromFirestore(doc)
-                        comments.add(comment)
-                    }
-                    //  logi("PostDetailsActivity 135        comments.size=${comments.size} ")
-                    commentAdapter.notifyDataSetChanged()
-                }
-            }
-    }
+
 
     private fun createTextViewArray() {
         with(binding) {

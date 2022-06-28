@@ -23,6 +23,7 @@ import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.POST_EXSTRA
 import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST
+import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM_STRING
 import com.sg.alma50a.utilities.UtilityPost
 import java.util.*
@@ -46,7 +47,7 @@ class PostAdapter(val context: Context, val posts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.bindImage(posts[position])
-
+        pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_POSITION, position).apply()
 
     }
     /*
@@ -54,6 +55,7 @@ class PostAdapter(val context: Context, val posts: ArrayList<Post>) :
         Picasso.get().load(places[position].url).into(holder.itemView.tour_image)*/
 
     override fun getItemCount() = posts.size
+
 
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
@@ -64,22 +66,24 @@ class PostAdapter(val context: Context, val posts: ArrayList<Post>) :
         //  val postImage = itemView?.findViewById<ImageView>(R.id.pagerImage)
 
 
+
         fun bindImage(post: Post) {
 
             DrawGeneralPost().drawPost(context, post, layout)  // onClick include in here
 
 
-         /*   pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
-            ken.clipToOutline = true
+           // pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
+
+           // ken.clipToOutline = true
 
             image.setOnClickListener {
-                val editor=pref.edit()
-                val gson= Gson()
-                val json:String=gson.toJson(post)
-                editor.putString(SHARPREF_CURRENT_POST,json)
+                val editor = pref.edit()
+                val gson = Gson()
+                val json: String = gson.toJson(post)
+                editor.putString(SHARPREF_CURRENT_POST, json)
                 editor.apply()
-                context.startActivity(Intent(context,PostDetailesActivity::class.java))*/
-
+                context.startActivity(Intent(context, PostDetailesActivity::class.java))
+            }
 
               //  pref.edit().putString(SHARPREF_CURRENT_POST_NUM_STRING,post.postNum.toString())
                /* val intent = Intent(context, PostDetailesActivity::class.java)

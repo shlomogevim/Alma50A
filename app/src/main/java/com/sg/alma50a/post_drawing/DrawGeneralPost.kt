@@ -90,14 +90,14 @@ class DrawGeneralPost() : BaseActivity() {
 
         imageView.setOnClickListener {
 
-            pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
+         /*   pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, post.postNum).apply()
 
             val editor = pref.edit()
             val gson = Gson()
             val json: String = gson.toJson(post)
             editor.putString(SHARPREF_CURRENT_POST, json)
-            editor.apply()
-            startActivity(Intent(context, PostDetailesActivity::class.java))
+            editor.apply()*/
+           // startActivity(Intent(context, PostDetailesActivity::class.java))
 
         }
 

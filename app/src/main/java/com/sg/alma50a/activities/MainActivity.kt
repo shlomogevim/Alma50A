@@ -37,12 +37,8 @@ class MainActivity : BaseActivity() {
 
    lateinit var rvPosts: RecyclerView
     lateinit var postAdapter: PostAdapter
-
-
-    lateinit var gradeArray: ArrayList<Int>
     lateinit var pref: SharedPreferences
-    lateinit var gradeHashMap: HashMap<Int, Int>
-    lateinit var gson: Gson
+     lateinit var gson: Gson
     var sortSystem = "NoValue"
     var currentPostNum=0
 
@@ -52,19 +48,12 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         gson = Gson()
-       rvPosts = binding.rvPosts
-        val rvPosts = findViewById<RecyclerView>(R.id.rvPosts)
-
+        rvPosts=binding.rvPosts
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
+
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
-     // logi("MainActivity onCreate 60            sortSystem$sortSystem")
 
-       /* posts.clear()
-        posts = loadPosts()
-        sortPosts()
-        create_rvPost()
-        moveIt()*/
     }
 
     override fun onResume() {
@@ -75,8 +64,11 @@ class MainActivity : BaseActivity() {
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
         sortPosts()
+        if (currentPostNum==0){
+            currentPostNum=posts[0].postNum
+        }
         create_rvPost()
-        moveIt()
+       moveIt()
     }
 
     override fun onBackPressed() {
@@ -134,13 +126,14 @@ class MainActivity : BaseActivity() {
     }
 
     private fun moveIt() {
-   //  logi("MainActivity 126   currentPostNum=$currentPostNum")
+   // logi("MainActivity 129   currentPostNum=$currentPostNum")
 
             Handler().postDelayed(
                 {
                     for (counter in 0 until posts.size) {
                         if (posts[counter].postNum == currentPostNum) {
                             rvPosts.scrollToPosition(counter)
+                           // logi("MainActivity 136   counter=$counter")
                         }
                     }
                 }, 100

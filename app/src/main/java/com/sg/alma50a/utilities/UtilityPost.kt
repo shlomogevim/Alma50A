@@ -349,8 +349,9 @@ class UtilityPost {
 
     fun deleteComment(comment: Comment) {
         //  logi("Utility 111      comment.postNumString=${comment.postNumString}           comment.commntId=${comment.commntId}")
-        FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.postNumString)
-            .collection(COMMENT_LIST).document(comment.commntId).delete()
+      /*  FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.postNumString)
+            .collection(COMMENT_LIST).document(comment.commntId).delete()*/
+        FirebaseFirestore.getInstance().collection(COMMENT_REF).document(comment.commntId).delete()
     }
 
 

@@ -15,7 +15,7 @@
         android:id="@+id/updateCommentTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:layout_alignParentTop="true"
         android:paddingTop="50sp"
         android:layout_centerHorizontal="true"

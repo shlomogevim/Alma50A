@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Alma50A">
-
+       
         <activity
             android:name=".activities_tt.HowToActivity"
             android:exported="false" />

@@ -58,6 +58,7 @@ object Constants {
    // const val SHARPREF_POST_NUM = "ShareprefPostNum"
     const val SHARPREF_ALMA = "ShareprefAlma"
     const val SHARPREF_CURRENT_POST_NUM = "ShareprefCurrentPostNum"
+    const val SHARPREF_CURRENT_POST_POSITION = "ShareprefCurrentPostPOSITION"
     const val SHARPREF_TOTAL_POSTS_SIZE = "ShareprefTotalPostSize"
     const val SHARPREF_POSTS_ARRAY="ShearePrefPostsArray"
     const val SHARPREF_SORT_TOTAL="SharprefSortTotal"
