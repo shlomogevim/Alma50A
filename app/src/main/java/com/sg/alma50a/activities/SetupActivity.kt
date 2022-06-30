@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.sg.alma50a.activities_tt.CommentsScreenActivity
 import com.sg.alma50a.activities_tt.GradePostActivity
 import com.sg.alma50a.databinding.ActivitySetupBinding
 import com.sg.alma50a.modeles.Post
@@ -74,6 +75,10 @@ class SetupActivity : AppCompatActivity() {
         }
         binding.btnPassToNewPost.setOnClickListener {
             startActivity(Intent(this,GetNextPost::class.java))
+            finish()
+        }
+        binding.btnCommentsScreen.setOnClickListener {
+            startActivity(Intent(this,CommentsScreenActivity::class.java))
             finish()
         }
     }

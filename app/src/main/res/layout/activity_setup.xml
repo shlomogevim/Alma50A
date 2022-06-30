@@ -27,7 +27,7 @@
     <Button
         android:id="@+id/btn_time_order"
         style="@style/ButtonFamily10"
-        android:text="סדר את הפוסטים לפי תאריך פרסום הפוסט"
+        android:text="סדר את הפוסטים לפי תאריך פרסום "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_grade_order"  />
@@ -45,5 +45,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_change_profile"  />
+    <Button
+        android:id="@+id/btn_comments_screen"
+        style="@style/ButtonFamily10"
+        android:text="מסך הערות"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_pass_to_new_post"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

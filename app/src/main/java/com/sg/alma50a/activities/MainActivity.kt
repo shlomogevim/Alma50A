@@ -54,11 +54,12 @@ class MainActivity : BaseActivity() {
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
 
+       // logi("MainActivity 57   onCreate  57            ")
     }
 
     override fun onResume() {
         super.onResume()
-     //  logi("MainActivity onResum 70               sortSystem$sortSystem")
+    //  logi("MainActivity onResum 61              sortSystem$sortSystem")
         posts.clear()
         posts = loadPosts()
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
@@ -126,7 +127,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun moveIt() {
-   // logi("MainActivity 129   currentPostNum=$currentPostNum")
+   //logi("MainActivity 129   currentPostNum=$currentPostNum")
 
             Handler().postDelayed(
                 {

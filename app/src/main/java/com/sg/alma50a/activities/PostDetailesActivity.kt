@@ -46,14 +46,12 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
 
     private lateinit var binding: ActivityPostDetailesBinding
-    //val currentUser = FirebaseAuth.getInstance().currentUser
     val currentUser = FirebaseAuth.getInstance().currentUser
-    var util = UtilityPost()
+   var util = UtilityPost()
     var textViewArray = ArrayList<TextView>()
     lateinit var commentsRV: RecyclerView
     lateinit var commentAdapter: CommentAdapter
     var comments = ArrayList<Comment>()
-  //  var comments1 = ArrayList<Comment>()
    lateinit var currentPost: Post
     var message = ""
     lateinit var newUtil1: NewUtilities
@@ -62,15 +60,11 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
     var currentPostName=""
 
 
-
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityPostDetailesBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         newUtil1 = NewUtilities(this)
         pref = getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
         currentUserName = pref.getString(SHARPREF_CURRENT_USER_NAME, null).toString()
