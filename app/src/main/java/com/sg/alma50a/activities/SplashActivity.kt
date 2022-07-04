@@ -65,8 +65,11 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun saveUserName() {
-        val currentUserID = FirestoreClass().getCurrentUserID()
-        if (currentUserID != null) {
+        var currentUserID = FirestoreClass().getCurrentUserID()
+      //  logi("SplashActivity 69    currentUserID=$currentUserID")
+//currentUserID=""
+
+        if (currentUserID !="") {
             //  FirestoreClass().getUserDetails(this)
             FirebaseFirestore.getInstance().collection(USER_REF).document(currentUserID)
                 .get()

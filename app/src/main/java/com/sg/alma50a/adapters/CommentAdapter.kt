@@ -44,11 +44,7 @@ class CommentAdapter(val context: Context, val comments: ArrayList<Comment>,
 
     override fun getItemCount() = comments.size
 
-
-
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val imageProfile = itemView.findViewById<CircleImageView>(R.id.user_profile_image_comment)
         val userNameTV = itemView.findViewById<TextView>(R.id.user_name_comment)
         var commentTv = itemView.findViewById<TextView>(R.id.comment_text)
@@ -59,7 +55,7 @@ class CommentAdapter(val context: Context, val comments: ArrayList<Comment>,
 //            base.logi("CommentAdapter 56                      comment= $comment")
             setCurrentUserImage(imageProfile, comment)
            // userNameTV.text = comment.userName
-            userNameTV.text = currentUserName
+            userNameTV.text = comment.userName
             commentTv.text = comment.text
 
             val formatTime = SimpleDateFormat("MM/dd/yyyy hh:mm")
