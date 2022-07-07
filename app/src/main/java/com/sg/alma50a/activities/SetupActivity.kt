@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sg.alma50a.activities_tt.CommentsScreenActivity
 import com.sg.alma50a.activities_tt.GradePostActivity
+import com.sg.alma50a.activities_tt.SplashDelayActivity
 import com.sg.alma50a.databinding.ActivitySetupBinding
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
@@ -79,6 +80,10 @@ class SetupActivity : AppCompatActivity() {
         }
         binding.btnCommentsScreen.setOnClickListener {
             startActivity(Intent(this,CommentsScreenActivity::class.java))
+            finish()
+        }
+        binding.btnSplashScreen.setOnClickListener {
+            startActivity(Intent(this,SplashDelayActivity::class.java))
             finish()
         }
     }

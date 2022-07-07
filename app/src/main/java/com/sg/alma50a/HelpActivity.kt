@@ -5,16 +5,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.sg.alma50a.activities.MainActivity
+import com.sg.alma50a.activities_tt.HelpExplanationActivity
 import com.sg.alma50a.activities_tt.HowToActivity
 import com.sg.alma50a.databinding.ActivityHelpBinding
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.HELP_EXPLANATION_INDEX
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.FirestoreClass
 
 class HelpActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHelpBinding
     var currentUser: User? = null
+    var index=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHelpBinding.inflate(layoutInflater)
@@ -24,15 +27,71 @@ class HelpActivity : AppCompatActivity() {
         if (currentUserID != null) {
             FirestoreClass().getUserDetails(this)
         }
+        setupBottom()
 
         val pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
      //  pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
-        binding.howToBtn.setOnClickListener {
+      /*  binding.howToBtn.setOnClickListener {
             startActivity(Intent(this,HowToActivity::class.java))
 
-        }
+        }*/
 
     }
+
+    private fun setupBottom() {
+        binding.btnHelpGeneral.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,1)
+            startActivity(intent)
+        }
+        binding.btnHelpStarting.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,2)
+            startActivity(intent)
+        }
+        binding.btnHelpTimeOrder.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,3)
+            startActivity(intent)
+        }
+        binding.btnHelpGradePost.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,4)
+            startActivity(intent)
+        }
+        binding.btnHelpGradeOrder.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,5)
+            startActivity(intent)
+        }
+        binding.btnHelpRecommendedSystem.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,6)
+            startActivity(intent)
+        }
+        binding.btnHelpComments.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,7)
+            startActivity(intent)
+        }
+        binding.btnHelpSignIn.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,8)
+            startActivity(intent)
+        }
+        binding.btnHelpCangeProfile.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,9)
+            startActivity(intent)
+        }
+        binding.btnHelpSetup.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,10)
+            startActivity(intent)
+        }
+    }
+
+
     fun getingUserData(user: User) {
         currentUser = user
         setText()
@@ -49,11 +108,11 @@ class HelpActivity : AppCompatActivity() {
         } else {
             name = "אורח"
         }
-       val st="$name"
+       val st="$name ברוך הבא  "
         binding.tvText1.text = st
         binding.tvText2.text = "הגעת למסך ההסברים"
         val totalString=howToString1()+howToString2()+howToString3()
-        binding.tvHowTo.text=totalString
+//        binding.tvHowTo.text=totalString
     }
     private fun howToString3(): String{
         val st= "בוא נניח שאתם רוצים להעיר משהו על פוסט כלשהו," +"\n"+

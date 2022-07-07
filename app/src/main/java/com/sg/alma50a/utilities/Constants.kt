@@ -64,6 +64,7 @@ object Constants {
     const val SHARPREF_SORT_TOTAL="SharprefSortTotal"
     const val SHARPREF_SORT_BY_GRADE="SharprefSortByGrade"
     const val SHARPREF_SORT_BY_TIME_PUBLISH="SharprefSortByTimePublish"
+    const val SHARPREF_SPLASH_SCREEN_DELAY="SharprefSplashScreenDelay"
 
 
     const val SHARPREF_COMMENTS_ARRAY="ShearePrefCommentsArray"
@@ -112,6 +113,7 @@ object Constants {
     const val COMMEND_TIME_STAMP = "comment_time_stamp"
 
     const val DIALOG_EXSTRA = "dealogexstra"
+    const val HELP_EXPLANATION_INDEX="helpExplationIndex"
 
 
 

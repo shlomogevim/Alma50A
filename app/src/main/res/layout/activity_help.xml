@@ -18,7 +18,7 @@
         android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center_horizontal"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,200 @@
         android:fontFamily="@font/a103_gadi_almog_regular_aaa"
         android:gravity="center_horizontal"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="16sp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text1" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="5dp"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"  >
+
+            <Button
+                android:id="@+id/btnHelp_general"
+                style="@style/ButtonFamily10"
+                android:text="כמה מילים על האפליקציה "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"  />
+
+            <Button
+                android:id="@+id/btnHelp_starting"
+                style="@style/ButtonFamily10"
+                android:text="התחלה "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnHelp_general" />
+
+            <Button
+                android:id="@+id/btnHelp_TimeOrder"
+                style="@style/ButtonFamily10"
+                android:text="סדר הופעת הפוסטים לפי זמן הפרסום"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnHelp_starting" />
+
+            <Button
+                android:id="@+id/btnHelp_GradePost"
+                style="@style/ButtonFamily10"
+                android:text="דירוג פוסט"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnHelp_TimeOrder" />
+
+            <Button
+                android:id="@+id/btnHelp_GradeOrder"
+                style="@style/ButtonFamily10"
+                android:text="סדר הופעת הפוסטים לפי דירוגים"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnHelp_GradePost" />
+
+            <Button
+                android:id="@+id/btnHelp_RecommendedSystem"
+                style="@style/ButtonFamily10"
+                android:text="צורת עבודה מומלצת"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnHelp_GradeOrder" />
+
+              <Button
+                  android:id="@+id/btnHelp_comments"
+                  style="@style/ButtonFamily10"
+                  android:text=" מסך הערות"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/btnHelp_RecommendedSystem" />
+
+              <Button
+                  android:id="@+id/btnHelp_signIn"
+                  style="@style/ButtonFamily10"
+                  android:text="רישום"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/btnHelp_comments" />
+
+              <Button
+                  android:id="@+id/btnHelp_CangeProfile"
+                  style="@style/ButtonFamily10"
+                  android:text="שנה פרופיל"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/btnHelp_signIn" />
+
+            <Button
+                android:id="@+id/btnHelp_setup"
+                style="@style/ButtonFamily10"
+                android:text="מסך הגדרות"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnHelp_CangeProfile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+
+
+
+
+    <!--  <LinearLayout
+          android:id="@+id/buttonsLayout"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginTop="1dp"
+          android:orientation="horizontal"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/tv_text2">
+
+          <Button
+              android:id="@+id/settingUpBtn"
+              style="@style/AppTheme.Button1"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="2dp"
+              android:layout_marginRight="2dp"
+              android:layout_weight="0.5"
+              android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+              android:text="&#45;&#45;&#45;&#45;"
+              android:textAllCaps="false"
+              android:textSize="16sp" />
+
+          <Button
+              android:id="@+id/nameCurrentUserName"
+              style="@style/AppTheme.Button1"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="2dp"
+              android:layout_marginRight="2dp"
+              android:layout_weight="0.5"
+              android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+              android:text="-&#45;&#45;"
+              android:textAllCaps="false"
+              android:textSize="16sp" />
+
+          <Button
+              android:id="@+id/howToBtn"
+              style="@style/AppTheme.Button1"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="2dp"
+              android:layout_marginRight="2dp"
+              android:layout_weight="1"
+              android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+              android:text="איך  ל ..."
+              android:textSize="16sp" />
+      </LinearLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_ui"
+
+    android:keepScreenOn="true"
+
+    tools:context=".HelpActivity">
+
+
+    <TextView
+        android:id="@+id/tv_text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tv_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +248,7 @@
             android:layout_marginRight="2dp"
             android:layout_weight="0.5"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-            android:text="----"
+
             android:textAllCaps="false"
             android:textSize="16sp" />
 
@@ -68,7 +261,7 @@
             android:layout_marginRight="2dp"
             android:layout_weight="0.5"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"
-            android:text="---"
+
             android:textAllCaps="false"
             android:textSize="16sp" />
 
@@ -114,3 +307,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+-->

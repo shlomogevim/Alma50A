@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
@@ -21,6 +22,7 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
+import com.sg.alma50a.utilities.Constants.SHARPREF_SPLASH_SCREEN_DELAY
 import com.sg.alma50a.utilities.Constants.USER_REF
 import com.sg.alma50a.utilities.FirestoreClass
 import com.sg.alma50a.utilities.UtilityPost
@@ -32,6 +34,9 @@ class SplashActivity : BaseActivity() {
     lateinit var pref : SharedPreferences
     var pressHelpBtn = false
     var currentUseName=""
+    var delayInMicroSecond=0
+    lateinit var timer: CountDownTimer
+
 
     var posts = ArrayList<Post>()
     val comments = ArrayList<Comment>()
@@ -47,12 +52,14 @@ class SplashActivity : BaseActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         gradeArray= arrayListOf()
-     //   gson=Gson()
 
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
         pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
-        //  pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_GRADE).apply()
+       delayInMicroSecond= pref.getInt(SHARPREF_SPLASH_SCREEN_DELAY,8)*1000
+        getHeadLine()
+
+
         saveUserName()
         binding.btnHelp.setOnClickListener {
             pressHelpBtn = true
@@ -62,6 +69,35 @@ class SplashActivity : BaseActivity() {
         downloadAllPost()
         retriveComments()
         pauseIt()
+    }
+
+    private fun getHeadLine() {
+        val st1="אל תתיאש עוד "
+        val st2="  שניות "
+        var st=""
+        timer= object :CountDownTimer(delayInMicroSecond.toLong(),1000){
+            override fun onTick(remaning: Long) {
+              st=st1+(remaning /1000).toString()+st2
+                binding.tvText1.text=st
+            }
+
+            override fun onFinish() {
+//                binding.tvText1.text="טטאאח ...
+
+            }
+
+        }
+        binding.tvText2.text="האפליקציה תתחיל לעבוד ..."
+    }
+
+    override fun onStart() {
+        super.onStart()
+        timer.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        timer.cancel()
     }
 
     private fun saveUserName() {
@@ -194,7 +230,7 @@ class SplashActivity : BaseActivity() {
             {  if (!pressHelpBtn) {
                 startActivity(Intent(this, MainActivity::class.java))
             }
-            }, 1000
+            }, delayInMicroSecond.toLong()
         )
     }
 }
