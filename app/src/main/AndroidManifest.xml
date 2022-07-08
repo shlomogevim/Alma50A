@@ -13,6 +13,9 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Alma50A">
         <activity
+            android:name=".activities_tt.GeneralCommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities_tt.HelpExplanationActivity"
             android:exported="false" />
         <activity
