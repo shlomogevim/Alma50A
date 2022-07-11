@@ -4,6 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities_tt.GeneralCommentActivity">
+    android:background="@drawable/back_ui"
+    android:keepScreenOn="true"
+    tools:context=".activities_tt.CommentsScreenActivity">
+
+    <Button
+        android:id="@+id/btn_HeadLine"
+        style="@style/ButtonFamily10"
+        android:text="הערות כלליות"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCommentsScreenGeneral"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_HeadLine"
+        app:layout_constraintBottom_toTopOf="@id/addGeneralCommentLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/addGeneralCommentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comment_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/general_profile_image_comment"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:clickable="false"
+            android:src="@drawable/ic_send" />
+
+        <EditText
+            android:id="@+id/general_post_comment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toRightOf="@id/general_profile_image_comment"
+            android:clickable="false"
+            android:hint="ההערה הכללית שלי היא .."
+            android:maxLines="9"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

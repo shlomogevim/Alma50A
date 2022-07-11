@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sg.alma50a.R
 import com.sg.alma50a.interfaces.CommentsOptionClickListener
-import com.sg.alma50a.modeles.Comment
+import com.sg.alma50a.models.Comment
 import com.sg.alma50a.modeles.User
-import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 import com.sg.alma50a.utilities.Constants.USER_REF
@@ -22,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 
 class CommentAdapter(val context: Context, val comments: ArrayList<Comment>,
-    val commentOptionListener: CommentsOptionClickListener
+                     val commentOptionListener: CommentsOptionClickListener
 ) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 

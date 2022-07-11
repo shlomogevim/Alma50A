@@ -8,14 +8,12 @@ import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sg.alma50a.R
 import com.sg.alma50a.adapters.PostAdapter
 
 import com.sg.alma50a.databinding.ActivityMainBinding
-import com.sg.alma50a.modeles.Comment
+import com.sg.alma50a.models.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.utilities.*
 import com.sg.alma50a.utilities.Constants.SHARPREF_COMMENTS_ARRAY
@@ -25,7 +23,6 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import java.lang.reflect.Type
-import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding

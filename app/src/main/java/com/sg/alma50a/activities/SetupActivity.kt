@@ -9,11 +9,13 @@ import android.os.Handler
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sg.alma50a.activities_tt.CommentsScreenActivity
+import com.sg.alma50a.activities_tt.GeneralCommentActivity
 import com.sg.alma50a.activities_tt.GradePostActivity
 import com.sg.alma50a.activities_tt.SplashDelayActivity
 import com.sg.alma50a.databinding.ActivitySetupBinding
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
+import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
@@ -22,7 +24,7 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import com.sg.alma50a.utilities.FirestoreClass
 import java.lang.reflect.Type
 
-class SetupActivity : AppCompatActivity() {
+class SetupActivity : BaseActivity() {
     lateinit var pref: SharedPreferences
     private lateinit var binding: ActivitySetupBinding
     private var currentUser: User? = null
@@ -78,8 +80,12 @@ class SetupActivity : AppCompatActivity() {
             startActivity(Intent(this,GetNextPost::class.java))
             finish()
         }
-        binding.btnCommentsScreen.setOnClickListener {
+        binding.btnCommentsPosts.setOnClickListener {
             startActivity(Intent(this,CommentsScreenActivity::class.java))
+            finish()
+        }
+        binding.btnCommentsGeneral.setOnClickListener {
+            startActivity(Intent(this,GeneralCommentActivity::class.java))
             finish()
         }
         binding.btnSplashScreen.setOnClickListener {

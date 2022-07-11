@@ -111,6 +111,7 @@ object Constants {
     const val COMMENT_POST_NUM_STRING = "comment_post_num_string"
     const val COMMENT_ID = "comment_id"
     const val COMMEND_TIME_STAMP = "comment_time_stamp"
+    const val COMMEND_INDEX = "comment_index"
 
     const val DIALOG_EXSTRA = "dealogexstra"
     const val HELP_EXPLANATION_INDEX="helpExplationIndex"

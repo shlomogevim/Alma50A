@@ -1,7 +1,7 @@
 package com.sg.alma50a.interfaces
 
 
-import com.sg.alma50a.modeles.Comment
+import com.sg.alma50a.models.Comment
 
 
 interface CommentsOptionClickListener {

@@ -13,7 +13,7 @@ import com.sg.alma50a.HelpActivity
 
 
 import com.sg.alma50a.databinding.ActivitySplashBinding
-import com.sg.alma50a.modeles.Comment
+import com.sg.alma50a.models.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
@@ -57,6 +57,7 @@ class SplashActivity : BaseActivity() {
         pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
         pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
        delayInMicroSecond= pref.getInt(SHARPREF_SPLASH_SCREEN_DELAY,8)*1000
+     //  delayInMicroSecond= 0
         getHeadLine()
 
 

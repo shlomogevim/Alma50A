@@ -1,4 +1,4 @@
-package com.sg.alma50a.modeles
+package com.sg.alma50a.models
 
 import com.google.firebase.Timestamp
 
@@ -9,6 +9,6 @@ data class Comment(
     var text:String="",
     var userName:String="",
     var userId:String="",
-    var timestamp: Timestamp?=null
-
+    var timestamp: Timestamp?=null,
+    var index:String="0"
 )

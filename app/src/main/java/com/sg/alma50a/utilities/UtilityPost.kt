@@ -17,9 +17,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sg.alma50a.R
 
 import com.sg.alma50a.activities.DialogActivity
-import com.sg.alma50a.modeles.Comment
+import com.sg.alma50a.models.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
+import com.sg.alma50a.utilities.Constants.COMMEND_INDEX
 import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.COMMENT_ID
 import com.sg.alma50a.utilities.Constants.COMMENT_LIST
@@ -362,7 +363,8 @@ class UtilityPost {
         val comUserName = snap?.get(COMMENT_USER_NAME).toString()
         val comUserId = snap?.get(COMMENT_USER_ID).toString()
         val timestamp = snap?.getTimestamp(COMMEND_TIME_STAMP)
-        val newComment = Comment(comId, postId, comText, comUserName, comUserId, timestamp)
+        val index = snap?.get(COMMEND_INDEX).toString()
+        val newComment = Comment(comId, postId, comText, comUserName, comUserId, timestamp,index)
         return newComment
     }
 

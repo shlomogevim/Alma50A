@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -25,7 +23,7 @@ import com.sg.alma50a.R
 import com.sg.alma50a.adapters.CommentAdapter
 import com.sg.alma50a.databinding.ActivityPostDetailesBinding
 import com.sg.alma50a.interfaces.CommentsOptionClickListener
-import com.sg.alma50a.modeles.Comment
+import com.sg.alma50a.models.Comment
 import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.utilities.*
 import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
@@ -37,8 +35,6 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_COMMENTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
-import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM_STRING
-import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_POSITION
 import java.lang.reflect.Type
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 
@@ -98,7 +94,6 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
                         if (comment.postNumString==currentPostName){
                             comments.add(comment)
                         }
-
                     }
                 commentAdapter.notifyDataSetChanged()
                 }

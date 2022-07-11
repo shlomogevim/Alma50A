@@ -46,18 +46,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_change_profile"  />
     <Button
-        android:id="@+id/btn_comments_screen"
+        android:id="@+id/btn_comments_posts"
         style="@style/ButtonFamily10"
-        android:text="מסך הערות"
+        android:text="מסך הערות - פוסטים"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_pass_to_new_post"  />
+    <Button
+        android:id="@+id/btn_comments_general"
+        style="@style/ButtonFamily10"
+        android:text="מסך הערות - כללי"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_comments_posts"  />
+
+
     <Button
         android:id="@+id/btn_splash_screen"
         style="@style/ButtonFamily10"
         android:text="מסך פתיחה"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_comments_screen"  />
+        app:layout_constraintTop_toBottomOf="@id/btn_comments_general"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

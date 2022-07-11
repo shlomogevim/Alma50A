@@ -6,7 +6,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sg.alma50a.modeles.Comment
+import com.sg.alma50a.models.Comment
+import com.sg.alma50a.utilities.Constants.COMMEND_INDEX
 import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.COMMENT_ID
 import com.sg.alma50a.utilities.Constants.COMMENT_POST_NUM_STRING
@@ -23,10 +24,7 @@ class NewUtilities(val context: Context) {
     val currentUser = FirebaseAuth.getInstance().currentUser
 
     fun saveCommentInFirestore(commentText: String,currentPostName:String) {
-        //val currentPostNum = pref.getInt(Constants.SHARPREF_CURRENT_POST_NUM, 0)
-      //  val currentUserName = pref.getString(Constants.SHARPREF_CURRENT_USER_NAME, null).toString()
-
-        logi("UtilityPost 298     commentText=$commentText")
+       //  logi("UtilityPost 298     commentText=$commentText")
         val data = HashMap<String, Any>()
         data[COMMENT_ID] = "1"
         data[COMMENT_POST_NUM_STRING] = currentPostName
@@ -34,6 +32,42 @@ class NewUtilities(val context: Context) {
         data[COMMENT_USER_NAME] = currentUserName
         data[COMMENT_USER_ID] = currentUser?.uid.toString()
         data[COMMEND_TIME_STAMP] = FieldValue.serverTimestamp()
+        data[COMMEND_INDEX]="0"
+
+        val ref = FirebaseFirestore.getInstance().collection(COMMENT_REF)
+        ref.add(data)
+            .addOnSuccessListener {
+                data[Constants.COMMENT_ID] = it.id
+                ref.document(it.id).update(data)
+            }
+    }
+    fun saveGeneralCommentInFirestore(commentText: String) {
+        //  logi("UtilityPost 298     commentText=$commentText")
+        val data = HashMap<String, Any>()
+        data[COMMENT_ID] = "1"
+        data[COMMENT_TEXT] = commentText
+        data[COMMENT_USER_NAME] = currentUserName
+        data[COMMENT_USER_ID] = currentUser?.uid.toString()
+        data[COMMEND_TIME_STAMP] = FieldValue.serverTimestamp()
+        data[COMMEND_INDEX]="1"
+
+        val ref = FirebaseFirestore.getInstance().collection(COMMENT_REF)
+        ref.add(data)
+            .addOnSuccessListener {
+                data[Constants.COMMENT_ID] = it.id
+                ref.document(it.id).update(data)
+            }
+    }
+    fun saveCommentInFirestoreGeneral(commentText: String,currentPostName:String) {
+        //  logi("UtilityPost 298     commentText=$commentText")
+        val data = HashMap<String, Any>()
+        data[COMMENT_ID] = "1"
+        data[COMMENT_POST_NUM_STRING] = currentPostName
+        data[COMMENT_TEXT] = commentText
+        data[COMMENT_USER_NAME] = currentUserName
+        data[COMMENT_USER_ID] = currentUser?.uid.toString()
+        data[COMMEND_TIME_STAMP] = FieldValue.serverTimestamp()
+        data[COMMEND_INDEX] ="1"
 
         val ref = FirebaseFirestore.getInstance().collection(COMMENT_REF)
         ref.add(data)
