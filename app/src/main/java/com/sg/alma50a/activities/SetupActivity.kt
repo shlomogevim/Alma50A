@@ -19,6 +19,7 @@ import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
+import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_RECOMMENDED
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import com.sg.alma50a.utilities.FirestoreClass
@@ -67,6 +68,11 @@ class SetupActivity : BaseActivity() {
         }
         binding.btnTimeOrder.setOnClickListener {
             pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
+            pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, 0).apply()
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        binding.btnRecommenderOrder.setOnClickListener {
+            pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).apply()
             pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, 0).apply()
             startActivity(Intent(this, MainActivity::class.java))
         }

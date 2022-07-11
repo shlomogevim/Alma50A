@@ -9,7 +9,7 @@ import com.sg.alma50a.utilities.Constants.HELP_EXPLANATION_INDEX
 class HelpExplanationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHelpExplanationBinding
     private var expalationIndex=0
-    private var explantionText=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityHelpExplanationBinding.inflate(layoutInflater)
@@ -21,8 +21,10 @@ class HelpExplanationActivity : AppCompatActivity() {
             3-> getText3()
             4-> getText4()
             5-> getText5()
+            51-> getText51()
             6-> getText6()
             7-> getText7()
+            71-> getText71()
            8-> getText8()
            9-> getText9()
            10-> getText10()
@@ -84,7 +86,7 @@ class HelpExplanationActivity : AppCompatActivity() {
         binding.tvExplenation.text=st
     }
     private fun getText5(){
-        val st= "ישנה צורה נוספת של הצגת הפוסטים" +"\n"+
+        val st= "צורה נוספת של הצגת הפוסטים" +"\n"+
                 "והיא הצגה של כל הפוסטים לפי הדרוג האישי שנתת להם" +"\n"+
                 "פוסטים עם הדירוג הגבוה יופיעו ראשונים " +"\n"+
                 "לדוגמה פוסט שקיבל 88 יופיע לפני פוסט שקיבל 87, " +"\n"+
@@ -101,12 +103,21 @@ class HelpExplanationActivity : AppCompatActivity() {
                 "אז הנה יש לך את האפשרות הזו." +"\n"
         binding.tvExplenation.text=st
     }
+    private fun getText51(){
+        val st= "צורה נוספת של הצגה" +"\n"+
+                "היא לפי הפוסטים המומלצים," +"\n"+
+                " המומלצים אלו פוסטים שקיבלו את הדירוג הכי גבוה על ידי המשתמשים " +"\n"+
+                "  אפשר שהם יותר פשוטים להבנה, או נוגעים ביותר אנשים או פשוט מוצלחים יותר ... " +"\n"
+                "  גם אתם יכולים להמליץ על פוסט מסוים ב --הערות - כללי -- " +"\n"
+        binding.tvExplenation.text=st
+    }
     private fun getText6(){
         val st=  "צורת עבודה מומלצת: " +"\n"+
             "תתחיל תמיד עם סידור פוסטים לפי זמן פירסום כדי לראות מה חדש," +"\n"+
                "במידה ונתקלת בפוסט שעשה לך את זה, דרג אותו." +"\n"+
+                "עבור למומלצים ובחר משם פוסטים " +"\n"+
                 "(דירוג המחדל של כל פוסט הוא אפס)" +"\n"+
-                "אחרי שגמרת לחרוש מה חדש עבור לראות את הפוסטים לפי הדירוג  האישי שלך." +"\n"
+                "אחרי שגמרת לחרוש מה חדש ומה מומלץ עבור לראות את הפוסטים לפי הדירוג  האישי שלך." +"\n"
         binding.tvExplenation.text=st
     }
     private fun getText7(){
@@ -127,6 +138,16 @@ class HelpExplanationActivity : AppCompatActivity() {
                 "רק מי שנרשם (ראה בסעיף הבא --רישום--) יכול לכתוב הערות, " +"\n"+
                 "וההגיון מאחורי זה : אם אין לך שם משתמש אי אפשר להתייחס למה שאתה כותב." +"\n"+
                 "כדי לערוך הערה שכתבת או לבטל אותה , לחץ על איזור הערה ותועבר למסך שמאפשר זאת." +"\n"+
+                ""
+        binding.tvExplenation.text=st
+    }
+    private fun getText71(){
+        val st=  "הגעת למסך ההסבר על ההערות-  כללי" +"\n"+
+                "המסך הזה כשמו כן הוא" +"\n"+
+                "לכתיבת הערות כלליות על האפליקציה " +"\n"+
+                "צורה תיפעול תוכן וכו' ..." +"\n"+
+                "במדה ותרצה שפוסט מסוים יופיע במומלצים " +"\n"+
+                "זה המקום להמליץ עליו. " +"\n"+
                 ""
         binding.tvExplenation.text=st
     }

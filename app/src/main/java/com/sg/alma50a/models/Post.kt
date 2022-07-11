@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Post(
-    var postId:String="",
+    var postId:Int=0,
     var postNum:Int=1,
     var lineNum: Int =1,
     var imageUri:String="",
@@ -22,5 +22,6 @@ data class Post(
     var timestamp: Timestamp?=null,
     var lineSpacing: Double? =1.4,
     var grade:Int=0
+
 
 ): Parcelable

@@ -20,6 +20,7 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_COMMENTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_POSTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
+import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_RECOMMENDED
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import java.lang.reflect.Type
@@ -48,7 +49,7 @@ class MainActivity : BaseActivity() {
         rvPosts=binding.rvPosts
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
 
-        sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
+        sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
 
        // logi("MainActivity 57   onCreate  57            ")
@@ -97,6 +98,14 @@ class MainActivity : BaseActivity() {
         if (sortSystem == SHARPREF_SORT_BY_GRADE) {
             posts.sortWith(compareByDescending({ it.grade }))
           // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
+        }
+        if (sortSystem == SHARPREF_SORT_BY_RECOMMENDED) {
+
+          posts.removeAll {it.postId<2}
+            posts.sortWith(compareByDescending({ it.postId }))
+
+
+            // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
         if (sortSystem == SHARPREF_SORT_BY_TIME_PUBLISH) {
             posts.sortWith(compareByDescending({ it.timestamp }))

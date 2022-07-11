@@ -24,6 +24,7 @@
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_add_post.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_comments_screen.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_dialog.xml" value="0.125" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_forget_password.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_general_comment.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_get_next_post.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_grade_post.xml" value="0.3333333333333333" />
@@ -35,7 +36,7 @@
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_main_grade.xml" value="0.1" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_post_detailes.xml" value="0.16666666666666666" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_post_setting.xml" value="0.16145833333333334" />
-        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_register.xml" value="0.13425925925925927" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_setting.xml" value="0.15648148148148147" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_setup.xml" value="0.22" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_splash.xml" value="0.22" />
@@ -43,6 +44,8 @@
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_stam.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_update_comment.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_user_profile.xml" value="0.15648148148148147" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/cusyom_infinite_pager_layout.xml" value="0.11944444444444445" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/cusyom_infinite_pager_layout1.xml" value="0.11944444444444445" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/dialog_porgress.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/fragment_first.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/fragment_second.xml" value="0.16145833333333334" />

@@ -32,12 +32,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_grade_order"  />
     <Button
+        android:id="@+id/btn_recommender_order"
+        style="@style/ButtonFamily10"
+        android:text="סדר את הפוסטים לפי מומלצים "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_time_order"  />
+    <Button
         android:id="@+id/btn_change_profile"
          style="@style/ButtonFamily10"
         android:text="שנה פרופיל"
        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_time_order"  />
+        app:layout_constraintTop_toBottomOf="@id/btn_recommender_order"  />
     <Button
         android:id="@+id/btn_pass_to_new_post"
          style="@style/ButtonFamily10"
@@ -48,10 +55,11 @@
     <Button
         android:id="@+id/btn_comments_posts"
         style="@style/ButtonFamily10"
-        android:text="מסך הערות - פוסטים"
+        android:text="מסך הערות של הפוסט הבודד"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_pass_to_new_post"  />
+
     <Button
         android:id="@+id/btn_comments_general"
         style="@style/ButtonFamily10"
@@ -59,7 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_comments_posts"  />
-
 
     <Button
         android:id="@+id/btn_splash_screen"

@@ -64,6 +64,11 @@ class HelpActivity : AppCompatActivity() {
             intent.putExtra(HELP_EXPLANATION_INDEX,5)
             startActivity(intent)
         }
+        binding.btnHelpRecommendedOrder.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,51)
+            startActivity(intent)
+        }
         binding.btnHelpRecommendedSystem.setOnClickListener {
             val intent=Intent(this,HelpExplanationActivity::class.java)
             intent.putExtra(HELP_EXPLANATION_INDEX,6)
@@ -72,6 +77,11 @@ class HelpActivity : AppCompatActivity() {
         binding.btnHelpComments.setOnClickListener {
             val intent=Intent(this,HelpExplanationActivity::class.java)
             intent.putExtra(HELP_EXPLANATION_INDEX,7)
+            startActivity(intent)
+        }
+        binding.btnHelpGeneralComments.setOnClickListener {
+            val intent=Intent(this,HelpExplanationActivity::class.java)
+            intent.putExtra(HELP_EXPLANATION_INDEX,71)
             startActivity(intent)
         }
         binding.btnHelpSignIn.setOnClickListener {

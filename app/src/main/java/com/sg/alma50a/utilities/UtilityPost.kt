@@ -41,6 +41,7 @@ import com.sg.alma50a.utilities.Constants.POST_MARGIN
 import com.sg.alma50a.utilities.Constants.POST_NUM
 import com.sg.alma50a.utilities.Constants.POST_PADDING
 import com.sg.alma50a.utilities.Constants.POST_RADIUS
+import com.sg.alma50a.utilities.Constants.POST_RECOMMENDED
 import com.sg.alma50a.utilities.Constants.POST_REF
 import com.sg.alma50a.utilities.Constants.POST_TEXT
 import com.sg.alma50a.utilities.Constants.POST_TEXT_COLOR
@@ -385,7 +386,7 @@ class UtilityPost {
 
 
     fun retrivePostFromFirestore(snap: DocumentSnapshot?): Post {
-        val postId = snap?.get(POST_ID).toString()
+        val postId = snap?.getLong(POST_ID)!!.toInt()
         val postNum = snap?.getLong(POST_NUM)!!.toInt()
         val lineNum = snap?.getLong(POST_LINE_NUM)!!.toInt()
         val imageUri = snap?.getString(POST_IMAGE_URI).toString()
@@ -404,9 +405,9 @@ class UtilityPost {
         val postMargin: ArrayList<ArrayList<Int>> = convertFromStringArrayToIntArry2(postMargin1)
         // var postLineSpacing=1.4f
         //  if ( snap?.getLong(POST_LINE_SPACING) !=null) {
-        val postLineSpacing = snap.getDouble(POST_LINE_SPACING)               //save it in Double
+        val postLineSpacing = snap.getDouble(POST_LINE_SPACING)       //save it in Double
         // logi("UtilityPost 415       postLineSpacing=$postLineSpacing")
-        // }
+        //val postRecommended=snap.getLong(POST_RECOMMENDED)!!.toInt()
 
         val newPost1 = Post(
             postId,
@@ -425,13 +426,14 @@ class UtilityPost {
             timestamp,
             postLineSpacing
 
+
         )
         // logi("Utility 384   post=${newPost1}")
         return newPost1
     }
 
     suspend fun retrivePostFromFirestore1(snap: DocumentSnapshot?): Post {
-        val postId = snap?.get(POST_ID).toString()
+        val postId = snap?.getLong(POST_ID)!!.toInt()
         val postNum = snap?.getLong(POST_NUM)!!.toInt()
         val lineNum = snap?.getLong(POST_LINE_NUM)!!.toInt()
         val imageUri = snap?.getString(POST_IMAGE_URI).toString()
@@ -833,6 +835,7 @@ class UtilityPost {
             if (lineSpacing!=null) {
                 data[POST_LINE_SPACING] = lineSpacing!!
             }
+
         }
         FirebaseFirestore.getInstance().collection(POST_REF).document(post.postNum.toString())
             .set(data)
