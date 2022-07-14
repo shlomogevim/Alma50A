@@ -21,6 +21,9 @@
         <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/item_post.xml" value="0.15806451612903225" />
         <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/layout/option_menu.xml" value="0.11851851851851852" />
         <entry key="..\:/A.Project/Alma/Alma50A_WithFragment/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.148" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/drawable-v24/category_check.xml" value="0.1" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/drawable-v24/category_toggle.xml" value="0.1" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/drawable-v24/category_uncheck.xml" value="0.1" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_add_post.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_comments_screen.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_dialog.xml" value="0.125" />
@@ -43,7 +46,7 @@
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_splash_delay.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_stam.xml" value="0.16145833333333334" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_update_comment.xml" value="0.16145833333333334" />
-        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_user_profile.xml" value="0.15648148148148147" />
+        <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/activity_user_profile.xml" value="0.22" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/cusyom_infinite_pager_layout.xml" value="0.11944444444444445" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/cusyom_infinite_pager_layout1.xml" value="0.11944444444444445" />
         <entry key="..\:/A.Project/Alma/AlmaNew50A/app/src/main/res/layout/dialog_porgress.xml" value="0.16145833333333334" />

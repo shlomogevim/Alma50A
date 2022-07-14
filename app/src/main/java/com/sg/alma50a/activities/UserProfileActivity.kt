@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,7 +20,11 @@ import com.sg.alma50a.databinding.ActivityUserProfileBinding
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.FEMALE
+import com.sg.alma50a.utilities.Constants.GENDER
 import com.sg.alma50a.utilities.Constants.IMAGE
+import com.sg.alma50a.utilities.Constants.LASTNAME
+import com.sg.alma50a.utilities.Constants.MALE
 import com.sg.alma50a.utilities.Constants.PICK_IMAGE_REQUEST_CODE
 import com.sg.alma50a.utilities.Constants.READ_STORAGE_PERMISSION_CODE
 import com.sg.alma50a.utilities.Constants.USERNAME
@@ -33,11 +38,13 @@ class UserProfileActivity : BaseActivity() {
     lateinit var currentUser: User
     private var mSelectedImageFileUri: Uri? = null
     private var mUserProfileImageURL: String = ""
+    private var selectCategory=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityUserProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         currentUser=intent.getParcelableExtra(USER_EXTRA)!!
+        selectCategory= MALE
 
         getExsistData()
         operateAllButtons()
@@ -53,8 +60,8 @@ class UserProfileActivity : BaseActivity() {
         logi("UserProfileActivity 60 ======> \n currentUser=$currentUser")
         binding.tvUserName.setText(currentUser.userName)
         binding.tvLastName.setText(currentUser.lastName)
-        binding.tvGender.setText(currentUser.gender)
-        binding.tvMoto.setText(currentUser.moto)
+      //  binding.tvGender.setText(currentUser.gender)
+     //   binding.tvMoto.setText(currentUser.moto)
 
         GlideLoader(this@UserProfileActivity).loadUserPicture(currentUser.image,binding.ivUserPhoto)
     }
@@ -107,16 +114,17 @@ class UserProfileActivity : BaseActivity() {
         }
         val lastName = binding.tvLastName.text.toString().trim { it <= ' ' }
         if (lastName != currentUser.lastName) {
-            userHashMap[Constants.LASTNAME] = lastName
+            userHashMap[LASTNAME] = lastName
         }
-        val gender = binding.tvGender.text.toString().trim { it <= ' ' }
+        userHashMap[GENDER]=selectCategory
+      /*  val gender = binding.tvGender.text.toString().trim { it <= ' ' }
         if (gender!= currentUser.gender) {
             userHashMap[Constants.USER_GENDER] = gender
         }
         val moto = binding.tvMoto.text.toString().trim { it <= ' ' }
         if (moto != currentUser.moto) {
             userHashMap[Constants.USER_MOTO] = moto
-        }
+        }*/
 
         if (mUserProfileImageURL.isNotEmpty()) {
             userHashMap[IMAGE] = mUserProfileImageURL
@@ -222,6 +230,17 @@ class UserProfileActivity : BaseActivity() {
                 ).show()
             }
         }
+    }
+
+    fun maleOnClick(view: View) {
+        binding.genderMale.isChecked=true
+        binding.genderFemale.isChecked=false
+        selectCategory= MALE
+    }
+    fun femaleOnClick(view: View) {
+        binding.genderMale.isChecked=false
+        binding.genderFemale.isChecked=true
+        selectCategory= FEMALE
     }
 
 }

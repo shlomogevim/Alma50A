@@ -1,4 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_ui"
+
+    android:keepScreenOn="true"
+
+
+    tools:context=".activities.UserProfileActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/a103_gadi_almog_regular_aaa"
+        android:gravity="center"
+        android:text="ברוך הבא להשלמת הפרופיל"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+  android:paddingTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fl_header_image"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_user_photo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/alma3" />
+    </FrameLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_header_image">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_userName"
+                style="@style/LoginTextInputLayoutStyle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_userName"
+                    style="@style/HelperTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="הכנס שם משתמש ..."
+                    android:inputType="number"
+                    android:paddingRight="10dp"
+                    android:textSize="24dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_lastName"
+                style="@style/LoginTextInputLayoutStyle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_userName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_lastName"
+                    style="@style/HelperTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="הכנס כינוי ..."
+                    android:inputType="number"
+                    android:paddingRight="10dp"
+                    android:textSize="24dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ToggleButton
+                android:id="@+id/genderMale"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/category_toggle"
+                android:checked="true"
+                android:onClick="maleOnClick"
+                android:textColor="@color/white"
+                android:textOff="זכר"
+                android:textOn="זכר"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/genderFemale"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_lastName" />
+
+            <ToggleButton
+                android:id="@+id/genderFemale"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/category_toggle"
+                android:checked="false"
+                android:onClick="femaleOnClick"
+                android:textColor="@color/white"
+                android:textOff="נקבה"
+                android:textOn="נקבה"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/genderMale"
+                app:layout_constraintTop_toBottomOf="@+id/til_lastName" />
+
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/teal_700"
+                android:fontFamily="@font/a101_ankaclm_bold_webfont"
+                android:gravity="center"
+                android:paddingTop="@dimen/btn_padding"
+                android:paddingBottom="@dimen/btn_padding"
+                android:text="לחץ כדי לשמור שינויים בפרופיל"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genderMale" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+<!--
+
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -94,7 +263,7 @@
             android:layout_below="@id/il_lastName"
             android:background="@color/background1"  >
 
-            <!-- <ToggleButton
+            &lt;!&ndash; <ToggleButton
         android:id="@+id/mainFunnyBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -111,7 +280,7 @@
         app:layout_constraintEnd_toStartOf="@+id/mainSeriousBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;
 
             <EditText
                 android:id="@+id/tv_gender"
@@ -149,7 +318,7 @@
 
 
 
-        <!--  <TextView
+        &lt;!&ndash;  <TextView
               android:id="@+id/tv_editProfile"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -163,7 +332,7 @@
               android:padding="5dp"
               android:text="עדכן פרופיל"
               android:textColor="@color/white"
-              android:textSize="20sp" />-->
+              android:textSize="20sp" />&ndash;&gt;
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
@@ -185,6 +354,7 @@
 
     </RelativeLayout>
 </ScrollView>
+-->
 
 
 
