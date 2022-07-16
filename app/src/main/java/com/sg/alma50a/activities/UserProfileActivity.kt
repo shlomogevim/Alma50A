@@ -3,6 +3,7 @@ package com.sg.alma50a.activities
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -36,38 +37,44 @@ import com.theartofdev.edmodo.cropper.CropImageView
 class UserProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityUserProfileBinding
     lateinit var currentUser: User
+
     private var mSelectedImageFileUri: Uri? = null
     private var mUserProfileImageURL: String = ""
-    private var selectCategory=""
+    private var gender=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityUserProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        currentUser=intent.getParcelableExtra(USER_EXTRA)!!
-        selectCategory= MALE
+        FirestoreClass().getUserDetails(this)
+//       logi("UserProfileActivity 50 ")
 
-        getExsistData()
-        operateAllButtons()
-    }
-
-    /* override fun onStart() {  // when we load app
-         super.onStart()
-         FirestoreClass().getUserDetails(this)
-        //getUserDetails()
-     }*/
-
-    private fun getExsistData() {
-        logi("UserProfileActivity 60 ======> \n currentUser=$currentUser")
-        binding.tvUserName.setText(currentUser.userName)
-        binding.tvLastName.setText(currentUser.lastName)
-      //  binding.tvGender.setText(currentUser.gender)
-     //   binding.tvMoto.setText(currentUser.moto)
-
-        GlideLoader(this@UserProfileActivity).loadUserPicture(currentUser.image,binding.ivUserPhoto)
+     operateButtons()
     }
 
 
-    private fun operateAllButtons() {
+   /* override fun onResume() {        // when we load app
+        super.onResume()
+        FirestoreClass().getUserDetails(this)
+    }*/
+   fun setUserFromFirebaseClassToUserProfileActivity(user: User) {
+       currentUser = user
+       binding.tvUserName.setText( currentUser.userName)
+       binding.tvLastName.setText(currentUser.lastName)
+       gender=currentUser.gender
+     //  logi("UserProfileActivity  72   gender=$gender")
+       if (gender== MALE){
+           binding.genderFemale.isChecked=false
+           binding.genderMale.isChecked=true
+       }else{
+           binding.genderFemale.isChecked=true
+           binding.genderMale.isChecked=false
+       }
+       GlideLoader(this).loadUserPicture(currentUser.image, binding.ivUserPhoto)
+   }
+
+
+
+    private fun operateButtons() {
         binding.ivUserPhoto.setOnClickListener {
             findImage()
         }
@@ -116,15 +123,8 @@ class UserProfileActivity : BaseActivity() {
         if (lastName != currentUser.lastName) {
             userHashMap[LASTNAME] = lastName
         }
-        userHashMap[GENDER]=selectCategory
-      /*  val gender = binding.tvGender.text.toString().trim { it <= ' ' }
-        if (gender!= currentUser.gender) {
-            userHashMap[Constants.USER_GENDER] = gender
-        }
-        val moto = binding.tvMoto.text.toString().trim { it <= ' ' }
-        if (moto != currentUser.moto) {
-            userHashMap[Constants.USER_MOTO] = moto
-        }*/
+        userHashMap[GENDER]=gender
+
 
         if (mUserProfileImageURL.isNotEmpty()) {
             userHashMap[IMAGE] = mUserProfileImageURL
@@ -235,13 +235,65 @@ class UserProfileActivity : BaseActivity() {
     fun maleOnClick(view: View) {
         binding.genderMale.isChecked=true
         binding.genderFemale.isChecked=false
-        selectCategory= MALE
+        gender= MALE
     }
     fun femaleOnClick(view: View) {
         binding.genderMale.isChecked=false
         binding.genderFemale.isChecked=true
-        selectCategory= FEMALE
+        gender= FEMALE
     }
+
+    fun getUserNameInUserProfileActivity(user: User) {
+        //  logi("UserProfileActivity 68 back from FireStoreClass  ")
+        currentUser = user
+        binding.tvUserName.setText( currentUser.userName)
+        binding.tvLastName.setText(currentUser.lastName)
+        val gender=currentUser.gender
+        logi("UserProfileActivity  90   gender=$gender")
+        if (gender== MALE){
+            binding.genderFemale.isChecked=false
+            binding.genderMale.isChecked=true
+        }else{
+            binding.genderFemale.isChecked=false
+            binding.genderMale.isChecked=true
+        }
+
+        //  logi("UserProfileActivity 67   currentUser= $currentUser")
+        //getUserDetails()
+        //   getExsistData()
+    }
+
+    /* private fun getUserDetails() {
+
+         GlideLoader(this).loadUserPicture(currentUser.image, binding.ivUserPhoto)
+
+         binding.tvUserName.text = currentUser.userName
+         binding.tvLastName.text = currentUser.lastName
+         binding.tvGender.text = currentUser.gender
+         binding.tvMail.text = currentUser.email
+         binding.tvMoto.text = currentUser.moto
+         logi("SettingActivity 67  ==============>         \n currentUser= $currentUser")
+     }*/
+
+    private fun getExsistData() {
+        logi("UserProfileActivity 101 ======> \n currentUser=$currentUser")
+//        binding.tvUserName.setText(currentUser.userName)
+//        binding.tvLastName.setText(currentUser.lastName)
+//        selectCategory=currentUser.gender
+//        if (selectCategory==FEMALE){
+//            binding.genderMale.isChecked=false
+//            binding.genderFemale.isChecked=true
+//        }else{
+//            binding.genderMale.isChecked=true
+//            binding.genderFemale.isChecked=false
+//        }
+
+//
+
+        //   GlideLoader(this@UserProfileActivity).loadUserPicture(currentUser.image,binding.ivUserPhoto)
+    }
+
+
 
 }
 

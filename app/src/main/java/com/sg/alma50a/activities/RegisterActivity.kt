@@ -22,10 +22,10 @@ class RegisterActivity : BaseActivity() {
         setContentView(binding.root)
 
 
-                logi("Register 24")
+//                logi("Register 24")
 
                 binding.btnRegister.setOnClickListener {
-            logi("Register 26")
+//            logi("Register 26")
             registerUser()
         }
                 binding.tvLogin.setOnClickListener {

@@ -23,7 +23,7 @@ import com.sg.alma50a.utilities.Constants.getFileExtension
 
 import java.util.HashMap
 
-class FirestoreClass{
+class FirestoreClass:BaseActivity(){
 
     private val mFirestore=FirebaseFirestore.getInstance()
 
@@ -50,15 +50,37 @@ class FirestoreClass{
 
     fun getCurrentUserID(): String {
          val currentUser = FirebaseAuth.getInstance().currentUser
+       // logi("FirebaseClass 53       currentUser=$currentUser")
         var currentUserID = ""
         if (currentUser != null) {
             currentUserID = currentUser.uid
         }
         return currentUserID
     }
+    /*   private fun saveUserName() {
+        var currentUserID = FirestoreClass().getCurrentUserID()
+      //  logi("SplashActivity 69    currentUserID=$currentUserID")
+//currentUserID=""
+
+        if (currentUserID !="") {
+            //  FirestoreClass().getUserDetails(this)
+            FirebaseFirestore.getInstance().collection(USER_REF).document(currentUserID)
+                .get()
+                .addOnSuccessListener { document ->
+                    val user = document.toObject(User::class.java)!!
+                    currentUser=user
+                    currentUseName=user.userName
+                    pref.edit().putString(SHARPREF_CURRENT_USER_NAME,"${user.userName}").apply()
+                }
+        }else{
+            pref.edit().putString(SHARPREF_CURRENT_USER_NAME,"אורח").apply()
+        }
+    }*/
 
     fun getUserDetails(activity: Activity) {
+       // logi("FirebaseClass 61")
         var currentId=getCurrentUserID()
+       // logi("FirebaseClass 63       currentId=$currentId")
        // currentId=""
         if (currentId.isNotEmpty()) {
             mFirestore.collection(USER_REF).document(getCurrentUserID())
@@ -69,7 +91,7 @@ class FirestoreClass{
                     val user = document.toObject(User::class.java)!!
 
                     insertToSharedPref(activity, user)             // for what ??
-
+               //     logi("FirebaseClass 73")
                     when (activity) {
                         is LoginActivity -> {
                             activity.userLoggedInSuccess(user)
@@ -79,6 +101,11 @@ class FirestoreClass{
                         }*/
                         is PostSettingActivity -> {
                             activity.getUserNameSetting(user)
+                        }
+                        is UserProfileActivity -> {
+                          // logi("FirebaseClass 84")
+                           // activity.getUserNameInUserProfileActivity(user)
+                            activity.setUserFromFirebaseClassToUserProfileActivity(user)
                         }
                         is SplashActivity -> {
                             activity.getingUserData(user)

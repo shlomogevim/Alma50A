@@ -77,9 +77,14 @@ class SetupActivity : BaseActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
         binding.btnChangeProfile.setOnClickListener {
-            val intent = Intent(this, PostSettingActivity::class.java)
-            intent.putExtra(Constants.USER_EXTRA, currentUser)
-            startActivity(intent)
+
+//            val intent = Intent(this, PostSettingActivity::class.java)
+//            intent.putExtra(Constants.USER_EXTRA, currentUser)
+
+          //  val intent = Intent(this, UserProfileActivity::class.java)
+//          intent.putExtra(Constants.USER_EXTRA, currentUser)
+//
+            startActivity(Intent(this, UserProfileActivity::class.java))
             finish()
         }
         binding.btnPassToNewPost.setOnClickListener {

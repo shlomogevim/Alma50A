@@ -36,14 +36,10 @@ class SplashActivity : BaseActivity() {
     var currentUseName=""
     var delayInMicroSecond=0
     lateinit var timer: CountDownTimer
-
-
     var posts = ArrayList<Post>()
     val comments = ArrayList<Comment>()
-
     lateinit var gradeArray:ArrayList<Int>
    lateinit var gradeHashMap: HashMap<Int,Int>
-
     val util = UtilityPost()
 
 
@@ -59,8 +55,6 @@ class SplashActivity : BaseActivity() {
        delayInMicroSecond= pref.getInt(SHARPREF_SPLASH_SCREEN_DELAY,8)*1000
      //  delayInMicroSecond= 0
         getHeadLine()
-
-
         saveUserName()
         binding.btnHelp.setOnClickListener {
             pressHelpBtn = true
@@ -84,9 +78,7 @@ class SplashActivity : BaseActivity() {
 
             override fun onFinish() {
 //                binding.tvText1.text="טטאאח ...
-
             }
-
         }
         binding.tvText2.text="האפליקציה תתחיל לעבוד ..."
     }
@@ -103,7 +95,7 @@ class SplashActivity : BaseActivity() {
 
     private fun saveUserName() {
         var currentUserID = FirestoreClass().getCurrentUserID()
-      //  logi("SplashActivity 69    currentUserID=$currentUserID")
+//        logi("SplashActivity 98    currentUserID=$currentUserID")
 //currentUserID=""
 
         if (currentUserID !="") {
@@ -231,7 +223,8 @@ class SplashActivity : BaseActivity() {
             {  if (!pressHelpBtn) {
                 startActivity(Intent(this, MainActivity::class.java))
             }
-            }, delayInMicroSecond.toLong()
+//            }, delayInMicroSecond.toLong()
+            }, 0
         )
     }
 }

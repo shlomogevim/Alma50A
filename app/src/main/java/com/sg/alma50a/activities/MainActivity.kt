@@ -60,7 +60,7 @@ class MainActivity : BaseActivity() {
     //  logi("MainActivity onResum 61              sortSystem$sortSystem")
         posts.clear()
         posts = loadPosts()
-        sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).toString()
+        sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
         sortPosts()
         if (currentPostNum==0){
@@ -102,7 +102,7 @@ class MainActivity : BaseActivity() {
         if (sortSystem == SHARPREF_SORT_BY_RECOMMENDED) {
 
           posts.removeAll {it.postId<2}
-            posts.sortWith(compareByDescending({ it.postId }))
+            posts.sortWith(compareByDescending({ it.postId }))                 //postId show recommended factor
 
 
             // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")

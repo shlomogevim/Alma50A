@@ -25,6 +25,7 @@ import com.sg.alma50a.databinding.ActivityPostDetailesBinding
 import com.sg.alma50a.interfaces.CommentsOptionClickListener
 import com.sg.alma50a.models.Comment
 import com.sg.alma50a.modeles.Post
+import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.*
 import com.sg.alma50a.utilities.Constants.COMMEND_TIME_STAMP
 import com.sg.alma50a.utilities.Constants.COMMENT_ID
@@ -487,6 +488,8 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
             binding.tvPost9.text = currentPost.postText[8]
         }
     }
+
+
 
 
 }
