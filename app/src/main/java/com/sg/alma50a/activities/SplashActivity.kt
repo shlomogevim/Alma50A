@@ -20,6 +20,7 @@ import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
+import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_RECOMMENDED
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import com.sg.alma50a.utilities.Constants.SHARPREF_SPLASH_SCREEN_DELAY
@@ -51,7 +52,7 @@ class SplashActivity : BaseActivity() {
 
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
-        pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
+        pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).apply()
        delayInMicroSecond= pref.getInt(SHARPREF_SPLASH_SCREEN_DELAY,8)*1000
      //  delayInMicroSecond= 0
         getHeadLine()
@@ -61,9 +62,9 @@ class SplashActivity : BaseActivity() {
             startActivity(Intent(this, HelpActivity::class.java))
         }
 
-        downloadAllPost()
+       downloadAllPost()
         retriveComments()
-        pauseIt()
+     pauseIt()
     }
 
     private fun getHeadLine() {
@@ -223,8 +224,8 @@ class SplashActivity : BaseActivity() {
             {  if (!pressHelpBtn) {
                 startActivity(Intent(this, MainActivity::class.java))
             }
-//            }, delayInMicroSecond.toLong()
-            }, 0
+           }, delayInMicroSecond.toLong()
+//            }, 0
         )
     }
 }
