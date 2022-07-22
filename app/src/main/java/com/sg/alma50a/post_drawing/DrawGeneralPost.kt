@@ -85,7 +85,7 @@ class DrawGeneralPost() : BaseActivity() {
         imageView.load(post.imageUri){
             crossfade(true)
             crossfade(1000)
-            transformations(RoundedCornersTransformation(50f))
+            transformations(RoundedCornersTransformation(30f))
         }
 
         imageView.setOnClickListener {

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.sg.alma50a.R
 import com.sg.alma50a.adapters.PostAdapter
 
 import com.sg.alma50a.databinding.ActivityMainBinding
@@ -32,13 +33,12 @@ class MainActivity : BaseActivity() {
     val comments = ArrayList<Comment>()
 
 
-
-   lateinit var rvPosts: RecyclerView
+    lateinit var rvPosts: RecyclerView
     lateinit var postAdapter: PostAdapter
     lateinit var pref: SharedPreferences
-     lateinit var gson: Gson
+    lateinit var gson: Gson
     var sortSystem = "NoValue"
-    var currentPostNum=0
+    var currentPostNum = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,28 +46,38 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         gson = Gson()
-        rvPosts=binding.rvPosts
+        rvPosts = binding.rvPosts
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
 
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
 
-       // logi("MainActivity 57   onCreate  57            ")
+        // logi("MainActivity 57   onCreate  57            ")
     }
 
     override fun onResume() {
         super.onResume()
-    //  logi("MainActivity onResum 61              sortSystem$sortSystem")
+        //  logi("MainActivity onResum 61              sortSystem$sortSystem")
         posts.clear()
         posts = loadPosts()
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
         sortPosts()
-        if (currentPostNum==0){
-            currentPostNum=posts[0].postNum
-        }
-        create_rvPost()
-       moveIt()
+      //  if (posts.size > 0) {
+            if (currentPostNum == 0) {
+                currentPostNum = posts[0].postNum
+            }
+            create_rvPost()
+            moveIt()
+       // } else {
+            /* sortSystem=SHARPREF_SORT_BY_RECOMMENDED
+             sortPosts()
+             if (currentPostNum == 0) {
+                 currentPostNum = posts[0].postNum
+             }
+             create_rvPost()
+             moveIt()*/
+       // }
     }
 
     override fun onBackPressed() {
@@ -77,12 +87,12 @@ class MainActivity : BaseActivity() {
 
     private fun create_rvPost() {                                     //Animation 1
         val layoutManger = CenterZoomLayout(this)
-        layoutManger.orientation=LinearLayoutManager.HORIZONTAL
+        layoutManger.orientation = LinearLayoutManager.HORIZONTAL
         layoutManger.reverseLayout = true
-       // layoutManger.stackFromEnd=true
+        // layoutManger.stackFromEnd=true
         rvPosts.layoutManager = layoutManger
 
-        val snapHelper=LinearSnapHelper()
+        val snapHelper = LinearSnapHelper()
         rvPosts.setOnFlingListener(null)
         snapHelper.attachToRecyclerView(rvPosts)
         rvPosts.isNestedScrollingEnabled = false
@@ -94,23 +104,32 @@ class MainActivity : BaseActivity() {
     }
 
     private fun sortPosts() {
-//          persons.sortWith(compareBy({ it.name }, { it.age }))
-        if (sortSystem == SHARPREF_SORT_BY_GRADE) {
-            posts.sortWith(compareByDescending({ it.grade }))
-          // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
-        }
         if (sortSystem == SHARPREF_SORT_BY_RECOMMENDED) {
-
-          posts.removeAll {it.postId<2}
+            //   posts.removeAll { it.postId < 2 }
             posts.sortWith(compareByDescending({ it.postId }))                 //postId show recommended factor
 
-
-            // logi("MainActivity in sortPosts  107       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
         if (sortSystem == SHARPREF_SORT_BY_TIME_PUBLISH) {
             posts.sortWith(compareByDescending({ it.timestamp }))
-         //  logi("MainActivity in sortPosts  111       sortSystem=$sortSystem       posts.size=${posts.size}")
+            //  logi("MainActivity in sortPosts  111       sortSystem=$sortSystem       posts.size=${posts.size}")
         }
+
+//          persons.sortWith(compareBy({ it.name }, { it.age }))
+        if (sortSystem == SHARPREF_SORT_BY_GRADE) {
+            posts.removeAll({ it.grade == 0 })
+        logi("MainActivity in sortPosts  120       sortSystem=$sortSystem       posts.size=${posts.size}")
+            if (posts.size==0){
+                sortSystem == SHARPREF_SORT_BY_RECOMMENDED
+                posts.sortWith(compareByDescending({ it.postId }))
+            }else{
+                posts.sortWith(compareByDescending({ it.grade }))
+            }
+
+         logi("MainActivity in sortPosts  128    sortSystem=$sortSystem       posts.size=${posts.size}")
+
+        }
+
+
     }
 
     fun loadPosts(): ArrayList<Post> {
@@ -122,6 +141,7 @@ class MainActivity : BaseActivity() {
         val arr: ArrayList<Post> = gson.fromJson(json, type)
         return arr
     }
+
     fun loadComments(): ArrayList<Comment> {
         comments.clear()
         val gson = Gson()
@@ -133,18 +153,18 @@ class MainActivity : BaseActivity() {
     }
 
     private fun moveIt() {
-   //logi("MainActivity 129   currentPostNum=$currentPostNum")
+        //logi("MainActivity 129   currentPostNum=$currentPostNum")
 
-            Handler().postDelayed(
-                {
-                    for (counter in 0 until posts.size) {
-                        if (posts[counter].postNum == currentPostNum) {
-                            rvPosts.scrollToPosition(counter)
-                           // logi("MainActivity 136   counter=$counter")
-                        }
+        Handler().postDelayed(
+            {
+                for (counter in 0 until posts.size) {
+                    if (posts[counter].postNum == currentPostNum) {
+                        rvPosts.scrollToPosition(counter)
+                        // logi("MainActivity 136   counter=$counter")
                     }
-                }, 100
-            )
+                }
+            }, 100
+        )
     }
 
 

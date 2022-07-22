@@ -56,6 +56,9 @@ object Constants {
     const val POST_REF_STAM = "Posts Stam"
     const val POST_IMAGE_STAM = "Posts Image Stam"
 
+    const val TRUE="true"
+    const val FALSE="false"
+
    // const val SHARPREF_POST_NUM = "ShareprefPostNum"
     const val SHARPREF_ALMA = "ShareprefAlma"
     const val SHARPREF_CURRENT_POST_NUM = "ShareprefCurrentPostNum"
@@ -67,6 +70,8 @@ object Constants {
     const val SHARPREF_SORT_BY_TIME_PUBLISH="SharprefSortByTimePublish"
     const val SHARPREF_SORT_BY_RECOMMENDED="SharprefSortByRecommended"
     const val SHARPREF_SPLASH_SCREEN_DELAY="SharprefSplashScreenDelay"
+    const val SHARPREF_GRADE_ZERO="SharprefGradeZero"
+    const val SHARPREF_GRADE_ARRAY="SharprefGradeArray"
 
 
     const val SHARPREF_COMMENTS_ARRAY="ShearePrefCommentsArray"

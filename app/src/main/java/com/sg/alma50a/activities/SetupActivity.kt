@@ -17,7 +17,9 @@ import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.FALSE
 import com.sg.alma50a.utilities.Constants.SHARPREF_ALMA
+import com.sg.alma50a.utilities.Constants.SHARPREF_GRADE_ZERO
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_GRADE
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_RECOMMENDED
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
@@ -30,12 +32,16 @@ class SetupActivity : BaseActivity() {
     private lateinit var binding: ActivitySetupBinding
     private var currentUser: User? = null
     var posts = ArrayList<Post>()
+   // lateinit var gradeHashMap: HashMap<Int,Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivitySetupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         pref=getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
+        //gradeHashMap=HashMap()
+
+
 
 
         setupButtons()
@@ -44,6 +50,16 @@ class SetupActivity : BaseActivity() {
         super.onStart()
         FirestoreClass().getUserDetails(this)
         posts=loadPosts()
+
+    }
+
+    private fun chkGradeExist(){
+        for (post in posts){
+            if (post.grade>0){
+                pref.edit().putString(SHARPREF_GRADE_ZERO,"false").apply()
+                break
+            }
+        }
     }
 
     fun loadPosts():ArrayList<Post>{
@@ -56,16 +72,27 @@ class SetupActivity : BaseActivity() {
         return arr
     }
     private fun setupButtons() {
+        chkGradeExist()
         binding.btnGradePost.setOnClickListener {
             startActivity(Intent(this, GradePostActivity::class.java))
           finish()
         }
         binding.btnGradeOrder.setOnClickListener {
-           pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_GRADE).apply()
-            pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, 0).apply()
-            startActivity(Intent(this, MainActivity::class.java))
-            //finish()
+            val gradeIsZero=pref.getString(SHARPREF_GRADE_ZERO,"toto")
+         logi("SetupActivity 81       gradeIsZero= $gradeIsZero")
+
+         if (gradeIsZero== FALSE){
+                pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_GRADE).apply()
+                pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, 0).apply()
+                startActivity(Intent(this, MainActivity::class.java))
+            }else{
+                showErrorSnackBar("חביבי לא הכנסת בשלב זה פוסטים מועדפים משלך ... ",
+                    true
+                )
+              false
+            }
         }
+
         binding.btnTimeOrder.setOnClickListener {
             pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
             pref.edit().putInt(Constants.SHARPREF_CURRENT_POST_NUM, 0).apply()

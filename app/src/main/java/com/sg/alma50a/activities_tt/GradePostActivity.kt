@@ -8,7 +8,10 @@ import com.google.gson.reflect.TypeToken
 import com.sg.alma50a.databinding.ActivityGradePostBinding
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.FALSE
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
+import com.sg.alma50a.utilities.Constants.SHARPREF_GRADE_ARRAY
+import com.sg.alma50a.utilities.Constants.SHARPREF_GRADE_ZERO
 import com.sg.alma50a.utilities.Constants.SHARPREF_TOTAL_POSTS_SIZE
 
 class GradePostActivity : BaseActivity() {
@@ -30,7 +33,7 @@ lateinit var  gson : Gson
         gradeHashMap=HashMap()
         gson = Gson()
 
-        val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
+        val storeMappingString=pref.getString(SHARPREF_GRADE_ARRAY,"oppsNotExist")
 //        logi("GradePostActivity 33  storeMappingString=$storeMappingString")
         if (storeMappingString!="oppsNotExist") {
             val type = object : TypeToken<HashMap<Int?, Int?>?>() {}.type
@@ -50,14 +53,20 @@ lateinit var  gson : Gson
             val newGradePostNum=binding.etGradeNum.text.toString().toInt()
             if (newGradePostNum>=0 && newGradePostNum<=100) {
                gradeHashMap[currentPostNum] = newGradePostNum
+                if (newGradePostNum>0){
+                    pref.edit().putString(SHARPREF_GRADE_ZERO, FALSE)
+                }
                 val hashMapString = gson.toJson(gradeHashMap)
-                pref.edit().putString("SHARPREF_GRADE", hashMapString).apply()
+                pref.edit().putString(SHARPREF_GRADE_ARRAY, hashMapString).apply()
+              //  pref.edit().putString(SHARPREF_GRADE_ZERO,"false").apply()
+
                 finish()
             }else{
                 showErrorSnackBar("צריך להכניס מספר בין 0 ל 100", true)
             }
 
         }
+
 
     }
 

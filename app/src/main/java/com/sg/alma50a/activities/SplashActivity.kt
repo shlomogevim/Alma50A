@@ -18,12 +18,16 @@ import com.sg.alma50a.modeles.Post
 import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.BaseActivity
 import com.sg.alma50a.utilities.Constants
+import com.sg.alma50a.utilities.Constants.FALSE
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
+import com.sg.alma50a.utilities.Constants.SHARPREF_GRADE_ARRAY
+import com.sg.alma50a.utilities.Constants.SHARPREF_GRADE_ZERO
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_RECOMMENDED
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_BY_TIME_PUBLISH
 import com.sg.alma50a.utilities.Constants.SHARPREF_SORT_TOTAL
 import com.sg.alma50a.utilities.Constants.SHARPREF_SPLASH_SCREEN_DELAY
+import com.sg.alma50a.utilities.Constants.TRUE
 import com.sg.alma50a.utilities.Constants.USER_REF
 import com.sg.alma50a.utilities.FirestoreClass
 import com.sg.alma50a.utilities.UtilityPost
@@ -52,7 +56,8 @@ class SplashActivity : BaseActivity() {
 
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
         pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, 0).apply()
-        pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).apply()
+//        pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).apply()
+        pref.edit().putString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_TIME_PUBLISH).apply()
        delayInMicroSecond= pref.getInt(SHARPREF_SPLASH_SCREEN_DELAY,8)*1000
      //  delayInMicroSecond= 0
         getHeadLine()
@@ -151,8 +156,10 @@ class SplashActivity : BaseActivity() {
     }
     private fun retriveGradeMapFromSharPref() {
         val gson=Gson()
-        val storeMappingString=pref.getString("SHARPREF_GRADE","oppsNotExist")
-       // logi("Splash 95  storeMappingString=$storeMappingString")
+        var storeMappingString=pref.getString(SHARPREF_GRADE_ARRAY,"oppsNotExist")
+
+  //  storeMappingString="oppsNotExist"    //**********
+         logi("Splash 159      storeMappingString=$storeMappingString")
         if (storeMappingString=="oppsNotExist"){
             val gradeMap:HashMap<Int,Int> = hashMapOf()
             for (index in 0 until posts.size){
@@ -162,7 +169,8 @@ class SplashActivity : BaseActivity() {
             }
             val gson=Gson()
             val hashMapString = gson.toJson(gradeMap)
-            pref.edit().putString("SHARPREF_GRADE", hashMapString).apply()
+            pref.edit().putString(SHARPREF_GRADE_ARRAY, hashMapString).apply()
+            pref.edit().putString(SHARPREF_GRADE_ZERO, TRUE)
         }
         else{
             //  logi("MainActivity 123  exist")
@@ -173,8 +181,24 @@ class SplashActivity : BaseActivity() {
                 val post:Post=findPost(entery.key)
                 post.grade=entery.value
             }
+            val bo=chkPostsGradeIsZero()
+           if (bo){
+               pref.edit().putString(SHARPREF_GRADE_ZERO, TRUE).apply()
+           }else{
+               pref.edit().putString(SHARPREF_GRADE_ZERO, FALSE).apply()
+           }
         }
     }
+
+    private fun chkPostsGradeIsZero(): Boolean {
+        for (item in posts){
+            if (item.grade>0){
+                return false
+            }
+        }
+         return true
+    }
+
     private fun findPost(key: Int): Post {
         val post=Post()
         for (post in posts){
@@ -185,6 +209,13 @@ class SplashActivity : BaseActivity() {
         return post
     }
     fun savePosts() {
+        pref.edit().putString(SHARPREF_GRADE_ZERO,"true").apply()
+        for (post in posts){
+            if (post.grade>0){
+                pref.edit().putString(SHARPREF_GRADE_ZERO,"false").apply()
+                break
+            }
+        }
         val editor=pref.edit()
         val gson= Gson()
         val json:String=gson.toJson(posts)
@@ -224,8 +255,8 @@ class SplashActivity : BaseActivity() {
             {  if (!pressHelpBtn) {
                 startActivity(Intent(this, MainActivity::class.java))
             }
-           }, delayInMicroSecond.toLong()
-//            }, 0
+//           }, delayInMicroSecond.toLong()
+           }, 0
         )
     }
 }
