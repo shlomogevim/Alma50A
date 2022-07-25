@@ -53,7 +53,7 @@ class CommentsScreenActivity : BaseActivity(), CommentsOptionClickListener {
                     comments.clear()
                     for (doc in value.documents) {
                         val comment = util.retriveCommentFromFirestore(doc)
-                     //   if (comment.postNumString==currentPostName){
+                     //   if (comment.postNumString==currentPostNumString){
                             comments.add(comment)
                       //  }
 

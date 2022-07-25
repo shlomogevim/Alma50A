@@ -76,4 +76,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_comments_general"  />
 
+    <Button
+        android:id="@+id/btn_guest_option"
+        style="@style/ButtonFamily10"
+        android:text="מצב אורח"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_splash_screen"  />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

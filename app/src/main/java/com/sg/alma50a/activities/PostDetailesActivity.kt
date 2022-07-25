@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -37,14 +36,14 @@ import com.sg.alma50a.utilities.Constants.SHARPREF_COMMENTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
 import java.lang.reflect.Type
-import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_USER_NAME
 
 
 class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
 
     private lateinit var binding: ActivityPostDetailesBinding
-    val currentUser = FirebaseAuth.getInstance().currentUser
+ //   val currentUser = FirebaseAuth.getInstance().currentUser
    var util = UtilityPost()
+    var currentUser: User? = null
     var textViewArray = ArrayList<TextView>()
     lateinit var commentsRV: RecyclerView
     lateinit var commentAdapter: CommentAdapter
@@ -53,8 +52,8 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
     var message = ""
     lateinit var newUtil1: NewUtilities
     lateinit var pref: SharedPreferences
-    var currentUserName=""
-    var currentPostName=""
+  //  var currentUserName=""
+   //var currentPostNumString=""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,16 +61,15 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        FirestoreClass().getUserDetails(this)
+
         newUtil1 = NewUtilities(this)
         pref = getSharedPreferences(SHARPREF_ALMA, Context.MODE_PRIVATE)
-        currentUserName = pref.getString(SHARPREF_CURRENT_USER_NAME, null).toString()
+       // currentUserName = pref.getString(SHARPREF_CURRENT_USER_NAME, null).toString()
         currentPost = loadCurrentPost()
-        currentPostName=currentPost.postNum.toString()
+       // currentPostNumString=currentPost.postNum.toString()
 
         pref.edit().putInt(SHARPREF_CURRENT_POST_NUM, currentPost.postNum).apply()
-
-        binding.nameCurrentUserName.setText(currentUserName)
-
         drawHeadline()
         create_commentsRv()
         btnSetting()
@@ -81,7 +79,14 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
         binding.postCommentText.addTextChangedListener(textWatcher)
     }
 
-
+    fun getUserNameSetting(user: User) {
+            currentUser=user
+        if (currentUser==null){
+            binding.nameCurrentUserName.setText("אורח")
+        }else {
+            binding.nameCurrentUserName.setText(currentUser!!.userName)
+        }
+    }
 
     private fun retriveComments() {
         //  logi(" PostDetail 124")
@@ -92,7 +97,7 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
                     comments.clear()
                     for (doc in value.documents) {
                         val comment = util.retriveCommentFromFirestore(doc)
-                        if (comment.postNumString==currentPostName){
+                        if (comment.postNumString==currentPost.postNum.toString()){
                             comments.add(comment)
                         }
                     }
@@ -103,7 +108,7 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
     private fun sendComment() {
         hideKeyboard()
         val commentText = binding.postCommentText.text.toString().trim { it <= ' ' }
-        newUtil1.saveCommentInFirestore(commentText,currentPostName)
+        newUtil1.saveCommentInFirestore(commentText,currentPost.postNum.toString())
         binding.postCommentText.text.clear()
     }
 
@@ -221,18 +226,18 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
     }
 
     private fun drawHeadline() {
-        val st = "  פוסט מספר: " + currentPostName
+        val st = "  פוסט מספר: " + currentPost.postNum.toString()
         binding.postNumber.text = st
-        // logi("PostDetailsActivity  111  post=$currentPost    \n post.postText.size= ${currentPost.postText.size}")
+        // logi("PostDetailsActivity  233  post=$currentPost    \n post.postText.size= ${currentPost.postText.size}")
         drawPostText()
     }
     private fun sortComment(comments1: ArrayList<Comment>): ArrayList<Comment> {
         var arr=ArrayList<Comment>()
         comments.clear()
         for (index  in 0 until comments1.size){
-            /* logi("PostDetailActivity  76      index=$index    comments1[index].postNumString===>> ${comments1[index].postNumString}     currentPostName=$currentPostName        /n " +
-                     " ${comments1[index].postNumString==currentPostName}")*/
-            if (comments1[index].postNumString==currentPostName){
+            /* logi("PostDetailActivity  76      index=$index    comments1[index].postNumString===>> ${comments1[index].postNumString}     currentPostNumString=$currentPostNumString        /n " +
+                     " ${comments1[index].postNumString==currentPostNumString}")*/
+            if (comments1[index].postNumString==currentPost.postNum.toString()){
                 arr.add(comments1[index])
             }
         }
@@ -244,12 +249,12 @@ class PostDetailesActivity : BaseActivity(), CommentsOptionClickListener {
         comments1 = loadComments()
         show_comments1()
 
-       logi("PostDetailActivity  77      currentPostName=$currentPostName    \n")
+       logi("PostDetailActivity  77      currentPostNumString=$currentPostNumString    \n")
         for (index  in 0 until comments1.size){
-            *//* logi("PostDetailActivity  76      index=$index    comments1[index].postNumString===>> ${comments1[index].postNumString}     currentPostName=$currentPostName        /n " +
-                     " ${comments1[index].postNumString==currentPostName}")*//*
+            *//* logi("PostDetailActivity  76      index=$index    comments1[index].postNumString===>> ${comments1[index].postNumString}     currentPostNumString=$currentPostNumString        /n " +
+                     " ${comments1[index].postNumString==currentPostNumString}")*//*
 
-            if (comments1[index].postNumString==currentPostName){
+            if (comments1[index].postNumString==currentPostNumString){
                 comments.add(comments1[index])
             }
         }

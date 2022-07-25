@@ -16,6 +16,7 @@ import com.sg.alma50a.adapters.PostAdapter
 import com.sg.alma50a.databinding.ActivityMainBinding
 import com.sg.alma50a.models.Comment
 import com.sg.alma50a.modeles.Post
+import com.sg.alma50a.modeles.User
 import com.sg.alma50a.utilities.*
 import com.sg.alma50a.utilities.Constants.SHARPREF_COMMENTS_ARRAY
 import com.sg.alma50a.utilities.Constants.SHARPREF_CURRENT_POST_NUM
@@ -31,7 +32,7 @@ class MainActivity : BaseActivity() {
     val util = UtilityPost()
     var posts = ArrayList<Post>()
     val comments = ArrayList<Comment>()
-
+    private var currentUser: User? = null
 
     lateinit var rvPosts: RecyclerView
     lateinit var postAdapter: PostAdapter
@@ -48,10 +49,9 @@ class MainActivity : BaseActivity() {
         gson = Gson()
         rvPosts = binding.rvPosts
         pref = getSharedPreferences(Constants.SHARPREF_ALMA, Context.MODE_PRIVATE)
-
+        FirestoreClass().getUserDetails(this)
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
-
         // logi("MainActivity 57   onCreate  57            ")
     }
 
@@ -62,22 +62,16 @@ class MainActivity : BaseActivity() {
         posts = loadPosts()
         sortSystem = pref.getString(SHARPREF_SORT_TOTAL, SHARPREF_SORT_BY_RECOMMENDED).toString()
         currentPostNum = pref.getInt(SHARPREF_CURRENT_POST_NUM, 0)
+        FirestoreClass().getUserDetails(this)
         sortPosts()
-      //  if (posts.size > 0) {
-            if (currentPostNum == 0) {
+        if (currentPostNum == 0) {
                 currentPostNum = posts[0].postNum
             }
             create_rvPost()
             moveIt()
-       // } else {
-            /* sortSystem=SHARPREF_SORT_BY_RECOMMENDED
-             sortPosts()
-             if (currentPostNum == 0) {
-                 currentPostNum = posts[0].postNum
-             }
-             create_rvPost()
-             moveIt()*/
-       // }
+      }
+    fun getCurrentUser(user: User) {
+       currentUser=user
     }
 
     override fun onBackPressed() {
@@ -124,12 +118,8 @@ class MainActivity : BaseActivity() {
             }else{
                 posts.sortWith(compareByDescending({ it.grade }))
             }
-
-         logi("MainActivity in sortPosts  128    sortSystem=$sortSystem       posts.size=${posts.size}")
-
+        // logi("MainActivity in sortPosts  121    sortSystem=$sortSystem       posts.size=${posts.size}")
         }
-
-
     }
 
     fun loadPosts(): ArrayList<Post> {
@@ -166,6 +156,8 @@ class MainActivity : BaseActivity() {
             }, 100
         )
     }
+
+
 
 
 }

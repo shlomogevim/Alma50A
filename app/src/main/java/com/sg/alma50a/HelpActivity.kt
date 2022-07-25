@@ -104,6 +104,7 @@ class HelpActivity : AppCompatActivity() {
 
     fun getingUserData(user: User) {
         currentUser = user
+     // currentUser=null
         setText()
     }
 

@@ -79,6 +79,7 @@ object Constants {
     const val SHARPREF_CURRENT_POST_NUM_STRING = "ShareprefCurrentPostNumString"
 
     const val SHARPREF_CURRENT_USER_NAME = "ShareprefCurrentUserName"
+    const val SHARPREF_NO_USER = "ShareprefNoUser"
 
 
 

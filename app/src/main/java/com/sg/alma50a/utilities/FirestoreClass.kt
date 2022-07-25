@@ -93,19 +93,20 @@ class FirestoreClass:BaseActivity(){
                     insertToSharedPref(activity, user)             // for what ??
                //     logi("FirebaseClass 73")
                     when (activity) {
+                        is MainActivity -> {
+                            activity.getCurrentUser(user)
+                        }
                         is LoginActivity -> {
                             activity.userLoggedInSuccess(user)
                         }
-                       /* is PostDetailesActivity -> {
+                        is PostDetailesActivity -> {
                             activity.getUserNameSetting(user)
-                        }*/
+                        }
                         is PostSettingActivity -> {
                             activity.getUserNameSetting(user)
                         }
                         is UserProfileActivity -> {
-                          // logi("FirebaseClass 84")
-                           // activity.getUserNameInUserProfileActivity(user)
-                            activity.setUserFromFirebaseClassToUserProfileActivity(user)
+                           activity.setUserFromFirebaseClassToUserProfileActivity(user)
                         }
                         is SplashActivity -> {
                             activity.getingUserData(user)
