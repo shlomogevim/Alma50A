@@ -60,7 +60,7 @@ class SplashActivity : BaseActivity() {
         FirestoreClass().getUserDetails(this)
         initData()
 
-        //delayInMicroSecond=1_000
+      // delayInMicroSecond=500
 
 
         getHeadLines()

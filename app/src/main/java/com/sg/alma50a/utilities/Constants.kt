@@ -28,7 +28,7 @@ object Constants {
 
     //---------------------------------------------------------------
     const val SHAR_PREF = "char_pref"
-    const val CURRENT_USER_EXIST = "current_user_exist"
+    const val CURRENT_USER_EXIST = "current_use  r_exist"
     const val FIRESTORE_USER_ID="firststore_user_id"
     const val EXIST = "exist"
     const val NOT_EXIST = "not_exist"
